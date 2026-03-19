@@ -33,7 +33,7 @@
       font-size: 0.65rem;
       color: var(--muted);
       letter-spacing: 0.15em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       margin-top: 4px;
     }
 
@@ -48,7 +48,7 @@
     .card-row {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      gap: 12px;
+      gap: 16px;
     }
 
     .secure-badge {
@@ -68,7 +68,7 @@
     .secure-badge__text {
       font-size: 0.55rem;
       letter-spacing: 0.25em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--ash);
     }
 
@@ -104,7 +104,7 @@
     .processing-text {
       font-size: 0.6rem;
       letter-spacing: 0.4em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--muted);
     }
 
@@ -299,7 +299,12 @@
   <!-- Footer -->
   <footer class="footer container">
     <img src="img/logo-white.png" alt="" class="footer__logo" aria-hidden="true">
-    <p class="footer__legal">&copy; &#x2117; 2026 kgbird records &mdash; british columbia, canada. all rights reserved.</p>
+    <p class="footer__legal">© ℗ 2026 kgbird records — british columbia, canada. all rights reserved.</p>
+    <div class="footer__links">
+      <a href="index.html" class="footer__link">home</a>
+      <a href="music.html" class="footer__link">audio</a>
+      <a href="merch.html" class="footer__link">merch</a>
+    </div>
   </footer>
 
   <script src="js/analytics.js"></script>

@@ -27,7 +27,7 @@
     .qr-page__sub {
       font-size: 0.45rem;
       letter-spacing: 0.4em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--ash);
       text-align: center;
       margin-bottom: clamp(48px, 6vh, 80px);
@@ -39,10 +39,10 @@
     }
 
     .qr-section__label {
-      font-size: 0.42rem;
-      font-weight: 600;
-      letter-spacing: 0.45em;
-      text-transform: uppercase;
+      font-size: 0.5rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      text-transform: lowercase;
       color: var(--muted);
       margin-bottom: 24px;
       padding-bottom: 12px;
@@ -64,7 +64,11 @@
       background: var(--charcoal);
       padding: 28px 20px;
       text-align: center;
-      transition: background 0.3s;
+      transition: all 0.4s var(--ease-out);
+    }
+
+    .qr-card:hover {
+      transform: translateY(-1px);
     }
 
     .qr-card:hover {
@@ -94,18 +98,18 @@
     }
 
     .qr-card__detail {
-      font-size: 0.4rem;
+      font-size: 0.42rem;
       letter-spacing: 0.3em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--ash);
     }
 
     .qr-card__link {
       display: inline-block;
       margin-top: 10px;
-      font-size: 0.4rem;
+      font-size: 0.42rem;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--muted);
       text-decoration: none;
       padding: 4px 10px;
@@ -149,9 +153,9 @@
     }
 
     .qr-release__num {
-      font-size: 0.4rem;
+      font-size: 0.42rem;
       letter-spacing: 0.3em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--pink-muted);
       margin-bottom: 4px;
     }
@@ -167,9 +171,9 @@
     }
 
     .qr-release__album {
-      font-size: 0.38rem;
+      font-size: 0.42rem;
       letter-spacing: 0.25em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--ash);
     }
 
@@ -197,9 +201,9 @@
     }
 
     .album-qr-header__meta {
-      font-size: 0.38rem;
+      font-size: 0.42rem;
       letter-spacing: 0.3em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--ash);
     }
 
@@ -213,9 +217,9 @@
     }
 
     .qr-soon-badge {
-      font-size: 0.35rem;
+      font-size: 0.42rem;
       letter-spacing: 0.3em;
-      text-transform: uppercase;
+      text-transform: lowercase;
       color: var(--pink-muted);
       margin-top: 6px;
     }
