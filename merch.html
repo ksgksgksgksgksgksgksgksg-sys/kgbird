@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>merch — kgbird</title>
+  <meta name="description" content="kgbird — limited merch. numbered. gone.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="img/wm.jpg">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .merch-header {
+      padding: clamp(120px, 15vh, 200px) 0 clamp(20px, 3vh, 40px);
+      text-align: center;
+    }
+    .merch-header__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pure-white);
+    }
+    .merch-header__sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--ash);
+      margin-top: 12px;
+    }
+    .merch-header__warning {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--pink-muted);
+      margin-top: 24px;
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    /* Size selector modal */
+    .size-modal {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-modal);
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(30px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-out);
+    }
+
+    .size-modal--active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .size-modal__inner {
+      text-align: center;
+      padding: 48px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .size-modal__item-name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .size-modal__item-price {
+      font-size: 0.8rem;
+      color: var(--silver);
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+    }
+
+    .size-modal__label {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .size-options {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .size-option {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--slate);
+      background: transparent;
+      color: var(--silver);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .size-option:hover,
+    .size-option--selected {
+      border-color: var(--pink);
+      color: var(--pink);
+      background: var(--pink-ghost);
+    }
+
+    .size-modal__close {
+      position: absolute;
+      top: 32px;
+      right: 32px;
+      background: none;
+      border: 1px solid var(--slate);
+      color: var(--silver);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .size-modal__close:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    /* Product visual - CSS art since no product photos */
+    .merch-card__visual {
+      position: relative;
+      width: 100%;
+      height: 55%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .merch-card__product-shape {
+      position: relative;
+      opacity: 0.08;
+      transition: opacity 0.5s var(--ease-out);
+    }
+
+    .merch-card:hover .merch-card__product-shape {
+      opacity: 0.15;
+    }
+
+    /* Hoodie shape */
+    .shape-hoodie {
+      width: 120px;
+      height: 130px;
+      background: var(--white);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+    }
+    .shape-hoodie::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 24px;
+      border-radius: 0 0 20px 20px;
+      background: var(--white);
+    }
+    .shape-hoodie::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -30px;
+      width: 30px;
+      height: 80px;
+      background: var(--white);
+      border-radius: 4px 0 0 4px;
+    }
+
+    /* Tee shape */
+    .shape-tee {
+      width: 110px;
+      height: 120px;
+      background: var(--white);
+      border-radius: 2px;
+      position: relative;
+    }
+    .shape-tee::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -25px;
+      width: 25px;
+      height: 50px;
+      background: var(--white);
+      border-radius: 2px 0 0 2px;
+      transform: rotate(-8deg);
+      transform-origin: top right;
+    }
+    .shape-tee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -25px;
+      width: 25px;
+      height: 50px;
+      background: var(--white);
+      border-radius: 0 2px 2px 0;
+      transform: rotate(8deg);
+      transform-origin: top left;
+    }
+
+    /* Cap shape */
+    .shape-cap {
+      width: 100px;
+      height: 60px;
+      background: var(--white);
+      border-radius: 60px 60px 0 0;
+      position: relative;
+    }
+    .shape-cap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -20px;
+      width: 140px;
+      height: 16px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    /* Chain shape */
+    .shape-chain {
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      position: relative;
+    }
+    .shape-chain::after {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 30px;
+      background: var(--white);
+    }
+
+    /* Varsity shape */
+    .shape-varsity {
+      width: 130px;
+      height: 140px;
+      background: var(--white);
+      border-radius: 4px;
+      position: relative;
+    }
+    .shape-varsity::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -32px;
+      width: 32px;
+      height: 90px;
+      background: var(--pink);
+      opacity: 0.3;
+      border-radius: 4px 0 0 4px;
+    }
+    .shape-varsity::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -32px;
+      width: 32px;
+      height: 90px;
+      background: var(--pink);
+      opacity: 0.3;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Crewneck shape */
+    .shape-crew {
+      width: 120px;
+      height: 130px;
+      background: var(--white);
+      border-radius: 2px;
+      position: relative;
+    }
+    .shape-crew::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 10px;
+      background: var(--charcoal);
+      border-radius: 0 0 12px 12px;
+    }
+
+    /* Tiger emblem on product */
+    .merch-card__tiger {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      opacity: 0.06;
+      transition: opacity 0.4s;
+      filter: invert(1);
+    }
+
+    .merch-card:hover .merch-card__tiger {
+      opacity: 0.12;
+    }
+
+    .merch-card__details {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .merch-notice {
+      text-align: center;
+      padding: 40px 0 0;
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html">
+      <img src="img/logo-white.png" alt="kgbird" class="nav__logo">
+    </a>
+    <button class="nav__toggle" aria-label="menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <ul class="nav__links">
+      <li><a href="music.html" class="nav__link">audio</a></li>
+      <li><a href="merch.html" class="nav__link nav__link--active">merch</a></li>
+      <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="merch-header container">
+    <h1 class="merch-header__title">limited merch</h1>
+    <p class="merch-header__sub">numbered &middot; authenticated &middot; gone</p>
+    <p class="merch-header__warning">stock updates in real time &mdash; items will not be restocked</p>
+  </header>
+
+  <main class="container container--wide">
+    <div class="merch-grid" id="merchGrid">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <div class="merch-notice reveal">
+      <p class="body-sm" style="color: var(--ash); letter-spacing: 0.2em; text-transform: uppercase;">all items ship from bc, canada &middot; worldwide delivery &middot; each piece numbered</p>
+    </div>
+  </main>
+
+  <!-- Size Selection Modal -->
+  <div class="size-modal" id="sizeModal">
+    <button class="size-modal__close" onclick="closeSizeModal()">&times;</button>
+    <div class="size-modal__inner">
+      <h3 class="size-modal__item-name" id="modalItemName"></h3>
+      <p class="size-modal__item-price" id="modalItemPrice"></p>
+      <p class="size-modal__label">select size</p>
+      <div class="size-options" id="sizeOptions"></div>
+      <button class="btn btn--primary btn--full" id="modalAddBtn" onclick="proceedToOrder()">proceed to order</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer container">
+    <img src="img/logo-white.png" alt="" class="footer__logo" aria-hidden="true">
+    <p class="footer__legal">&copy; &#x2117; 2026 kgbird records &mdash; british columbia, canada. all rights reserved.</p>
+    <div class="footer__links">
+      <a href="index.html" class="footer__link">home</a>
+      <a href="music.html" class="footer__link">audio</a>
+    </div>
+  </footer>
+
+  <script src="js/analytics.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    KG_ANALYTICS.pageView('merch');
+
+    /* ── Merch Catalog ───────────────────────────────── */
+    const MERCH_ITEMS = [
+      {
+        id: 'restraint-hoodie',
+        name: 'restraint',
+        type: 'heavyweight hoodie',
+        price: 185,
+        shape: 'hoodie',
+        sizes: ['S','M','L','XL','XXL'],
+        soldOut: true,
+        edition: 200
+      },
+      {
+        id: 'silence-tee',
+        name: 'silence',
+        type: 'oversized tee',
+        price: 95,
+        shape: 'tee',
+        sizes: ['S','M','L','XL'],
+        soldOut: true,
+        edition: 300
+      },
+      {
+        id: 'alpha-cap',
+        name: 'alpha',
+        type: 'structured cap',
+        price: 65,
+        shape: 'cap',
+        sizes: ['OS'],
+        soldOut: false,
+        stock: 2,
+        edition: 150
+      },
+      {
+        id: 'zero-hoodie',
+        name: '0 following',
+        type: 'heavyweight hoodie',
+        price: 185,
+        shape: 'hoodie',
+        sizes: ['S','M','L','XL','XXL'],
+        soldOut: true,
+        edition: 100
+      },
+      {
+        id: 'tardigrade-crew',
+        name: 'tardigrade',
+        type: 'french terry crewneck',
+        price: 145,
+        shape: 'crew',
+        sizes: ['S','M','L','XL'],
+        soldOut: false,
+        stock: 1,
+        edition: 175
+      },
+      {
+        id: 'presence-tee',
+        name: 'presence',
+        type: 'washed tee',
+        price: 95,
+        shape: 'tee',
+        sizes: ['S','M','L','XL'],
+        soldOut: true,
+        edition: 250
+      },
+      {
+        id: 'diamond-chain',
+        name: 'diamond grills',
+        type: 'sterling pendant',
+        price: 450,
+        shape: 'chain',
+        sizes: ['18"','22"','26"'],
+        soldOut: false,
+        stock: 3,
+        edition: 50
+      },
+      {
+        id: 'bird-varsity',
+        name: 'bird era',
+        type: 'varsity jacket',
+        price: 350,
+        shape: 'varsity',
+        sizes: ['S','M','L','XL'],
+        soldOut: true,
+        edition: 75
+      },
+    ];
+
+    /* ── Render Merch Grid ────────────────────────────── */
+    const grid = document.getElementById('merchGrid');
+
+    MERCH_ITEMS.forEach(item => {
+      // Randomize stock decrease for available items
+      let stockDisplay = '';
+      let stockClass = '';
+      if (item.soldOut) {
+        stockDisplay = 'sold out';
+        stockClass = 'merch-card__stock--sold-out';
+      } else {
+        // Randomly decrease stock a bit
+        const currentStock = Math.max(1, item.stock - Math.floor(Math.random() * 1));
+        item._currentStock = currentStock;
+        stockDisplay = currentStock + ' left';
+        stockClass = 'merch-card__stock--limited';
+      }
+
+      const card = document.createElement('div');
+      card.className = `merch-card ${item.soldOut ? 'merch-card--sold-out' : ''} reveal`;
+      card.innerHTML = `
+        <div class="merch-card__visual">
+          <div class="merch-card__product-shape shape-${item.shape}"></div>
+          <img src="img/tiger-original.png" alt="" class="merch-card__tiger" aria-hidden="true">
+        </div>
+        <div class="merch-card__details">
+          <p class="merch-card__type">${item.type}</p>
+          <h3 class="merch-card__name">${item.name}</h3>
+          <p class="merch-card__price">$${item.price} CAD</p>
+          <p class="body-sm" style="margin-top: 4px; color: var(--ash);">edition of ${item.edition}</p>
+        </div>
+        <div class="merch-card__stock ${stockClass}">${stockDisplay}</div>
+      `;
+
+      if (!item.soldOut) {
+        card.addEventListener('click', () => openSizeModal(item));
+      }
+
+      grid.appendChild(card);
+    });
+
+    /* ── Size Modal ───────────────────────────────────── */
+    let selectedItem = null;
+    let selectedSize = null;
+
+    function openSizeModal(item) {
+      selectedItem = item;
+      selectedSize = null;
+      document.getElementById('modalItemName').textContent = item.name;
+      document.getElementById('modalItemPrice').textContent = `$${item.price} CAD`;
+
+      const sizeContainer = document.getElementById('sizeOptions');
+      sizeContainer.innerHTML = '';
+      item.sizes.forEach(size => {
+        const btn = document.createElement('button');
+        btn.className = 'size-option';
+        btn.textContent = size;
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.size-option').forEach(b => b.classList.remove('size-option--selected'));
+          btn.classList.add('size-option--selected');
+          selectedSize = size;
+        });
+        sizeContainer.appendChild(btn);
+      });
+
+      document.getElementById('sizeModal').classList.add('size-modal--active');
+      document.body.style.overflow = 'hidden';
+
+      KG_ANALYTICS.merchInterest(item.name, item.price, 'click');
+    }
+
+    function closeSizeModal() {
+      document.getElementById('sizeModal').classList.remove('size-modal--active');
+      document.body.style.overflow = '';
+    }
+
+    function proceedToOrder() {
+      if (!selectedSize) {
+        alert('select a size to continue.');
+        return;
+      }
+
+      KG_ANALYTICS.merchInterest(selectedItem.name, selectedItem.price, 'size_selected');
+
+      // Pass item data to order page via sessionStorage
+      sessionStorage.setItem('kgbird_order', JSON.stringify({
+        id: selectedItem.id,
+        name: selectedItem.name,
+        type: selectedItem.type,
+        price: selectedItem.price,
+        size: selectedSize,
+        edition: selectedItem.edition,
+      }));
+
+      window.location.href = 'order.html';
+    }
+
+    // Close modal on background click
+    document.getElementById('sizeModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('sizeModal')) closeSizeModal();
+    });
+
+    // Simulate stock changes
+    setInterval(() => {
+      const available = MERCH_ITEMS.filter(i => !i.soldOut);
+      if (!available.length) return;
+      const item = available[Math.floor(Math.random() * available.length)];
+      if (item._currentStock && item._currentStock > 1 && Math.random() > 0.7) {
+        item._currentStock--;
+        // Update DOM
+        const cards = document.querySelectorAll('.merch-card:not(.merch-card--sold-out)');
+        cards.forEach(card => {
+          const nameEl = card.querySelector('.merch-card__name');
+          if (nameEl && nameEl.textContent === item.name) {
+            const stockEl = card.querySelector('.merch-card__stock');
+            stockEl.textContent = item._currentStock + ' left';
+            stockEl.style.animation = 'none';
+            stockEl.offsetHeight; // reflow
+            stockEl.style.animation = '';
+          }
+        });
+      }
+    }, 45000); // Every 45 seconds
+  </script>
+</body>
+</html>

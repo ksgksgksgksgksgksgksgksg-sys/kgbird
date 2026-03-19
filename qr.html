@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>qr — kgbird</title>
+  <meta name="description" content="kgbird — qr codes. scan to stream.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="img/wm.jpg">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .qr-page {
+      padding: clamp(120px, 15vh, 180px) 0 80px;
+    }
+
+    .qr-page__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 200;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: var(--pure-white);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .qr-page__sub {
+      font-size: 0.45rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ash);
+      text-align: center;
+      margin-bottom: clamp(48px, 6vh, 80px);
+    }
+
+    /* Section headers */
+    .qr-section {
+      margin-bottom: clamp(48px, 6vh, 80px);
+    }
+
+    .qr-section__label {
+      font-size: 0.42rem;
+      font-weight: 600;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* QR Grid */
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 2px;
+    }
+
+    .qr-grid--wide {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .qr-card {
+      background: var(--charcoal);
+      padding: 28px 20px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .qr-card:hover {
+      background: var(--graphite);
+    }
+
+    .qr-card__code {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 16px;
+      color: var(--off-white);
+    }
+
+    .qr-card__code svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-card__name {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-transform: lowercase;
+      margin-bottom: 4px;
+    }
+
+    .qr-card__detail {
+      font-size: 0.4rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+
+    .qr-card__link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.4rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.3s;
+    }
+
+    .qr-card__link:hover {
+      color: var(--pink);
+      border-color: var(--pink-muted);
+    }
+
+    /* Release QR cards */
+    .qr-release-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 2px;
+    }
+
+    .qr-release {
+      background: var(--charcoal);
+      padding: 24px 16px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .qr-release:hover {
+      background: var(--graphite);
+    }
+
+    .qr-release__code {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 12px;
+      color: var(--off-white);
+    }
+
+    .qr-release__code svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-release__num {
+      font-size: 0.4rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--pink-muted);
+      margin-bottom: 4px;
+    }
+
+    .qr-release__name {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-transform: lowercase;
+      margin-bottom: 2px;
+    }
+
+    .qr-release__album {
+      font-size: 0.38rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+
+    /* Album section dividers */
+    .album-qr-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 36px 0 20px;
+    }
+
+    .album-qr-header__line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .album-qr-header__title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--silver);
+      text-transform: lowercase;
+    }
+
+    .album-qr-header__meta {
+      font-size: 0.38rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+
+    /* Coming soon state */
+    .qr-release--soon {
+      opacity: 0.4;
+    }
+
+    .qr-release--soon .qr-release__code {
+      opacity: 0.2;
+    }
+
+    .qr-soon-badge {
+      font-size: 0.35rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--pink-muted);
+      margin-top: 6px;
+    }
+
+    /* Download all */
+    .qr-download-row {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    @media (max-width: 768px) {
+      .qr-grid { grid-template-columns: repeat(2, 1fr); }
+      .qr-release-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .qr-grid { grid-template-columns: 1fr 1fr; }
+      .qr-release-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html">
+      <img src="img/logo-white.png" alt="kgbird" class="nav__logo">
+    </a>
+    <button class="nav__toggle" aria-label="menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <ul class="nav__links">
+      <li><a href="music.html" class="nav__link">audio</a></li>
+      <li><a href="merch.html" class="nav__link">merch</a></li>
+      <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
+    </ul>
+  </nav>
+
+  <main class="qr-page container">
+    <h1 class="qr-page__title">qr codes</h1>
+    <p class="qr-page__sub">scan to stream · share · connect</p>
+
+    <!-- ═══ Platform & Website QR Codes ═══ -->
+    <div class="qr-section">
+      <p class="qr-section__label">platforms & website</p>
+      <div class="qr-grid qr-grid--wide" id="platformGrid"></div>
+    </div>
+
+    <!-- ═══ Release QR Codes ═══ -->
+    <div class="qr-section">
+      <p class="qr-section__label">all releases · 3 albums · 17 tracks</p>
+
+      <!-- Album III (upcoming) -->
+      <div class="album-qr-header">
+        <div class="album-qr-header__line"></div>
+        <span class="album-qr-header__title">album iii</span>
+        <span class="album-qr-header__meta">2026 · upcoming</span>
+        <div class="album-qr-header__line"></div>
+      </div>
+      <div class="qr-release-grid" id="album3Grid"></div>
+
+      <!-- Beta -->
+      <div class="album-qr-header">
+        <div class="album-qr-header__line"></div>
+        <span class="album-qr-header__title">beta</span>
+        <span class="album-qr-header__meta">2026 · 5 tracks</span>
+        <div class="album-qr-header__line"></div>
+      </div>
+      <div class="qr-release-grid" id="betaGrid"></div>
+
+      <!-- Alpha -->
+      <div class="album-qr-header">
+        <div class="album-qr-header__line"></div>
+        <span class="album-qr-header__title">alpha</span>
+        <span class="album-qr-header__meta">2025 · 10 tracks</span>
+        <div class="album-qr-header__line"></div>
+      </div>
+      <div class="qr-release-grid" id="alphaGrid"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer container">
+    <img src="img/logo-white.png" alt="" class="footer__logo" aria-hidden="true">
+    <p class="footer__legal">© ℗ 2026 kgbird records — british columbia, canada. all rights reserved.</p>
+    <div class="footer__links">
+      <a href="index.html" class="footer__link">home</a>
+      <a href="music.html" class="footer__link">audio</a>
+    </div>
+  </footer>
+
+  <script src="js/qr.min.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    KG_ANALYTICS.pageView('qr');
+
+    /* ── QR Generation Helper ────────────────────────── */
+    function makeQR(url) {
+      try {
+        const qr = qrcode(url, 'M');
+        return qr.createSvgTag(4, 8);
+      } catch(e) {
+        const qr = qrcode(url, 'L');
+        return qr.createSvgTag(4, 8);
+      }
+    }
+
+    /* ── Platform QR Codes ───────────────────────────── */
+    const PLATFORMS = [
+      { name: 'website', detail: 'kgbird.ca', url: 'https://kgbird.ca' },
+      { name: 'spotify', detail: 'stream', url: 'https://open.spotify.com/artist/kgbird' },
+      { name: 'apple music', detail: 'stream', url: 'https://music.apple.com/artist/kgbird' },
+      { name: 'youtube', detail: 'watch', url: 'https://youtube.com/@kgbirdaudio' },
+      { name: 'instagram', detail: 'follow', url: 'https://instagram.com/kgbirdaudio' },
+    ];
+
+    const platformGrid = document.getElementById('platformGrid');
+    PLATFORMS.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'qr-card';
+      card.innerHTML = `
+        <div class="qr-card__code">${makeQR(p.url)}</div>
+        <div class="qr-card__name">${p.name}</div>
+        <div class="qr-card__detail">${p.detail}</div>
+        <a href="${p.url}" target="_blank" class="qr-card__link">open</a>
+      `;
+      platformGrid.appendChild(card);
+    });
+
+    /* ── Release QR Codes ────────────────────────────── */
+    // Album III (upcoming — 17th release)
+    const ALBUM3 = [
+      { num: 1, name: 'tba', album: 'album iii', soon: true, url: 'https://kgbird.ca/music.html' },
+    ];
+
+    const BETA = [
+      { num: 1, name: 'tardigrade', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20tardigrade' },
+      { num: 2, name: 'velvet', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20velvet' },
+      { num: 3, name: 'silhouette', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20silhouette' },
+      { num: 4, name: 'paradigm', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20paradigm' },
+      { num: 5, name: 'monolith', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20monolith' },
+    ];
+
+    const ALPHA = [
+      { num: 1, name: 'ace', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20ace' },
+      { num: 2, name: 'caviar', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20caviar' },
+      { num: 3, name: 'coordinates', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20coordinates' },
+      { num: 4, name: 'ledger', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20ledger' },
+      { num: 5, name: 'presence', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20presence' },
+      { num: 6, name: 'receipt', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20receipt' },
+      { num: 7, name: 'routine', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20routine' },
+      { num: 8, name: 'silence', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20silence' },
+      { num: 9, name: 'stealth', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20stealth' },
+      { num: 10, name: 'tier', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20tier' },
+    ];
+
+    function renderReleaseGrid(containerId, tracks) {
+      const grid = document.getElementById(containerId);
+      tracks.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'qr-release' + (t.soon ? ' qr-release--soon' : '');
+        card.innerHTML = `
+          <div class="qr-release__code">${makeQR(t.url)}</div>
+          <div class="qr-release__num">${String(t.num).padStart(2, '0')}</div>
+          <div class="qr-release__name">${t.name}</div>
+          <div class="qr-release__album">${t.album}</div>
+          ${t.soon ? '<div class="qr-soon-badge">coming soon</div>' : ''}
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    renderReleaseGrid('album3Grid', ALBUM3);
+    renderReleaseGrid('betaGrid', BETA);
+    renderReleaseGrid('alphaGrid', ALPHA);
+  </script>
+</body>
+</html>

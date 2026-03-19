@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>report — kgbird internal</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="img/wm.jpg">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .report-page {
+      padding: 100px 0 60px;
+    }
+
+    .report-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: lowercase;
+      color: var(--white);
+    }
+
+    .report-badge {
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--pink-muted);
+      background: var(--pink-ghost);
+      padding: 4px 12px;
+      border: 1px solid rgba(212,160,184,0.1);
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .report-btn {
+      padding: 8px 16px;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--charcoal);
+      border: 1px solid var(--slate);
+      color: var(--silver);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: var(--font-body);
+    }
+
+    .report-btn:hover {
+      border-color: var(--pink-muted);
+      color: var(--white);
+    }
+
+    .report-btn--danger {
+      border-color: var(--red-dark);
+      color: #884444;
+    }
+
+    .report-btn--danger:hover {
+      background: var(--red-dark);
+      color: var(--white);
+    }
+
+    .section-title {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 48px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--ash);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .report-table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      border-radius: 0;
+    }
+
+    .tag--payment {
+      background: rgba(212,160,184,0.1);
+      color: var(--pink);
+      border: 1px solid rgba(212,160,184,0.15);
+    }
+
+    .tag--merch {
+      background: rgba(255,255,255,0.04);
+      color: var(--silver);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tag--play {
+      background: rgba(100,200,100,0.08);
+      color: #88bb88;
+      border: 1px solid rgba(100,200,100,0.12);
+    }
+
+    .last-updated {
+      font-size: 0.55rem;
+      color: var(--ash);
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <!-- Minimal nav -->
+  <nav class="nav">
+    <a href="index.html">
+      <img src="img/logo-white.png" alt="kgbird" class="nav__logo">
+    </a>
+    <span class="report-badge">internal</span>
+  </nav>
+
+  <main class="report-page container">
+    <div class="report-header">
+      <div>
+        <h1 class="report-title">demand report</h1>
+        <p class="last-updated" id="lastUpdated">—</p>
+      </div>
+      <div class="report-actions">
+        <button class="report-btn" onclick="exportData('payments')">export payments</button>
+        <button class="report-btn" onclick="exportData('merch')">export merch</button>
+        <button class="report-btn" onclick="exportData('plays')">export plays</button>
+        <button class="report-btn" onclick="exportData('views')">export views</button>
+        <button class="report-btn report-btn--danger" onclick="clearData()">clear all</button>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="report-stat-grid" id="statGrid">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Payment Attempts (The money data) -->
+    <h2 class="section-title">payment attempts</h2>
+    <div class="report-table-wrapper">
+      <table class="report-table" id="paymentTable">
+        <thead>
+          <tr>
+            <th>ref</th>
+            <th>time</th>
+            <th>item</th>
+            <th>size</th>
+            <th>amount</th>
+            <th>name</th>
+            <th>email</th>
+            <th>location</th>
+            <th>session</th>
+          </tr>
+        </thead>
+        <tbody id="paymentBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="paymentEmpty" style="display:none;">no payment attempts yet</div>
+
+    <!-- Merch Interest -->
+    <h2 class="section-title">merch interest</h2>
+    <div class="report-table-wrapper">
+      <table class="report-table" id="merchTable">
+        <thead>
+          <tr>
+            <th>time</th>
+            <th>item</th>
+            <th>action</th>
+            <th>price</th>
+            <th>session</th>
+          </tr>
+        </thead>
+        <tbody id="merchBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="merchEmpty" style="display:none;">no merch interactions yet</div>
+
+    <!-- Play Events -->
+    <h2 class="section-title">play events</h2>
+    <div class="report-table-wrapper">
+      <table class="report-table" id="playTable">
+        <thead>
+          <tr>
+            <th>time</th>
+            <th>track</th>
+            <th>album</th>
+            <th>session</th>
+          </tr>
+        </thead>
+        <tbody id="playBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="playEmpty" style="display:none;">no plays yet</div>
+
+    <!-- Page Views -->
+    <h2 class="section-title">page views</h2>
+    <div class="report-table-wrapper">
+      <table class="report-table" id="viewTable">
+        <thead>
+          <tr>
+            <th>time</th>
+            <th>page</th>
+            <th>referrer</th>
+            <th>session</th>
+          </tr>
+        </thead>
+        <tbody id="viewBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="viewEmpty" style="display:none;">no page views yet</div>
+  </main>
+
+  <footer class="footer container">
+    <p class="footer__legal">&copy; &#x2117; 2026 kgbird records &mdash; internal use only</p>
+  </footer>
+
+  <script src="js/analytics.js"></script>
+  <script>
+    /* ── Render Report ───────────────────────────────── */
+    function render() {
+      const summary = KG_ANALYTICS.getSummary();
+      const data = KG_ANALYTICS.getReport();
+
+      // Last updated
+      document.getElementById('lastUpdated').textContent =
+        summary.lastActivity ? 'last activity: ' + new Date(summary.lastActivity).toLocaleString() : 'no data yet';
+
+      // Stats
+      const statGrid = document.getElementById('statGrid');
+      statGrid.innerHTML = '';
+      const stats = [
+        { value: summary.uniqueVisitors, label: 'unique visitors' },
+        { value: summary.totalPageViews, label: 'page views' },
+        { value: summary.totalPlays, label: 'plays' },
+        { value: summary.totalMerchClicks, label: 'merch clicks' },
+        { value: summary.totalPaymentAttempts, label: 'payment attempts' },
+        { value: '$' + summary.revenueDemand.toLocaleString(), label: 'demand (cad)' },
+      ];
+
+      stats.forEach(s => {
+        const el = document.createElement('div');
+        el.className = 'report-stat';
+        el.innerHTML = `
+          <div class="report-stat__value">${s.value}</div>
+          <div class="report-stat__label">${s.label}</div>
+        `;
+        statGrid.appendChild(el);
+      });
+
+      // Payment attempts
+      const payBody = document.getElementById('paymentBody');
+      payBody.innerHTML = '';
+      if (data.paymentAttempts.length === 0) {
+        document.getElementById('paymentEmpty').style.display = 'block';
+        document.getElementById('paymentTable').style.display = 'none';
+      } else {
+        document.getElementById('paymentEmpty').style.display = 'none';
+        document.getElementById('paymentTable').style.display = '';
+        data.paymentAttempts.slice().reverse().forEach(p => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><span class="tag tag--payment">${p.attemptId || '—'}</span></td>
+            <td>${new Date(p.timestamp).toLocaleString()}</td>
+            <td>${p.item}</td>
+            <td>${p.size || '—'}</td>
+            <td>$${p.total}</td>
+            <td>${p.name || '—'}</td>
+            <td>${p.email || '—'}</td>
+            <td>${p.city ? p.city + ', ' + p.country : p.country || '—'}</td>
+            <td style="font-size:0.6rem;color:var(--ash)">${p.session}</td>
+          `;
+          payBody.appendChild(tr);
+        });
+      }
+
+      // Merch interest
+      const merchBody = document.getElementById('merchBody');
+      merchBody.innerHTML = '';
+      if (data.merchAttempts.length === 0) {
+        document.getElementById('merchEmpty').style.display = 'block';
+        document.getElementById('merchTable').style.display = 'none';
+      } else {
+        document.getElementById('merchEmpty').style.display = 'none';
+        document.getElementById('merchTable').style.display = '';
+        data.merchAttempts.slice().reverse().forEach(m => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(m.timestamp).toLocaleString()}</td>
+            <td>${m.item}</td>
+            <td><span class="tag tag--merch">${m.action}</span></td>
+            <td>$${m.price}</td>
+            <td style="font-size:0.6rem;color:var(--ash)">${m.session}</td>
+          `;
+          merchBody.appendChild(tr);
+        });
+      }
+
+      // Play events
+      const playBody = document.getElementById('playBody');
+      playBody.innerHTML = '';
+      if (data.playEvents.length === 0) {
+        document.getElementById('playEmpty').style.display = 'block';
+        document.getElementById('playTable').style.display = 'none';
+      } else {
+        document.getElementById('playEmpty').style.display = 'none';
+        document.getElementById('playTable').style.display = '';
+        data.playEvents.slice().reverse().forEach(p => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(p.timestamp).toLocaleString()}</td>
+            <td><span class="tag tag--play">${p.track}</span></td>
+            <td>${p.album}</td>
+            <td style="font-size:0.6rem;color:var(--ash)">${p.session}</td>
+          `;
+          playBody.appendChild(tr);
+        });
+      }
+
+      // Page views
+      const viewBody = document.getElementById('viewBody');
+      viewBody.innerHTML = '';
+      if (data.pageViews.length === 0) {
+        document.getElementById('viewEmpty').style.display = 'block';
+        document.getElementById('viewTable').style.display = 'none';
+      } else {
+        document.getElementById('viewEmpty').style.display = 'none';
+        document.getElementById('viewTable').style.display = '';
+        data.pageViews.slice().reverse().forEach(v => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(v.timestamp).toLocaleString()}</td>
+            <td>${v.page}</td>
+            <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis">${v.referrer}</td>
+            <td style="font-size:0.6rem;color:var(--ash)">${v.session}</td>
+          `;
+          viewBody.appendChild(tr);
+        });
+      }
+    }
+
+    function exportData(type) {
+      KG_ANALYTICS.exportCSV(type);
+    }
+
+    function clearData() {
+      if (KG_ANALYTICS.clearAll()) {
+        render();
+      }
+    }
+
+    // Initial render
+    render();
+
+    // Auto-refresh every 10s
+    setInterval(render, 10000);
+  </script>
+</body>
+</html>

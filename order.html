@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>order — kgbird</title>
+  <meta name="description" content="kgbird — order checkout.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="img/wm.jpg">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .order-page {
+      min-height: 100vh;
+      padding: clamp(120px, 15vh, 180px) 0 80px;
+    }
+
+    .order-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 40px;
+    }
+
+    .order-summary__item {
+      font-size: 0.85rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+
+    .order-summary__detail {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .order-summary__price {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--white);
+    }
+
+    /* Card input styling */
+    .card-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      margin: 24px 0 16px;
+    }
+
+    .secure-badge__lock {
+      width: 12px;
+      height: 12px;
+      fill: var(--ash);
+    }
+
+    .secure-badge__text {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+
+    .processing-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-modal);
+      background: rgba(0,0,0,0.96);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    .processing-overlay--active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .processing-spinner {
+      width: 32px;
+      height: 32px;
+      border: 1.5px solid var(--slate);
+      border-top-color: var(--pink);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 24px;
+    }
+
+    .processing-text {
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .processing-steps {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .processing-step {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--ash);
+      margin: 8px 0;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .processing-step--active {
+      opacity: 1;
+    }
+
+    .processing-step--done {
+      color: var(--pink-muted);
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html">
+      <img src="img/logo-white.png" alt="kgbird" class="nav__logo">
+    </a>
+    <button class="nav__toggle" aria-label="menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <ul class="nav__links">
+      <li><a href="music.html" class="nav__link">audio</a></li>
+      <li><a href="merch.html" class="nav__link">merch</a></li>
+    </ul>
+  </nav>
+
+  <main class="order-page container container--narrow">
+    <div class="checkout" id="checkoutForm">
+      <div class="checkout__header">
+        <p class="heading" style="margin-bottom: 16px;">checkout</p>
+        <h1 class="display-lg" style="color: var(--white);">complete your order</h1>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary" id="orderSummary">
+        <div>
+          <div class="order-summary__item" id="summaryItem">—</div>
+          <div class="order-summary__detail" id="summaryDetail">—</div>
+        </div>
+        <div class="order-summary__price" id="summaryPrice">—</div>
+      </div>
+
+      <form id="orderForm" onsubmit="return handleSubmit(event)">
+        <!-- Shipping -->
+        <p class="form-section-title">shipping information</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firstName">first name</label>
+            <input class="form-input" type="text" id="firstName" name="firstName" required autocomplete="given-name" placeholder="—">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">last name</label>
+            <input class="form-input" type="text" id="lastName" name="lastName" required autocomplete="family-name" placeholder="—">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">email</label>
+          <input class="form-input" type="email" id="email" name="email" required autocomplete="email" placeholder="—">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="address">street address</label>
+          <input class="form-input" type="text" id="address" name="address" required autocomplete="street-address" placeholder="—">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="city">city</label>
+            <input class="form-input" type="text" id="city" name="city" required autocomplete="address-level2" placeholder="—">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="postal">postal / zip</label>
+            <input class="form-input" type="text" id="postal" name="postal" required autocomplete="postal-code" placeholder="—">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="country">country</label>
+          <select class="form-select" id="country" name="country" required autocomplete="country">
+            <option value="">select country</option>
+            <option value="CA">canada</option>
+            <option value="US">united states</option>
+            <option value="GB">united kingdom</option>
+            <option value="AU">australia</option>
+            <option value="DE">germany</option>
+            <option value="FR">france</option>
+            <option value="JP">japan</option>
+            <option value="IN">india</option>
+            <option value="AE">uae</option>
+            <option value="OTHER">other</option>
+          </select>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Payment -->
+        <p class="form-section-title">payment</p>
+
+        <div class="form-group">
+          <label class="form-label" for="cardNumber">card number</label>
+          <input class="form-input" type="text" id="cardNumber" name="cardNumber" required placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number" inputmode="numeric">
+        </div>
+
+        <div class="card-row">
+          <div class="form-group">
+            <label class="form-label" for="cardName">name on card</label>
+            <input class="form-input" type="text" id="cardName" name="cardName" required autocomplete="cc-name" placeholder="—">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="expiry">expiry</label>
+            <input class="form-input" type="text" id="expiry" name="expiry" required placeholder="mm / yy" maxlength="7" autocomplete="cc-exp">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cvc">cvc</label>
+            <input class="form-input" type="text" id="cvc" name="cvc" required placeholder="···" maxlength="4" autocomplete="cc-csc" inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="secure-badge">
+          <svg class="secure-badge__lock" viewBox="0 0 24 24"><path d="M12 1C9.24 1 7 3.24 7 6v2H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2h-2V6c0-2.76-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3v2H9V6c0-1.66 1.34-3 3-3zm0 10c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" fill="currentColor"/></svg>
+          <span class="secure-badge__text">secured by stripe connect &middot; ssl encrypted</span>
+        </div>
+
+        <button class="btn btn--primary btn--full" type="submit" id="submitBtn">
+          place order
+        </button>
+
+        <p class="terms">
+          by placing this order you agree to kgbird records'
+          <a href="#" onclick="return false">terms of sale</a>,
+          <a href="#" onclick="return false">privacy policy</a>, and
+          <a href="#" onclick="return false">return policy</a>.
+          all sales are final on limited edition items.
+          international orders may incur customs duties.
+          payment processed via stripe connect.
+          kgbird records, bc, canada.
+        </p>
+      </form>
+    </div>
+
+    <!-- Payment Error (shown after "processing") -->
+    <div class="payment-error" id="paymentError">
+      <div class="payment-error__icon">&times;</div>
+      <h3 class="payment-error__title">transaction declined</h3>
+      <p class="payment-error__msg">
+        your payment could not be processed at this time.
+        the payment gateway returned an authorization error.
+        no charge has been made to your card.
+      </p>
+      <p class="payment-error__code" id="errorCode">ref: PGW-ERR-000000 &middot; stripe_decline_code: processing_error</p>
+      <button class="btn btn--ghost" onclick="retryPayment()" style="margin-bottom: 12px;">try again</button>
+      <br>
+      <a href="merch.html" class="btn btn--ghost" style="margin-top: 8px;">back to merch</a>
+      <p class="terms" style="margin-top: 24px;">
+        if this issue persists, please try a different payment method
+        or contact your card issuer. ref code has been logged.
+        &mdash; kgbird records
+      </p>
+    </div>
+  </main>
+
+  <!-- Processing Overlay -->
+  <div class="processing-overlay" id="processingOverlay">
+    <div class="processing-spinner"></div>
+    <p class="processing-text">processing payment</p>
+    <div class="processing-steps" id="processingSteps">
+      <p class="processing-step">validating card details...</p>
+      <p class="processing-step">contacting payment gateway...</p>
+      <p class="processing-step">authorizing transaction...</p>
+      <p class="processing-step">verifying with issuing bank...</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer container">
+    <img src="img/logo-white.png" alt="" class="footer__logo" aria-hidden="true">
+    <p class="footer__legal">&copy; &#x2117; 2026 kgbird records &mdash; british columbia, canada. all rights reserved.</p>
+  </footer>
+
+  <script src="js/analytics.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    KG_ANALYTICS.pageView('order');
+
+    /* ── Load order from session ─────────────────────── */
+    const orderData = JSON.parse(sessionStorage.getItem('kgbird_order') || 'null');
+
+    if (orderData) {
+      document.getElementById('summaryItem').textContent = orderData.name;
+      document.getElementById('summaryDetail').textContent =
+        `${orderData.type} · size ${orderData.size} · edition of ${orderData.edition}`;
+      document.getElementById('summaryPrice').textContent = `$${orderData.price}`;
+    } else {
+      // No item selected, redirect
+      window.location.href = 'merch.html';
+    }
+
+    /* ── Card number formatting ──────────────────────── */
+    document.getElementById('cardNumber').addEventListener('input', function(e) {
+      let v = this.value.replace(/\D/g, '').slice(0, 16);
+      this.value = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+    });
+
+    document.getElementById('expiry').addEventListener('input', function(e) {
+      let v = this.value.replace(/\D/g, '').slice(0, 4);
+      if (v.length > 2) v = v.slice(0, 2) + ' / ' + v.slice(2);
+      this.value = v;
+    });
+
+    document.getElementById('cvc').addEventListener('input', function(e) {
+      this.value = this.value.replace(/\D/g, '').slice(0, 4);
+    });
+
+    /* ── Form Submit ─────────────────────────────────── */
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      const form = document.getElementById('orderForm');
+      const formData = new FormData(form);
+
+      // Log the payment attempt (this is the whole point)
+      const attemptData = {
+        item: orderData?.name || 'unknown',
+        type: orderData?.type || '',
+        size: orderData?.size || '',
+        total: orderData?.price || 0,
+        name: formData.get('firstName') + ' ' + formData.get('lastName'),
+        email: formData.get('email'),
+        address: formData.get('address'),
+        city: formData.get('city'),
+        postal: formData.get('postal'),
+        country: formData.get('country'),
+        // We do NOT log card details — that would be wrong
+        cardLast4: formData.get('cardNumber').replace(/\s/g, '').slice(-4),
+      };
+
+      KG_ANALYTICS.paymentAttempt(attemptData);
+
+      // Show processing animation
+      showProcessing();
+
+      return false;
+    }
+
+    function showProcessing() {
+      const overlay = document.getElementById('processingOverlay');
+      overlay.classList.add('processing-overlay--active');
+
+      const steps = overlay.querySelectorAll('.processing-step');
+      const delays = [500, 2000, 3500, 5000];
+
+      steps.forEach((step, i) => {
+        setTimeout(() => {
+          step.classList.add('processing-step--active');
+          if (i > 0) steps[i-1].classList.add('processing-step--done');
+        }, delays[i]);
+      });
+
+      // After "processing", show error
+      setTimeout(() => {
+        overlay.classList.remove('processing-overlay--active');
+        document.getElementById('checkoutForm').style.display = 'none';
+
+        // Generate error ref
+        const ref = 'PGW-ERR-' + Date.now().toString(36).toUpperCase();
+        document.getElementById('errorCode').textContent =
+          `ref: ${ref} · stripe_decline_code: processing_error`;
+
+        document.getElementById('paymentError').classList.add('payment-error--active');
+      }, 7000);
+    }
+
+    function retryPayment() {
+      // Log retry attempt
+      KG_ANALYTICS.paymentAttempt({
+        item: orderData?.name || 'unknown',
+        type: orderData?.type || '',
+        size: orderData?.size || '',
+        total: orderData?.price || 0,
+        retryOf: 'previous',
+        name: 'retry_attempt',
+        email: '',
+        city: '',
+        country: '',
+      });
+
+      // Show processing again, then fail again
+      document.getElementById('paymentError').classList.remove('payment-error--active');
+      document.getElementById('checkoutForm').style.display = 'block';
+
+      // Re-show the form briefly, then auto-submit after a beat
+      setTimeout(() => {
+        showProcessing();
+      }, 800);
+    }
+  </script>
+</body>
+</html>
