@@ -234,6 +234,68 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* ── Keyboard Shortcuts (Music Player) ──────────────── */
+document.addEventListener('keydown', (e) => {
+  // Don't trigger when typing in inputs
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+  switch(e.code) {
+    case 'Space':
+      e.preventDefault();
+      AudioEngine.togglePlay();
+      break;
+    case 'KeyM':
+      if (window._kgAudio) {
+        window._kgAudio.muted = !window._kgAudio.muted;
+      }
+      break;
+    case 'ArrowRight':
+      if (window._kgAudio && window._kgAudio.duration) {
+        window._kgAudio.currentTime = Math.min(window._kgAudio.duration, window._kgAudio.currentTime + 5);
+      }
+      break;
+    case 'ArrowLeft':
+      if (window._kgAudio) {
+        window._kgAudio.currentTime = Math.max(0, window._kgAudio.currentTime - 5);
+      }
+      break;
+    case 'ArrowUp':
+      if (window._kgAudio) {
+        window._kgAudio.volume = Math.min(1, window._kgAudio.volume + 0.1);
+      }
+      break;
+    case 'ArrowDown':
+      if (window._kgAudio) {
+        window._kgAudio.volume = Math.max(0, window._kgAudio.volume - 0.1);
+      }
+      break;
+  }
+});
+
+/* ── Lazy Loading Images ───────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('img[src]').forEach(img => {
+    if (!img.loading) img.loading = 'lazy';
+  });
+});
+
+/* ── Back to Top ───────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.innerHTML = '&uarr;';
+  btn.setAttribute('aria-label', 'back to top');
+  document.body.appendChild(btn);
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('back-to-top--visible', window.scrollY > window.innerHeight);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
 /* ── Utilities ──────────────────────────────────────── */
 function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
