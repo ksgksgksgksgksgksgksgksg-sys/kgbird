@@ -925,105 +925,68 @@
 
     const ALPHA_TRACKS = [
       {
-        num: 1, name: 'ace', src: '../als/Alpha/ACE.mp3',
-        cover: 'img/tiger-original.png',
+        num: 1, name: 'elite', src: '../als/Alpha/released/elite_release/elite.wav',
+        cover: 'img/cover-elite-real.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+      {
+        num: 2, name: 'top floor', src: '../als/Alpha/released/top floor _ release/top floor.wav',
+        cover: 'img/cover-topfloor-real.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+      {
+        num: 3, name: 'half-lit', src: '../als/Alpha/released/half-lit_release/half-lit.wav',
+        cover: 'img/cover-halflit-real.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+      {
+        num: 4, name: 'receipts', src: '../als/Alpha/released/receipts_release/receipts.wav',
+        cover: 'img/cover-receipts.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+      {
+        num: 5, name: 'resurrect', src: '../als/Alpha/released/resurrect_release/resurrect.wav',
+        cover: 'img/cover-resurrect-real.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+      {
+        num: 6, name: 'access', src: '../als/Alpha/released/access_release/access.wav',
+        cover: 'img/cover-access-real.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+      {
+        num: 7, name: 'ledger', src: '../als/Alpha/released/ledger_release/ledger.wav',
+        cover: 'img/cover-alpha-v2.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+      {
+        num: 8, name: 'ACE', src: '../als/Alpha/bulk/ACE.mp3',
+        cover: 'img/cover-alpha-v2.png',
         lyrics: [
-          { label: 'verse i', lines: "first card played and it's face up\ndiamonds on the tiger, they can't trace us\nace in the hole, ace in the dark\nevery silence is a spark" },
-          { label: 'hook', lines: "ace, ace, nothing to prove\nace, ace, watch me not move\nthe highest card don't need to shout\nit just sits there and takes the bout" },
-          { label: 'verse ii', lines: "they deal the hand, i fold the table\nbuilt the myth before the label\nfirst release, the world went quiet\nthen they realized — that was the riot" },
+          { label: '', lines: "Yeah\nLow light\nSame calm\nAce on the table I don't say much" },
+          { label: '', lines: "Lights low still feel the rush\nNo rush everything hush\nWhen you this clean one move enough" },
+          { label: '', lines: "Ace\nOne move enough\nOne move enough\nOne move enough" },
+          { label: '', lines: "Yeah\nStill calm" },
         ],
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
       {
-        num: 2, name: 'caviar', src: '../als/Alpha/caviar.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "taste expensive, move in silence\nblack eggs on a dark plate, pure defiance\ncaviar lifestyle, nothing's wasted\nevery beat is something they haven't tasted" },
-          { label: 'hook', lines: "caviar on a black dish\nevery track is what they can't get\ncaviar, caviar\nthey know the name but not who we are" },
-          { label: 'verse ii', lines: "rare and small and impossibly rich\nevery bar's a subtle switch\nthey want the meal, i give the garnish\nwatch the reputation never tarnish" },
-        ],
+        num: 9, name: 'caviar', src: '../als/Alpha/bulk/caviar.mp3',
+        cover: 'img/cover-alpha-v2.png',
+        lyrics: [],
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
       {
-        num: 3, name: 'coordinates', src: '../als/Alpha/coordinates.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "they searching for the location\nbut the coordinates keep changing station\nbc to the world without a map\njust the audio filling in the gap" },
-          { label: 'hook', lines: "you won't find me at the coordinates\ni move before the signal hits\ncoordinates, coordinates\nevery pin drop is a myth" },
-          { label: 'verse ii', lines: "longitude of restraint, latitude of silence\nplotting every move with quiet violence\nthe world is round but i move straight\ncoordinates don't negotiate" },
-        ],
-        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
-      },
-      {
-        num: 4, name: 'ledger', src: '../als/Alpha/ledger.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "every play is logged, every stream accounted\nthe ledger doesn't lie about what's mounted\nzero responses in the debit column\ncredit side is looking solemn" },
-          { label: 'hook', lines: "check the ledger, read the books\nthe numbers tell what silence took\ncheck the ledger, count the weight\nthe balance sheet don't need debate" },
-          { label: 'verse ii', lines: "they audit the presence, can't find the person\nthe ledger grows while they keep searching\nassets: restraint, liability: none\nthe balance sheet says we already won" },
-        ],
-        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
-      },
-      {
-        num: 5, name: 'presence', src: '../als/Alpha/presence.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "walk in the room without entering\nthe presence precedes, always centering\nthey feel it before the beat drops\npresence doesn't start and never stops" },
-          { label: 'hook', lines: "presence, that's the only flex\nno caption needed, no context\npresence speaks when lips are sealed\nthe realest thing is what's concealed" },
-          { label: 'verse ii', lines: "thirty thousand felt the weight\nof someone who won't communicate\nbut presence fills the empty space\nlike gravity without a face" },
-        ],
-        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
-      },
-      {
-        num: 6, name: 'receipt', src: '../als/Alpha/receipt.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "here's the receipt for everything i didn't say\nevery comment left on read, filed away\nthe paper trail of discipline\nis longer than the origin" },
-          { label: 'hook', lines: "keep the receipt, i keep the silence\nkeep the receipt, i keep the balance\nevery transaction was restraint\nand the receipt proves what i ain't" },
-          { label: 'verse ii', lines: "they want the proof, here's the log\nzero following through the fog\nreceipt for million likes untouched\nfor ten thousand dms — none were clutched" },
-        ],
-        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
-      },
-      {
-        num: 7, name: 'routine', src: '../als/Alpha/routine.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "wake up. create. don't respond.\nthe routine is the ritual beyond\nno feed scroll, no comment thread\njust the work and the path ahead" },
-          { label: 'hook', lines: "routine, routine, every day the same\nthe silence is the loudest part of the game\nroutine, routine, never break the code\nthe discipline is the heaviest load" },
-          { label: 'verse ii', lines: "they break routine for a notification\ni built the routine as the foundation\nmorning: create. night: release.\nthe space between is peace" },
-        ],
-        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
-      },
-      {
-        num: 8, name: 'silence', src: '../als/Alpha/silence.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "this is the title track of everything i am\nsilence isn't empty, it's the plan\nfifty thousand comments, not one reply\nthe silence is the loudest battle cry" },
-          { label: 'hook', lines: "silence. silence. let it ring.\nsilence is the realest thing.\nsilence. silence. hear it now.\nthe absence is the sacred vow." },
-          { label: 'verse ii', lines: "they mistook the quiet for weakness\nnow the quiet is the thesis\nevery word i swallowed back\nbecame the weight behind the track" },
-          { label: 'outro', lines: "i don't follow.\ni don't respond.\ni don't explain.\ni just go on." },
-        ],
-        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
-      },
-      {
-        num: 9, name: 'stealth', src: '../als/Alpha/stealth.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "moving undetected, radar blank\nstealth operation, no one to thank\nthey scan the frequencies, find nothing there\njust the aftermath floating in the air" },
-          { label: 'hook', lines: "stealth mode, stealth life\ncutting through the noise like a knife\nstealth mode, stealth flight\ninvisible in broad daylight" },
-          { label: 'verse ii', lines: "the tiger moves at night unseen\nthe bird flies where it's never been\nstealth isn't hiding — it's selection\nof who deserves the detection" },
-        ],
-        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
-      },
-      {
-        num: 10, name: 'tier', src: '../als/Alpha/tier.mp3',
-        cover: 'img/tiger-original.png',
-        lyrics: [
-          { label: 'verse i', lines: "there's a tier they didn't know existed\nabove the noise, above the twisted\nwhere the air is thin and the vision's clear\nwelcome to the top — there's nobody here" },
-          { label: 'hook', lines: "tier one, tier none\nbuilt a level above everyone\ntier one, tier done\nthe game was over before it begun" },
-          { label: 'verse ii', lines: "they compete for second place\ni left the race without a trace\nthe tier is lonely but the view is right\nthe highest ground is the quietest height" },
-          { label: 'outro', lines: "alpha complete.\nthe silence continues." },
-        ],
+        num: 10, name: 'presence', src: '../als/Alpha/bulk/presence.mp3',
+        cover: 'img/cover-alpha-v2.png',
+        lyrics: [],
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
     ];
