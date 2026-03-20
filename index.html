@@ -19,54 +19,93 @@
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ── Preloader ──────────────────────────────────── */
-    .preloader {
+    /* ── Cinematic Intro ──────────────────────────────── */
+    .intro {
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: #000;
+      background: #050505;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 1.2s cubic-bezier(0.16,1,0.3,1), visibility 1.2s;
+      transition: opacity 1.5s cubic-bezier(0.16,1,0.3,1), visibility 1.5s;
+      overflow: hidden;
     }
-    .preloader--done {
+    .intro--done {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
     }
-    .preloader__logo {
-      width: 48px;
+    .intro__vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .intro__tiger {
+      position: absolute;
+      width: clamp(300px, 50vw, 600px);
       opacity: 0;
-      animation: preloaderFade 2s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+      filter: brightness(0.8) contrast(1.3);
+      z-index: 1;
+      animation: introTiger 3s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
     }
-    .preloader__line {
-      width: 40px;
-      height: 1px;
-      background: var(--pink-muted);
-      margin-top: 24px;
-      transform: scaleX(0);
-      animation: preloaderLine 1.5s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+    @keyframes introTiger {
+      0% { opacity: 0; transform: scale(1.15); filter: brightness(0) contrast(1.3); }
+      30% { opacity: 0.6; filter: brightness(0.5) contrast(1.3); }
+      70% { opacity: 0.7; filter: brightness(0.7) contrast(1.3); }
+      100% { opacity: 0.5; transform: scale(1); filter: brightness(0.6) contrast(1.3); }
     }
-    .preloader__text {
-      font-family: var(--font-body);
+    .intro__brand {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      opacity: 0;
+      animation: introBrand 1.8s cubic-bezier(0.16,1,0.3,1) 1.2s forwards;
+    }
+    @keyframes introBrand {
+      0% { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    .intro__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      color: var(--pure-white);
+      margin-right: -0.3em;
+    }
+    .intro__sub {
       font-size: 0.7rem;
-      font-weight: 400;
+      font-weight: 300;
       letter-spacing: 0.5em;
       text-transform: lowercase;
       color: var(--ash);
-      margin-top: 20px;
+      margin-top: 12px;
       opacity: 0;
-      animation: preloaderFade 1s cubic-bezier(0.16,1,0.3,1) 1.2s forwards;
+      animation: introSub 1s cubic-bezier(0.16,1,0.3,1) 2s forwards;
     }
-    @keyframes preloaderFade {
-      0% { opacity: 0; transform: scale(0.92); filter: blur(6px); }
-      100% { opacity: 1; transform: scale(1); filter: blur(0); }
+    @keyframes introSub {
+      from { opacity: 0; }
+      to { opacity: 0.5; }
     }
-    @keyframes preloaderLine {
-      0% { transform: scaleX(0); }
-      100% { transform: scaleX(1); }
+    .intro__line {
+      width: 48px;
+      height: 1px;
+      background: var(--pink-muted);
+      margin-top: 20px;
+      transform: scaleX(0);
+      opacity: 0;
+      z-index: 3;
+      position: relative;
+      animation: introLine 1.2s cubic-bezier(0.16,1,0.3,1) 1.8s forwards;
+    }
+    @keyframes introLine {
+      0% { transform: scaleX(0); opacity: 0; }
+      100% { transform: scaleX(1); opacity: 0.4; }
     }
 
     /* ── Film Grain ────────────────────────────────── */
@@ -554,13 +593,14 @@
     .doctrine__item {
       background: var(--charcoal);
       padding: clamp(36px, 4vw, 60px);
-      min-height: 240px;
+      min-height: 200px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       position: relative;
       overflow: hidden;
       transition: background 0.5s;
+      align-items: flex-start;
     }
 
     .doctrine__item:hover {
@@ -810,10 +850,15 @@
 <body>
   <a href="#main" class="skip-nav">skip to content</a>
 
-  <!-- Preloader -->
-  <div class="preloader" id="preloader">
-    <img src="img/kg-white-t.png" alt="" class="preloader__logo" style="width:36px;">
-    <div class="preloader__line"></div>
+  <!-- Cinematic Intro -->
+  <div class="intro" id="introScreen">
+    <div class="intro__vignette"></div>
+    <img src="img/tiger-hq.jpg" alt="" class="intro__tiger">
+    <div class="intro__brand">
+      <h2 class="intro__title">kgbird</h2>
+      <p class="intro__sub">kgbird records</p>
+    </div>
+    <div class="intro__line"></div>
   </div>
 
   <!-- Film Grain -->
@@ -1205,11 +1250,11 @@
   <script>
     KG_ANALYTICS.pageView('home');
 
-    /* ── Preloader ──────────────────────────────────── */
+    /* ── Cinematic Intro ──────────────────────────────── */
     window.addEventListener('load', () => {
       setTimeout(() => {
-        document.getElementById('preloader').classList.add('preloader--done');
-      }, 2200);
+        document.getElementById('introScreen').classList.add('intro--done');
+      }, 3200);
     });
 
     /* ── Custom Cursor ─────────────────────────────── */
