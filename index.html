@@ -350,6 +350,73 @@
     }
     .manifesto__sub.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── Active Ticker ──────────────────────────────── */
+    .active-ticker {
+      padding: clamp(48px, 6vh, 80px) 0;
+      border-top: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      background: var(--void);
+    }
+    .active-ticker__label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      text-transform: lowercase;
+      color: var(--ash);
+      margin-bottom: 20px;
+    }
+    .active-ticker__clock {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0;
+      font-family: var(--font-display);
+    }
+    .ticker-unit {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    .ticker-unit__value {
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      font-weight: 200;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      font-variant-numeric: tabular-nums;
+      min-width: 1.2em;
+      text-align: right;
+    }
+    .ticker-unit__value--live {
+      color: var(--silver);
+    }
+    .ticker-unit__value--seconds {
+      color: var(--pink-muted);
+      transition: color 0.1s;
+    }
+    .ticker-unit__label {
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: var(--ash);
+      margin-right: 4px;
+    }
+    .ticker-sep {
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      font-weight: 200;
+      color: var(--slate);
+      padding: 0 clamp(4px, 0.8vw, 10px);
+    }
+    .ticker-sep--dim {
+      color: rgba(255,255,255,0.06);
+    }
+    .active-ticker__since {
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      color: rgba(255,255,255,0.08);
+      margin-top: 18px;
+    }
+
     /* ── Counters ───────────────────────────────────── */
     .counter-strip {
       padding: clamp(60px, 8vh, 100px) 0;
@@ -841,6 +908,45 @@
     </p>
   </section>
 
+  <!-- Active Since — Live Ticker -->
+  <section class="active-ticker" id="activeTicker">
+    <div class="container" style="text-align:center;">
+      <p class="active-ticker__label">active</p>
+      <div class="active-ticker__clock" id="tickerClock">
+        <div class="ticker-unit">
+          <span class="ticker-unit__value" id="tickYears">0</span>
+          <span class="ticker-unit__label">y</span>
+        </div>
+        <span class="ticker-sep">:</span>
+        <div class="ticker-unit">
+          <span class="ticker-unit__value" id="tickMonths">0</span>
+          <span class="ticker-unit__label">m</span>
+        </div>
+        <span class="ticker-sep">:</span>
+        <div class="ticker-unit">
+          <span class="ticker-unit__value" id="tickDays">0</span>
+          <span class="ticker-unit__label">d</span>
+        </div>
+        <span class="ticker-sep ticker-sep--dim">:</span>
+        <div class="ticker-unit">
+          <span class="ticker-unit__value ticker-unit__value--live" id="tickHours">0</span>
+          <span class="ticker-unit__label">h</span>
+        </div>
+        <span class="ticker-sep ticker-sep--dim">:</span>
+        <div class="ticker-unit">
+          <span class="ticker-unit__value ticker-unit__value--live" id="tickMinutes">0</span>
+          <span class="ticker-unit__label">m</span>
+        </div>
+        <span class="ticker-sep ticker-sep--dim">:</span>
+        <div class="ticker-unit">
+          <span class="ticker-unit__value ticker-unit__value--live ticker-unit__value--seconds" id="tickSeconds">0</span>
+          <span class="ticker-unit__label">s</span>
+        </div>
+      </div>
+      <p class="active-ticker__since">since december 19, 2025</p>
+    </div>
+  </section>
+
   <!-- Counters -->
   <section class="counter-strip">
     <div class="container">
@@ -1202,6 +1308,40 @@
       }, { threshold: 0.15 });
       obs.observe(card);
     });
+
+    /* ── Active Since — Live Ticker ──────────────────── */
+    const ORIGIN = new Date('2025-12-19T00:00:00');
+
+    function updateTicker() {
+      const now = new Date();
+      let years = now.getFullYear() - ORIGIN.getFullYear();
+      let months = now.getMonth() - ORIGIN.getMonth();
+      let days = now.getDate() - ORIGIN.getDate();
+      let hours = now.getHours() - ORIGIN.getHours();
+      let minutes = now.getMinutes() - ORIGIN.getMinutes();
+      let seconds = now.getSeconds() - ORIGIN.getSeconds();
+
+      if (seconds < 0) { seconds += 60; minutes--; }
+      if (minutes < 0) { minutes += 60; hours--; }
+      if (hours < 0) { hours += 24; days--; }
+      if (days < 0) {
+        const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+      }
+      if (months < 0) { months += 12; years--; }
+
+      const el = (id) => document.getElementById(id);
+      if (el('tickYears')) el('tickYears').textContent = years;
+      if (el('tickMonths')) el('tickMonths').textContent = months;
+      if (el('tickDays')) el('tickDays').textContent = days;
+      if (el('tickHours')) el('tickHours').textContent = String(hours).padStart(2, '0');
+      if (el('tickMinutes')) el('tickMinutes').textContent = String(minutes).padStart(2, '0');
+      if (el('tickSeconds')) el('tickSeconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateTicker();
+    setInterval(updateTicker, 1000);
   </script>
 </body>
 </html>
