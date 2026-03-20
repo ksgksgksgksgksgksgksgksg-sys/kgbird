@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>about — kgbird</title>
+  <meta name="description" content="kgbird — the artist behind the silence. kgbird records, bc canada.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── Hero ──────────────────────────────────────── */
+    .about-hero {
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero__bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, var(--void) 0%, var(--black) 70%);
+    }
+
+    .about-hero__tiger {
+      position: absolute;
+      width: clamp(400px, 50vw, 700px);
+      opacity: 0.1;
+      filter: grayscale(0.5) brightness(0.5) contrast(1.2);
+      pointer-events: none;
+      animation: aboutTigerReveal 3s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+    }
+
+    @keyframes aboutTigerReveal {
+      0% { opacity: 0; transform: scale(1.06); }
+      100% { opacity: 0.12; transform: scale(1); }
+    }
+
+    .about-hero__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      opacity: 0;
+      animation: heroFade 2s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+    }
+
+    @keyframes heroFade {
+      0% { opacity: 0; transform: translateY(30px); filter: blur(6px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .about-hero__label {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      text-transform: lowercase;
+      color: var(--pink-muted);
+      margin-bottom: 20px;
+    }
+
+    .about-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 200;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: var(--pure-white);
+      line-height: 0.9;
+    }
+
+    .about-hero__sub {
+      font-size: 0.85rem;
+      letter-spacing: 0.35em;
+      text-transform: lowercase;
+      color: var(--ash);
+      margin-top: 20px;
+    }
+
+    /* ── Identity ──────────────────────────────────── */
+    .identity {
+      padding: clamp(100px, 14vh, 200px) 0;
+      border-top: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .identity__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 5vw, 80px);
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .identity__visual {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+
+    .identity__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.5) contrast(1.1) grayscale(0.2);
+      transition: all 1s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .identity__visual:hover .identity__img {
+      filter: brightness(0.65) contrast(1.1) grayscale(0);
+      transform: scale(1.03);
+    }
+
+    .identity__border {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+
+    .identity__text {
+      padding: clamp(20px, 3vw, 40px) 0;
+    }
+
+    .identity__label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      text-transform: lowercase;
+      color: var(--pink-muted);
+      margin-bottom: 20px;
+    }
+
+    .identity__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      font-weight: 200;
+      letter-spacing: 0.15em;
+      text-transform: lowercase;
+      color: var(--pure-white);
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+
+    .identity__body {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--silver);
+      line-height: 2.2;
+      max-width: 500px;
+    }
+
+    .identity__body p {
+      margin-bottom: 20px;
+    }
+
+    /* ── Timeline ──────────────────────────────────── */
+    .timeline {
+      padding: clamp(80px, 10vh, 160px) 0;
+      border-top: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .timeline__list {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .timeline__list::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--pink-muted), var(--slate), transparent);
+    }
+
+    .timeline__item {
+      padding: 0 0 clamp(40px, 5vh, 64px);
+      position: relative;
+    }
+
+    .timeline__item::before {
+      content: '';
+      position: absolute;
+      left: -44px;
+      top: 6px;
+      width: 8px;
+      height: 8px;
+      background: var(--charcoal);
+      border: 1px solid var(--pink-muted);
+      border-radius: 50%;
+    }
+
+    .timeline__year {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      text-transform: lowercase;
+      color: var(--pink-muted);
+      margin-bottom: 8px;
+    }
+
+    .timeline__title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: lowercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .timeline__desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── Philosophy ─────────────────────────────────── */
+    .philosophy {
+      padding: clamp(100px, 14vh, 200px) 0;
+      border-top: 1px solid rgba(255,255,255,0.03);
+      position: relative;
+    }
+
+    .philosophy__watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 15vw, 16rem);
+      font-weight: 200;
+      color: rgba(255,255,255,0.012);
+      pointer-events: none;
+      user-select: none;
+      text-transform: lowercase;
+      letter-spacing: 0.1em;
+    }
+
+    .philosophy__quote {
+      font-family: var(--font-body);
+      font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+      font-weight: 300;
+      color: var(--silver);
+      line-height: 2.2;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .philosophy__quote em {
+      color: var(--pink);
+      font-style: normal;
+    }
+
+    .philosophy__attr {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      color: var(--ash);
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    /* ── Label Info ─────────────────────────────────── */
+    .label-section {
+      padding: clamp(80px, 10vh, 160px) 0;
+      border-top: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .label-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .label-card {
+      background: var(--charcoal);
+      padding: clamp(32px, 4vw, 56px);
+      text-align: center;
+      transition: background 0.5s;
+    }
+
+    .label-card:hover {
+      background: var(--graphite);
+    }
+
+    .label-card__value {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 200;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .label-card__label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      color: var(--muted);
+    }
+
+    /* ── Responsive ─────────────────────────────────── */
+    @media (max-width: 768px) {
+      .identity__grid { grid-template-columns: 1fr; }
+      .identity__visual { max-width: 400px; margin: 0 auto; }
+      .label-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="page-enter">
+  <div class="grain"></div>
+  <div style="position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(180px);opacity:0.015;background:var(--pink);top:15%;right:-180px;animation:orbFloat 25s ease-in-out infinite;"></div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html">
+      <img src="img/kg-white-t.png" alt="kgbird" class="nav__logo">
+    </a>
+    <button class="nav__toggle" aria-label="menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <ul class="nav__links">
+      <li><a href="about.html" class="nav__link nav__link--active">about</a></li>
+      <li><a href="music.html" class="nav__link">audio</a></li>
+      <li><a href="merch.html" class="nav__link">merch</a></li>
+      <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="about-hero__bg"></div>
+    <img src="img/tiger-original.png" alt="" class="about-hero__tiger" aria-hidden="true">
+    <div class="about-hero__content">
+      <p class="about-hero__label">the artist</p>
+      <h1 class="about-hero__title">kgbird</h1>
+      <p class="about-hero__sub">british columbia, canada · est. 2025</p>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- Identity -->
+    <section class="identity reveal">
+      <div class="identity__grid">
+        <div class="identity__visual">
+          <img src="img/cover-alpha.png" alt="" class="identity__img">
+          <div class="identity__border"></div>
+        </div>
+        <div class="identity__text">
+          <p class="identity__label">who is kgbird</p>
+          <h2 class="identity__title">the silence is the statement</h2>
+          <div class="identity__body">
+            <p>independent artist. bc, canada.</p>
+            <p>0 following. 0 responses. 0 comments.</p>
+            <p>the audio is released. that's it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline">
+      <div style="text-align: center; margin-bottom: clamp(48px, 6vh, 80px);">
+        <p class="heading reveal">timeline</p>
+      </div>
+      <div class="timeline__list reveal">
+        <div class="timeline__item">
+          <p class="timeline__year">2025</p>
+          <h3 class="timeline__title">alpha</h3>
+          <p class="timeline__desc">debut album. 10 tracks.</p>
+        </div>
+        <div class="timeline__item">
+          <p class="timeline__year">2025</p>
+          <h3 class="timeline__title">the doctrine established</h3>
+          <p class="timeline__desc">0 following. 0 responses. permanent.</p>
+        </div>
+        <div class="timeline__item">
+          <p class="timeline__year">2026</p>
+          <h3 class="timeline__title">beta</h3>
+          <p class="timeline__desc">second album. 5 tracks.</p>
+        </div>
+        <div class="timeline__item">
+          <p class="timeline__year">2026</p>
+          <h3 class="timeline__title">30,000+</h3>
+          <p class="timeline__desc">30,300+ followers. 1,000,000+ likes. 0 responses.</p>
+        </div>
+        <div class="timeline__item">
+          <p class="timeline__year">2026</p>
+          <h3 class="timeline__title">gamma</h3>
+          <p class="timeline__desc">in progress.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy">
+      <div class="container container--narrow">
+        <div class="philosophy__watermark" aria-hidden="true">.</div>
+        <div class="reveal">
+          <p class="philosophy__quote">.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Label Info -->
+    <section class="label-section">
+      <div style="text-align: center; margin-bottom: clamp(48px, 6vh, 80px);">
+        <p class="heading reveal">kgbird records</p>
+      </div>
+      <div class="label-grid reveal reveal-delay-1">
+        <div class="label-card">
+          <div class="label-card__value">bc</div>
+          <div class="label-card__label">british columbia, canada</div>
+        </div>
+        <div class="label-card">
+          <div class="label-card__value">2025</div>
+          <div class="label-card__label">established</div>
+        </div>
+        <div class="label-card">
+          <div class="label-card__value">independent</div>
+          <div class="label-card__label">no major label affiliation</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer container">
+    <img src="img/kg-white-t.png" alt="" class="footer__logo" aria-hidden="true">
+    <div class="footer__divider" style="width:32px;height:1px;background:var(--slate);margin:20px auto;"></div>
+    <p style="font-size:0.8rem;font-weight:300;letter-spacing:0.25em;text-transform:lowercase;color:var(--muted);margin-bottom:12px;">kgbird records</p>
+    <p class="footer__legal">© ℗ 2026 kgbird records — british columbia, canada. all rights reserved.</p>
+    <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:lowercase;color:rgba(255,255,255,0.08);margin-top:6px;line-height:1.8;">
+      all tracks written, produced, mixed, and mastered by kgbird.<br>
+      independent. no major label affiliation.
+    </p>
+    <div class="footer__links" style="margin-top:28px;">
+      <a href="about.html" class="footer__link">about</a>
+      <a href="music.html" class="footer__link">audio</a>
+      <a href="merch.html" class="footer__link">merch</a>
+    </div>
+    <a href="mailto:support@kgbird.ca" style="display:inline-block;margin-top:20px;font-size:0.7rem;letter-spacing:0.15em;color:var(--ash);text-decoration:none;transition:color 0.3s;">support@kgbird.ca</a>
+  </footer>
+
+  <script src="js/analytics.js"></script>
+  <script src="js/main.js"></script>
+  <script>KG_ANALYTICS.pageView('about');</script>
+</body>
+</html>

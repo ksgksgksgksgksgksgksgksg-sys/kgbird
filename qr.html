@@ -6,7 +6,7 @@
   <title>qr — kgbird</title>
   <meta name="description" content="kgbird — qr codes. scan to stream.">
   <meta name="theme-color" content="#000000">
-  <link rel="icon" type="image/png" href="img/wm.jpg">
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .qr-page {
@@ -25,8 +25,8 @@
     }
 
     .qr-page__sub {
-      font-size: 0.45rem;
-      letter-spacing: 0.4em;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
       text-transform: lowercase;
       color: var(--ash);
       text-align: center;
@@ -39,9 +39,9 @@
     }
 
     .qr-section__label {
-      font-size: 0.5rem;
+      font-size: 0.8rem;
       font-weight: 400;
-      letter-spacing: 0.4em;
+      letter-spacing: 0.3em;
       text-transform: lowercase;
       color: var(--muted);
       margin-bottom: 24px;
@@ -98,8 +98,8 @@
     }
 
     .qr-card__detail {
-      font-size: 0.42rem;
-      letter-spacing: 0.3em;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -107,8 +107,8 @@
     .qr-card__link {
       display: inline-block;
       margin-top: 10px;
-      font-size: 0.42rem;
-      letter-spacing: 0.2em;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
       text-transform: lowercase;
       color: var(--muted);
       text-decoration: none;
@@ -153,8 +153,8 @@
     }
 
     .qr-release__num {
-      font-size: 0.42rem;
-      letter-spacing: 0.3em;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--pink-muted);
       margin-bottom: 4px;
@@ -171,8 +171,8 @@
     }
 
     .qr-release__album {
-      font-size: 0.42rem;
-      letter-spacing: 0.25em;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -201,8 +201,8 @@
     }
 
     .album-qr-header__meta {
-      font-size: 0.42rem;
-      letter-spacing: 0.3em;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -217,8 +217,8 @@
     }
 
     .qr-soon-badge {
-      font-size: 0.42rem;
-      letter-spacing: 0.3em;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--pink-muted);
       margin-top: 6px;
@@ -248,12 +248,13 @@
   <!-- Nav -->
   <nav class="nav">
     <a href="index.html">
-      <img src="img/logo-white.png" alt="kgbird" class="nav__logo">
+      <img src="img/kg-white-t.png" alt="kgbird" class="nav__logo">
     </a>
     <button class="nav__toggle" aria-label="menu" aria-expanded="false">
       <span></span><span></span>
     </button>
     <ul class="nav__links">
+      <li><a href="about.html" class="nav__link">about</a></li>
       <li><a href="music.html" class="nav__link">audio</a></li>
       <li><a href="merch.html" class="nav__link">merch</a></li>
       <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
@@ -274,10 +275,10 @@
     <div class="qr-section">
       <p class="qr-section__label">all releases · 3 albums · 17 tracks</p>
 
-      <!-- Album III (upcoming) -->
+      <!-- Gamma (upcoming) -->
       <div class="album-qr-header">
         <div class="album-qr-header__line"></div>
-        <span class="album-qr-header__title">album iii</span>
+        <span class="album-qr-header__title">gamma</span>
         <span class="album-qr-header__meta">2026 · upcoming</span>
         <div class="album-qr-header__line"></div>
       </div>
@@ -305,12 +306,20 @@
 
   <!-- Footer -->
   <footer class="footer container">
-    <img src="img/logo-white.png" alt="" class="footer__logo" aria-hidden="true">
+    <img src="img/kg-white-t.png" alt="" class="footer__logo" aria-hidden="true">
+    <div class="footer__divider" style="width:32px;height:1px;background:var(--slate);margin:20px auto;"></div>
+    <p style="font-size:0.8rem;font-weight:300;letter-spacing:0.25em;text-transform:lowercase;color:var(--muted);margin-bottom:12px;">kgbird records</p>
     <p class="footer__legal">© ℗ 2026 kgbird records — british columbia, canada. all rights reserved.</p>
-    <div class="footer__links">
-      <a href="index.html" class="footer__link">home</a>
+    <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:lowercase;color:rgba(255,255,255,0.08);margin-top:6px;line-height:1.8;">
+      all tracks written, produced, mixed, and mastered by kgbird.<br>
+      independent. no major label affiliation.
+    </p>
+    <div class="footer__links" style="margin-top:28px;">
+      <a href="about.html" class="footer__link">about</a>
       <a href="music.html" class="footer__link">audio</a>
+      <a href="merch.html" class="footer__link">merch</a>
     </div>
+    <a href="mailto:support@kgbird.ca" style="display:inline-block;margin-top:20px;font-size:0.7rem;letter-spacing:0.15em;color:var(--ash);text-decoration:none;transition:color 0.3s;">support@kgbird.ca</a>
   </footer>
 
   <script src="js/qr.min.js"></script>
@@ -353,9 +362,9 @@
     });
 
     /* ── Release QR Codes ────────────────────────────── */
-    // Album III (upcoming — 17th release)
+    // Gamma (upcoming — 17th release)
     const ALBUM3 = [
-      { num: 1, name: 'tba', album: 'album iii', soon: true, url: 'https://kgbird.ca/music.html' },
+      { num: 1, name: 'tba', album: 'gamma', soon: true, url: 'https://kgbird.ca/music.html' },
     ];
 
     const BETA = [

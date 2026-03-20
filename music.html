@@ -6,7 +6,7 @@
   <title>audio — kgbird</title>
   <meta name="description" content="kgbird — discography. alpha. beta. 16 releases. stream everywhere.">
   <meta name="theme-color" content="#000000">
-  <link rel="icon" type="image/png" href="img/wm.jpg">
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* ── Music Page — Elite Overhaul ─────────────────── */
@@ -46,9 +46,9 @@
     }
 
     .music-hero__label {
-      font-size: 0.5rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      letter-spacing: 0.6em;
+      letter-spacing: 0.45em;
       text-transform: lowercase;
       color: var(--pink-muted);
       margin-bottom: 16px;
@@ -66,8 +66,8 @@
 
     .music-hero__stats {
       margin-top: 20px;
-      font-size: 0.55rem;
-      letter-spacing: 0.4em;
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -116,9 +116,9 @@
     }
 
     .album-info__era {
-      font-size: 0.5rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      letter-spacing: 0.5em;
+      letter-spacing: 0.35em;
       text-transform: lowercase;
       color: var(--pink-muted);
       margin-bottom: 12px;
@@ -143,9 +143,9 @@
     }
 
     .album-info__tag {
-      font-size: 0.5rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--muted);
       padding: 6px 14px;
@@ -153,7 +153,7 @@
     }
 
     .album-info__desc {
-      font-family: var(--font-lyrics);
+      font-family: var(--font-body);
       font-size: 0.9rem;
       font-weight: 400;
       color: var(--silver);
@@ -171,14 +171,14 @@
     .album-stream-btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
+      gap: 8px;
+      padding: 10px 20px;
       border: 1px solid var(--slate);
       color: var(--silver);
       text-decoration: none;
-      font-size: 0.5rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: lowercase;
       transition: all 0.3s;
     }
@@ -206,9 +206,9 @@
     }
 
     .tracklist-header span {
-      font-size: 0.45rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.25em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -281,8 +281,8 @@
     }
 
     .track-subtitle {
-      font-size: 0.55rem;
-      letter-spacing: 0.15em;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
       color: var(--ash);
       text-transform: lowercase;
     }
@@ -295,9 +295,9 @@
       background: none;
       border: 1px solid rgba(255,255,255,0.08);
       color: var(--muted);
-      font-size: 0.45rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.15em;
       text-transform: lowercase;
       padding: 5px 10px;
       cursor: pointer;
@@ -316,7 +316,7 @@
     }
 
     .track-duration {
-      font-size: 0.7rem;
+      font-size: 0.85rem;
       color: var(--ash);
       text-align: right;
       font-variant-numeric: tabular-nums;
@@ -403,8 +403,8 @@
     }
 
     .lyrics-sidebar__album {
-      font-size: 0.5rem;
-      letter-spacing: 0.3em;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--muted);
       margin-bottom: 16px;
@@ -417,8 +417,8 @@
     }
 
     .lyrics-sidebar__stream-link {
-      font-size: 0.5rem;
-      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
       text-transform: lowercase;
       color: var(--ash);
       text-decoration: none;
@@ -447,9 +447,9 @@
     }
 
     .lyrics-section__label {
-      font-size: 0.45rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.4em;
+      letter-spacing: 0.3em;
       text-transform: lowercase;
       color: var(--pink-muted);
       margin-bottom: 16px;
@@ -461,25 +461,105 @@
       font-size: clamp(0.95rem, 1.4vw, 1.15rem);
       font-weight: 400;
       line-height: 2.2;
+      color: var(--ash);
+    }
+
+    .lyrics-text .lyric-word {
+      display: inline;
+      color: var(--ash);
+      transition: color 0.2s ease;
+    }
+
+    .lyrics-text .lyric-word--active {
+      color: var(--pure-white);
+    }
+
+    .lyrics-text .lyric-word--past {
       color: var(--silver);
     }
 
+    .lyrics-sync-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: var(--pink-muted);
+      margin-bottom: 16px;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .lyrics-sync-badge--active {
+      opacity: 1;
+    }
+    .lyrics-sync-badge__dot {
+      width: 5px;
+      height: 5px;
+      background: var(--pink);
+      border-radius: 50%;
+      animation: syncPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes syncPulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
     .lyrics-credits {
-      margin-top: 40px;
-      padding-top: 24px;
+      margin-top: 48px;
+      padding-top: 32px;
       border-top: 1px solid rgba(255,255,255,0.04);
     }
 
-    .lyrics-credit-line {
-      font-size: 0.5rem;
+    .credits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .credit-tag {
+      display: flex;
+      flex-direction: column;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .credit-tag__label {
+      font-size: 0.65rem;
+      font-weight: 400;
       letter-spacing: 0.25em;
       text-transform: lowercase;
       color: var(--ash);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .lyrics-credit-line span {
-      color: var(--muted);
+    .credit-tag__value {
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--pink-muted);
+      text-transform: lowercase;
+    }
+
+    .credit-release-info {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .credit-release-info p {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: lowercase;
+      color: rgba(255,255,255,0.12);
+      line-height: 2;
+    }
+
+    .credit-release-info p:first-child {
+      color: var(--ash);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 4px;
     }
 
     /* ── Album Divider ────────────────────────────────── */
@@ -512,8 +592,8 @@
     }
 
     .runtime-bar span {
-      font-size: 0.5rem;
-      letter-spacing: 0.25em;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -551,6 +631,10 @@
         grid-template-columns: 1fr;
       }
 
+      .credits-grid {
+        grid-template-columns: 1fr;
+      }
+
       .lyrics-sidebar {
         display: flex;
         gap: 16px;
@@ -576,16 +660,18 @@
 </head>
 <body class="page-enter">
   <div class="grain"></div>
+  <div style="position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(180px);opacity:0.015;background:var(--pink);top:20%;right:-180px;animation:orbFloat 25s ease-in-out infinite;"></div>
 
   <!-- Navigation -->
   <nav class="nav">
     <a href="index.html">
-      <img src="img/logo-white.png" alt="kgbird" class="nav__logo">
+      <img src="img/kg-white-t.png" alt="kgbird" class="nav__logo">
     </a>
     <button class="nav__toggle" aria-label="menu" aria-expanded="false">
       <span></span><span></span>
     </button>
     <ul class="nav__links">
+      <li><a href="about.html" class="nav__link">about</a></li>
       <li><a href="music.html" class="nav__link nav__link--active">audio</a></li>
       <li><a href="merch.html" class="nav__link">merch</a></li>
       <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
@@ -607,16 +693,16 @@
 
   <main class="container">
 
-    <!-- ═══ ALBUM III — UPCOMING ═══ -->
-    <section class="album-block reveal" id="album-iii" style="opacity: 0.5;">
+    <!-- ═══ GAMMA — UPCOMING ═══ -->
+    <section class="album-block reveal" id="gamma" style="opacity: 0.5;">
       <div class="album-header">
         <div class="album-cover" style="background: var(--charcoal); display:flex; align-items:center; justify-content:center;">
-          <img src="img/logo-white.png" alt="" style="width: 40%; opacity: 0.08;">
+          <img src="img/kg-10.png" alt="" style="width: 22%; opacity: 0.1;">
           <div class="album-cover__border"></div>
         </div>
         <div class="album-info">
           <p class="album-info__era" style="color: var(--ash);">upcoming</p>
-          <h2 class="album-info__title">album iii</h2>
+          <h2 class="album-info__title">gamma</h2>
           <div class="album-info__meta">
             <span class="album-info__tag">2026</span>
             <span class="album-info__tag">kgbird records</span>
@@ -740,12 +826,20 @@
 
   <!-- Footer -->
   <footer class="footer container" style="padding-bottom: 90px;">
-    <img src="img/logo-white.png" alt="" class="footer__logo" aria-hidden="true">
+    <img src="img/kg-white-t.png" alt="" class="footer__logo" aria-hidden="true">
+    <div class="footer__divider" style="width:32px;height:1px;background:var(--slate);margin:20px auto;"></div>
+    <p style="font-size:0.8rem;font-weight:300;letter-spacing:0.25em;text-transform:lowercase;color:var(--muted);margin-bottom:12px;">kgbird records</p>
     <p class="footer__legal">© ℗ 2026 kgbird records — british columbia, canada. all rights reserved.</p>
-    <div class="footer__links">
-      <a href="index.html" class="footer__link">home</a>
+    <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:lowercase;color:rgba(255,255,255,0.08);margin-top:6px;line-height:1.8;">
+      all tracks written, produced, mixed, and mastered by kgbird.<br>
+      independent. no major label affiliation.
+    </p>
+    <div class="footer__links" style="margin-top:28px;">
+      <a href="about.html" class="footer__link">about</a>
+      <a href="music.html" class="footer__link">audio</a>
       <a href="merch.html" class="footer__link">merch</a>
     </div>
+    <a href="mailto:support@kgbird.ca" style="display:inline-block;margin-top:20px;font-size:0.7rem;letter-spacing:0.15em;color:var(--ash);text-decoration:none;transition:color 0.3s;">support@kgbird.ca</a>
   </footer>
 
   <script src="js/analytics.js"></script>
@@ -961,11 +1055,20 @@
           if (t.credits) {
             creditsHTML =
               '<div class="lyrics-credits">' +
-              '<p class="lyrics-credit-line">written by <span>' + t.credits.written + '</span></p>' +
-              '<p class="lyrics-credit-line">produced by <span>' + t.credits.produced + '</span></p>' +
-              '<p class="lyrics-credit-line">mixed by <span>' + t.credits.mixed + '</span></p>' +
-              '<p class="lyrics-credit-line">mastered by <span>' + t.credits.mastered + '</span></p>' +
-              '<p class="lyrics-credit-line">label <span>' + t.credits.label + '</span></p>' +
+              '<p class="lyrics-section__label" style="margin-bottom:20px;">credits</p>' +
+              '<div class="credits-grid">' +
+              '<div class="credit-tag"><span class="credit-tag__label">songwriter</span><span class="credit-tag__value">' + t.credits.written + '</span></div>' +
+              '<div class="credit-tag"><span class="credit-tag__label">producer</span><span class="credit-tag__value">' + t.credits.produced + '</span></div>' +
+              '<div class="credit-tag"><span class="credit-tag__label">mixing engineer</span><span class="credit-tag__value">' + t.credits.mixed + '</span></div>' +
+              '<div class="credit-tag"><span class="credit-tag__label">mastering engineer</span><span class="credit-tag__value">' + t.credits.mastered + '</span></div>' +
+              '<div class="credit-tag"><span class="credit-tag__label">label</span><span class="credit-tag__value">' + t.credits.label + '</span></div>' +
+              '<div class="credit-tag"><span class="credit-tag__label">distributor</span><span class="credit-tag__value">kgbird records</span></div>' +
+              '</div>' +
+              '<div class="credit-release-info">' +
+              '<p>© ℗ ' + (albumName === 'alpha' ? '2025' : '2026') + ' kgbird records</p>' +
+              '<p>released under exclusive license to kgbird records, bc, canada.</p>' +
+              '<p>all rights reserved. unauthorized reproduction is prohibited.</p>' +
+              '</div>' +
               '</div>';
           }
 
@@ -1062,6 +1165,166 @@
 
     loadDurations(BETA_TRACKS, 'beta');
     loadDurations(ALPHA_TRACKS, 'alpha');
+
+    /* ════════════════════════════════════════════════════
+       LYRIC AUTO-SYNC ENGINE
+       Word-by-word highlight synced to audio playback
+       ════════════════════════════════════════════════════ */
+    const LyricSync = (() => {
+      let activePanel = null;
+      let wordEls = [];
+      let totalWords = 0;
+      let syncInterval = null;
+
+      function initPanel(panelId) {
+        if (syncInterval) clearInterval(syncInterval);
+
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+        activePanel = panel;
+
+        // Wrap all words in .lyrics-text elements with spans
+        const textEls = panel.querySelectorAll('.lyrics-text');
+        wordEls = [];
+        let wordIndex = 0;
+
+        textEls.forEach(textEl => {
+          const html = textEl.innerHTML;
+          // Split on whitespace and <br> tags, preserve structure
+          const words = textEl.textContent.split(/\s+/).filter(w => w.length > 0);
+          let newHTML = '';
+          let tempText = textEl.innerHTML;
+
+          // Replace each word with a span
+          words.forEach((word, i) => {
+            const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp('(?<![<\\w])' + escapedWord + '(?![\\w>])', '');
+            const spanId = 'lw-' + wordIndex;
+            tempText = tempText.replace(regex, '<span class="lyric-word" id="' + spanId + '">' + word + '</span>');
+            wordIndex++;
+          });
+
+          textEl.innerHTML = tempText;
+        });
+
+        // Collect all word elements
+        wordEls = Array.from(panel.querySelectorAll('.lyric-word'));
+        totalWords = wordEls.length;
+
+        // Add sync badge if not exists
+        let badge = panel.querySelector('.lyrics-sync-badge');
+        if (!badge) {
+          badge = document.createElement('div');
+          badge.className = 'lyrics-sync-badge';
+          badge.innerHTML = '<span class="lyrics-sync-badge__dot"></span> synced';
+          const body = panel.querySelector('.lyrics-body');
+          if (body) body.insertBefore(badge, body.firstChild);
+        }
+
+        // Start sync loop
+        startSync(badge);
+      }
+
+      function startSync(badge) {
+        if (syncInterval) clearInterval(syncInterval);
+        if (!wordEls.length) return;
+
+        const audio = document.querySelector('audio') || document.querySelectorAll('audio')[0];
+        // Access AudioEngine's audio element via the global
+        const playerAudio = document.querySelector('.player audio');
+
+        syncInterval = setInterval(() => {
+          // Get current audio time from AudioEngine
+          let currentTime = 0;
+          let duration = 0;
+
+          // Try to access the audio element through the player
+          try {
+            const audioEl = window._kgAudio;
+            if (audioEl && !audioEl.paused) {
+              currentTime = audioEl.currentTime;
+              duration = audioEl.duration;
+              if (badge) badge.classList.add('lyrics-sync-badge--active');
+            } else {
+              if (badge) badge.classList.remove('lyrics-sync-badge--active');
+              return;
+            }
+          } catch(e) { return; }
+
+          if (!duration || !totalWords) return;
+
+          // Calculate which word should be active
+          // Distribute words evenly across ~85% of track duration (leave room for intro/outro)
+          const introOffset = duration * 0.05;
+          const lyricsEnd = duration * 0.90;
+          const lyricsDuration = lyricsEnd - introOffset;
+          const adjustedTime = currentTime - introOffset;
+
+          if (adjustedTime < 0) return;
+
+          const wordDuration = lyricsDuration / totalWords;
+          const currentWordIndex = Math.floor(adjustedTime / wordDuration);
+
+          wordEls.forEach((el, i) => {
+            el.classList.remove('lyric-word--active', 'lyric-word--past');
+            if (i === currentWordIndex) {
+              el.classList.add('lyric-word--active');
+            } else if (i < currentWordIndex) {
+              el.classList.add('lyric-word--past');
+            }
+          });
+
+          // Auto-scroll to active word
+          const activeWord = wordEls[currentWordIndex];
+          if (activeWord) {
+            activeWord.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 80); // ~12fps sync
+      }
+
+      function stop() {
+        if (syncInterval) clearInterval(syncInterval);
+        wordEls.forEach(el => el.classList.remove('lyric-word--active', 'lyric-word--past'));
+        if (activePanel) {
+          const badge = activePanel.querySelector('.lyrics-sync-badge');
+          if (badge) badge.classList.remove('lyrics-sync-badge--active');
+        }
+      }
+
+      return { initPanel, stop };
+    })();
+
+    // Expose audio element globally for lyric sync
+    (function() {
+      const origInit = AudioEngine.init;
+      const origPlay = AudioEngine.play;
+
+      // Patch: after AudioEngine creates audio, expose it
+      const _patchInterval = setInterval(() => {
+        const player = document.querySelector('.player');
+        if (player) {
+          // Create a proxy to expose audio
+          const origPlay2 = AudioEngine.play;
+          AudioEngine._origPlay = origPlay2;
+          clearInterval(_patchInterval);
+        }
+      }, 500);
+    })();
+
+    // Hook into lyrics panel open to init sync
+    document.querySelectorAll('.track-lyrics-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.target;
+        setTimeout(() => {
+          const panel = document.getElementById(targetId);
+          if (panel && panel.classList.contains('lyrics-panel--open')) {
+            LyricSync.initPanel(targetId);
+          } else {
+            LyricSync.stop();
+          }
+        }, 200);
+      });
+    });
   </script>
 </body>
 </html>

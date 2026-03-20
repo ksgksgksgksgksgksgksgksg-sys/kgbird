@@ -6,7 +6,7 @@
   <title>order — kgbird</title>
   <meta name="description" content="kgbird — order checkout.">
   <meta name="theme-color" content="#000000">
-  <link rel="icon" type="image/png" href="img/wm.jpg">
+  <link rel="icon" type="image/png" href="img/favicon.png">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .order-page {
@@ -30,7 +30,7 @@
     }
 
     .order-summary__detail {
-      font-size: 0.65rem;
+      font-size: 0.8rem;
       color: var(--muted);
       letter-spacing: 0.15em;
       text-transform: lowercase;
@@ -66,8 +66,8 @@
     }
 
     .secure-badge__text {
-      font-size: 0.55rem;
-      letter-spacing: 0.25em;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -102,8 +102,8 @@
     }
 
     .processing-text {
-      font-size: 0.6rem;
-      letter-spacing: 0.4em;
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
       text-transform: lowercase;
       color: var(--muted);
     }
@@ -114,8 +114,8 @@
     }
 
     .processing-step {
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
       color: var(--ash);
       margin: 8px 0;
       opacity: 0;
@@ -132,16 +132,18 @@
   </style>
 </head>
 <body class="page-enter">
+  <div style="position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.022;background-image:url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E');"></div>
 
   <!-- Navigation -->
   <nav class="nav">
     <a href="index.html">
-      <img src="img/logo-white.png" alt="kgbird" class="nav__logo">
+      <img src="img/kg-white-t.png" alt="kgbird" class="nav__logo">
     </a>
     <button class="nav__toggle" aria-label="menu" aria-expanded="false">
       <span></span><span></span>
     </button>
     <ul class="nav__links">
+      <li><a href="about.html" class="nav__link">about</a></li>
       <li><a href="music.html" class="nav__link">audio</a></li>
       <li><a href="merch.html" class="nav__link">merch</a></li>
     </ul>
@@ -252,9 +254,9 @@
 
         <p class="terms">
           by placing this order you agree to kgbird records'
-          <a href="#" onclick="return false">terms of sale</a>,
-          <a href="#" onclick="return false">privacy policy</a>, and
-          <a href="#" onclick="return false">return policy</a>.
+          <a href="legal.html">terms of sale</a>,
+          <a href="legal.html">privacy policy</a>, and
+          <a href="legal.html">return policy</a>.
           all sales are final on limited edition items.
           international orders may incur customs duties.
           payment processed via stripe connect.
@@ -298,13 +300,20 @@
 
   <!-- Footer -->
   <footer class="footer container">
-    <img src="img/logo-white.png" alt="" class="footer__logo" aria-hidden="true">
+    <img src="img/kg-white-t.png" alt="" class="footer__logo" aria-hidden="true">
+    <div class="footer__divider" style="width:32px;height:1px;background:var(--slate);margin:20px auto;"></div>
+    <p style="font-size:0.8rem;font-weight:300;letter-spacing:0.25em;text-transform:lowercase;color:var(--muted);margin-bottom:12px;">kgbird records</p>
     <p class="footer__legal">© ℗ 2026 kgbird records — british columbia, canada. all rights reserved.</p>
-    <div class="footer__links">
-      <a href="index.html" class="footer__link">home</a>
+    <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:lowercase;color:rgba(255,255,255,0.08);margin-top:6px;line-height:1.8;">
+      all tracks written, produced, mixed, and mastered by kgbird.<br>
+      independent. no major label affiliation.
+    </p>
+    <div class="footer__links" style="margin-top:28px;">
+      <a href="about.html" class="footer__link">about</a>
       <a href="music.html" class="footer__link">audio</a>
       <a href="merch.html" class="footer__link">merch</a>
     </div>
+    <a href="mailto:support@kgbird.ca" style="display:inline-block;margin-top:20px;font-size:0.7rem;letter-spacing:0.15em;color:var(--ash);text-decoration:none;transition:color 0.3s;">support@kgbird.ca</a>
   </footer>
 
   <script src="js/analytics.js"></script>

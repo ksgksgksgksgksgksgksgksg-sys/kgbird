@@ -73,17 +73,22 @@ body {
 
 /* ── Scrollbar ──────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 2px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--black);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--slate);
-  border-radius: 2px;
+  background: var(--ash);
+  border-radius: 1px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ash);
+  background: var(--pink-muted);
+}
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ash) transparent;
 }
 
 /* ── Typography ─────────────────────────────────────── */
@@ -116,9 +121,9 @@ body {
 
 .heading {
   font-family: var(--font-body);
-  font-size: 0.55rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.35em;
   text-transform: lowercase;
   color: var(--muted);
 }
@@ -188,8 +193,8 @@ body {
 }
 
 .nav__logo {
-  height: 28px;
-  opacity: 0.8;
+  height: 32px;
+  opacity: 0.85;
   transition: opacity 0.3s;
 }
 
@@ -204,9 +209,9 @@ body {
 }
 
 .nav__link {
-  font-size: 0.55rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.3em;
   text-transform: lowercase;
   color: var(--muted);
   text-decoration: none;
@@ -319,9 +324,9 @@ body {
 }
 
 .hero__sub {
-  font-size: 0.6rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.6em;
+  letter-spacing: 0.45em;
   text-transform: lowercase;
   color: var(--muted);
   margin-top: 16px;
@@ -357,9 +362,9 @@ body {
 }
 
 .hero__stat-label {
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.3em;
   text-transform: lowercase;
   color: var(--ash);
   margin-top: 4px;
@@ -395,7 +400,7 @@ body {
 }
 
 .manifesto__text {
-  font-family: var(--font-lyrics);
+  font-family: var(--font-body);
   font-size: clamp(1.1rem, 2.2vw, 1.7rem);
   font-weight: 400;
   color: var(--silver);
@@ -447,9 +452,9 @@ body {
   border-radius: 0;
   text-decoration: none;
   color: var(--silver);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.2em;
   text-transform: lowercase;
   transition: all 0.4s var(--ease-out);
   background: transparent;
@@ -512,9 +517,9 @@ body {
 }
 
 .album__era {
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.35em;
   text-transform: lowercase;
   color: var(--pink-muted);
   margin-bottom: 12px;
@@ -532,8 +537,8 @@ body {
 }
 
 .album__info {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
   color: var(--muted);
   margin-bottom: 32px;
 }
@@ -567,7 +572,7 @@ body {
 }
 
 .track__number {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: var(--ash);
   font-weight: 400;
   text-align: center;
@@ -606,8 +611,8 @@ body {
 }
 
 .track__lyrics-toggle {
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
   text-transform: lowercase;
   color: var(--ash);
   background: none;
@@ -628,7 +633,7 @@ body {
 }
 
 .track__duration {
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   color: var(--ash);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.05em;
@@ -662,7 +667,7 @@ body {
 }
 
 .player__track-name {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 400;
   color: var(--white);
   letter-spacing: 0.05em;
@@ -670,7 +675,7 @@ body {
 }
 
 .player__album-name {
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   color: var(--muted);
   letter-spacing: 0.1em;
   text-transform: lowercase;
@@ -751,7 +756,7 @@ body {
 }
 
 .player__time {
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   color: var(--ash);
   font-variant-numeric: tabular-nums;
   min-width: 36px;
@@ -876,8 +881,8 @@ body {
 }
 
 .merch-card__type {
-  font-size: 0.55rem;
-  letter-spacing: 0.4em;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
   text-transform: lowercase;
   color: var(--ash);
   margin-bottom: 8px;
@@ -906,9 +911,9 @@ body {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.25em;
   text-transform: lowercase;
   padding: 6px 16px;
   border: 1px solid;
@@ -970,9 +975,9 @@ body {
 
 .form-label {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-transform: lowercase;
   color: var(--muted);
   margin-bottom: 8px;
@@ -1016,9 +1021,9 @@ body {
 }
 
 .form-section-title {
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-transform: lowercase;
   color: var(--ash);
   margin-bottom: 24px;
@@ -1029,11 +1034,11 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 36px;
+  padding: 16px 40px;
   font-family: var(--font-body);
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.25em;
   text-transform: lowercase;
   border: none;
   cursor: pointer;
@@ -1115,7 +1120,7 @@ body {
 }
 
 .payment-error__title {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: lowercase;
@@ -1133,7 +1138,7 @@ body {
 
 .payment-error__code {
   font-family: 'SF Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   color: var(--ash);
   letter-spacing: 0.1em;
   margin-bottom: 32px;
@@ -1141,7 +1146,7 @@ body {
 
 /* ── Terms / Legal ──────────────────────────────────── */
 .terms {
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   color: var(--ash);
   line-height: 1.8;
   letter-spacing: 0.02em;
@@ -1186,9 +1191,9 @@ body {
 }
 
 .report-stat__label {
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-transform: lowercase;
   color: var(--muted);
   margin-top: 4px;
@@ -1200,9 +1205,9 @@ body {
 }
 
 .report-table th {
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
   text-transform: lowercase;
   color: var(--muted);
   text-align: left;
@@ -1230,14 +1235,14 @@ body {
 }
 
 .footer__logo {
-  height: 20px;
-  opacity: 0.15;
+  height: 28px;
+  opacity: 0.12;
   margin-bottom: 28px;
 }
 
 .footer__legal {
-  font-size: 0.42rem;
-  letter-spacing: 0.25em;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
   color: rgba(255,255,255,0.12);
   text-transform: lowercase;
   line-height: 2;
@@ -1251,9 +1256,9 @@ body {
 }
 
 .footer__link {
-  font-size: 0.45rem;
+  font-size: 0.75rem;
   font-weight: 400;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-transform: lowercase;
   color: var(--ash);
   text-decoration: none;
@@ -1283,8 +1288,8 @@ body {
 
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s var(--ease-out);
+  transform: translateY(12px);
+  transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
 }
 
 .reveal.visible {
@@ -1408,6 +1413,20 @@ body {
 .mb-8 { margin-bottom: 32px; }
 .hidden { display: none !important; }
 
+/* ── Cursor Fix ────────────────────────────────────── */
+a, button, [role="button"], .album-card, .media-cell, .merch-card,
+.stream-btn, .stream-link, .track-main, .doctrine__item,
+.label-card, .qr-card, .nav__toggle, input, select, textarea {
+  cursor: pointer;
+}
+input[type="text"], input[type="email"], input[type="tel"],
+input[type="number"], textarea, select {
+  cursor: text;
+}
+select { cursor: pointer; }
+img { cursor: default; }
+.merch-card--sold-out { cursor: default; }
+
 /* ═══════════════════════════════════════════════════════
    ELITE COMPONENTS — Ψ
    ═══════════════════════════════════════════════════════ */
@@ -1451,9 +1470,9 @@ body {
 }
 
 .preloader__text {
-  font-size: 0.45rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.4em;
   text-transform: lowercase;
   color: var(--ash);
   margin-top: 16px;
@@ -1492,9 +1511,9 @@ body {
 
 .marquee__item {
   display: inline-block;
-  font-size: 0.5rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.3em;
   text-transform: lowercase;
   color: var(--ash);
   padding: 0 32px;
@@ -1547,8 +1566,8 @@ body {
 }
 
 .footer__parent {
-  font-size: 0.45rem;
-  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
   text-transform: lowercase;
   color: rgba(255,255,255,0.08);
   margin-top: 16px;
@@ -1628,6 +1647,12 @@ body {
   0%, 100% { transform: translate(0, 0); }
   33% { transform: translate(40px, -60px); }
   66% { transform: translate(-30px, 40px); }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(50px, -70px); }
+  66% { transform: translate(-40px, 50px); }
 }
 
 /* ── Nav Ψ ──────────────────────────────────────────── */

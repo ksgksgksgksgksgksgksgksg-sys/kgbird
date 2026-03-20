@@ -63,6 +63,7 @@ const AudioEngine = (() => {
 
     audio = new Audio();
     audio.volume = 0.7;
+    window._kgAudio = audio; // Expose for lyric sync
 
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('ended', onEnded);

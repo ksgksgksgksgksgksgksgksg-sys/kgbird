@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>legal — kgbird</title>
+  <meta name="description" content="kgbird records — terms, privacy, legal.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .legal-page { padding: clamp(120px, 15vh, 180px) 0 80px; }
+    .legal-page h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 200;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: var(--pure-white);
+      margin-bottom: 12px;
+    }
+    .legal-page__sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      color: var(--ash);
+      margin-bottom: clamp(48px, 6vh, 80px);
+    }
+    .legal-section {
+      margin-bottom: clamp(48px, 6vh, 72px);
+      padding-bottom: clamp(48px, 6vh, 72px);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .legal-section:last-of-type { border-bottom: none; }
+    .legal-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .legal-section h3 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: lowercase;
+      color: var(--silver);
+      margin: 24px 0 12px;
+    }
+    .legal-section p, .legal-section li {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 2;
+      margin-bottom: 12px;
+    }
+    .legal-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .legal-section li::before {
+      content: '—';
+      color: var(--ash);
+      margin-right: 12px;
+    }
+    .legal-entity {
+      background: var(--charcoal);
+      padding: 28px 32px;
+      margin: 24px 0;
+    }
+    .legal-entity p {
+      font-size: 0.8rem;
+      color: var(--silver);
+      line-height: 1.8;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body class="page-enter">
+  <div class="grain"></div>
+
+  <nav class="nav">
+    <a href="index.html"><img src="img/kg-white-t.png" alt="kgbird" class="nav__logo"></a>
+    <button class="nav__toggle" aria-label="menu" aria-expanded="false"><span></span><span></span></button>
+    <ul class="nav__links">
+      <li><a href="about.html" class="nav__link">about</a></li>
+      <li><a href="music.html" class="nav__link">audio</a></li>
+      <li><a href="merch.html" class="nav__link">merch</a></li>
+      <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
+    </ul>
+  </nav>
+
+  <main class="legal-page container container--narrow">
+    <h1>legal</h1>
+    <p class="legal-page__sub">terms · privacy · copyright</p>
+
+    <!-- Entity -->
+    <div class="legal-section">
+      <h2>entity</h2>
+      <div class="legal-entity">
+        <p>kgbird records</p>
+        <p>british columbia, canada</p>
+        <p>© ℗ 2025–2026 kgbird records</p>
+        <p>support@kgbird.ca</p>
+      </div>
+    </div>
+
+    <!-- Terms of Use -->
+    <div class="legal-section">
+      <h2>terms of use</h2>
+      <p>by accessing kgbird.ca you agree to these terms. if you do not agree, do not use this site.</p>
+
+      <h3>content ownership</h3>
+      <p>all content on this site — including but not limited to audio recordings, artwork, logos, glyphs, text, and visual media — is owned by kgbird records or its licensors. all rights reserved.</p>
+
+      <h3>permitted use</h3>
+      <p>you may stream audio for personal, non-commercial use. you may not download, reproduce, distribute, modify, or create derivative works from any content without prior written authorization from kgbird records.</p>
+
+      <h3>merch & orders</h3>
+      <p>all limited edition merchandise is sold as-is. all sales on limited edition items are final. international orders may be subject to customs duties and import taxes, which are the responsibility of the buyer. items ship from british columbia, canada.</p>
+
+      <h3>no official statements</h3>
+      <p>kgbird records does not issue public statements, press releases, or official communications. absence of response is not an admission, denial, or position on any matter.</p>
+
+      <h3>limitation of liability</h3>
+      <p>this site and its content are provided "as is" without warranty of any kind. kgbird records shall not be liable for any damages arising from use of this site.</p>
+    </div>
+
+    <!-- Privacy Policy -->
+    <div class="legal-section">
+      <h2>privacy policy</h2>
+      <p>kgbird records respects your privacy.</p>
+
+      <h3>what we collect</h3>
+      <ul>
+        <li>page view data (page, timestamp, referrer)</li>
+        <li>play events (track, album, timestamp)</li>
+        <li>merch interaction data (item clicked, price)</li>
+        <li>order information if submitted (name, email, shipping address)</li>
+      </ul>
+
+      <h3>what we don't collect</h3>
+      <ul>
+        <li>payment card numbers (we do not store card data)</li>
+        <li>personal data beyond what is voluntarily submitted</li>
+      </ul>
+
+      <h3>storage</h3>
+      <p>analytics data is stored locally in your browser via localstorage. it is not transmitted to external servers. order information is logged locally for demand analysis purposes only.</p>
+
+      <h3>cookies</h3>
+      <p>this site does not use tracking cookies. session identifiers are generated locally and are not shared with third parties.</p>
+
+      <h3>third parties</h3>
+      <p>this site may contain links to spotify, apple music, youtube, and instagram. those platforms have their own privacy policies.</p>
+    </div>
+
+    <!-- Copyright -->
+    <div class="legal-section">
+      <h2>copyright & phonogram</h2>
+      <p>all sound recordings are owned by kgbird records. the phonogram symbol (℗) indicates the year of first publication of the sound recording.</p>
+      <p>© ℗ 2025 kgbird records — alpha and associated singles.</p>
+      <p>© ℗ 2026 kgbird records — beta and associated singles.</p>
+      <p>all tracks written, produced, mixed, and mastered by kgbird. independent release. no major label affiliation.</p>
+      <p>unauthorized reproduction, distribution, or public performance of copyrighted material is prohibited and subject to applicable law.</p>
+
+      <h3>dmca</h3>
+      <p>if you believe content on this site infringes your copyright, contact support@kgbird.ca with a detailed description of the alleged infringement.</p>
+    </div>
+
+    <!-- Rights Authorization -->
+    <div class="legal-section">
+      <h2>rights authorization</h2>
+      <p>kgbird records owns and controls the master (phonogram) rights (℗) to all content released under the kgbird name and is legally authorized to use, reproduce, distribute, and promote such content across all platforms and advertising formats.</p>
+      <p>all content is original. no third-party copyrights are infringed. all necessary licenses, permissions, and clearances have been obtained.</p>
+    </div>
+
+  </main>
+
+  <footer class="footer container">
+    <img src="img/kg-white-t.png" alt="" class="footer__logo" aria-hidden="true">
+    <div style="width:32px;height:1px;background:var(--slate);margin:20px auto;"></div>
+    <p style="font-size:0.8rem;font-weight:300;letter-spacing:0.25em;text-transform:lowercase;color:var(--muted);margin-bottom:12px;">kgbird records</p>
+    <p class="footer__legal">© ℗ 2026 kgbird records — british columbia, canada. all rights reserved.</p>
+    <div class="footer__links" style="margin-top:28px;">
+      <a href="about.html" class="footer__link">about</a>
+      <a href="music.html" class="footer__link">audio</a>
+      <a href="merch.html" class="footer__link">merch</a>
+    </div>
+    <a href="mailto:support@kgbird.ca" style="display:inline-block;margin-top:20px;font-size:0.7rem;letter-spacing:0.15em;color:var(--ash);text-decoration:none;">support@kgbird.ca</a>
+  </footer>
+
+  <script src="js/analytics.js"></script>
+  <script src="js/main.js"></script>
+  <script>KG_ANALYTICS.pageView('legal');</script>
+</body>
+</html>
