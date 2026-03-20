@@ -370,10 +370,11 @@
   </nav>
 
   <!-- Header -->
-  <header class="merch-header container">
-    <h1 class="merch-header__title">limited merch</h1>
-    <p class="merch-header__sub">numbered &middot; authenticated &middot; gone</p>
-    <p class="merch-header__warning">stock updates in real time &mdash; items will not be restocked</p>
+  <header class="merch-header container" style="position:relative;overflow:hidden;">
+    <img src="img/cover-alpha-v2.png" alt="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(300px,40vw,500px);opacity:0.04;pointer-events:none;filter:grayscale(0.5);" aria-hidden="true">
+    <h1 class="merch-header__title" style="position:relative;">limited merch</h1>
+    <p class="merch-header__sub" style="position:relative;">numbered · authenticated · gone</p>
+    <p class="merch-header__warning" style="position:relative;">items will not be restocked</p>
   </header>
 
   <main class="container container--wide">
