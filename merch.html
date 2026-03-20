@@ -546,7 +546,7 @@
         <div class="merch-card__details">
           <p class="merch-card__type">${item.type}</p>
           <h3 class="merch-card__name">${item.name}</h3>
-          <p class="merch-card__price">$${item.price}.00</p>
+          <p class="merch-card__price">${item.price} cad</p>
           <p class="body-sm" style="margin-top: 4px; color: var(--ash);">edition of ${item.edition}</p>
         </div>
         <div class="merch-card__stock ${stockClass}">${stockDisplay}</div>
@@ -567,7 +567,7 @@
       selectedItem = item;
       selectedSize = null;
       document.getElementById('modalItemName').textContent = item.name;
-      document.getElementById('modalItemPrice').textContent = `$${item.price}.00`;
+      document.getElementById('modalItemPrice').textContent = `${item.price} cad`;
 
       const sizeContainer = document.getElementById('sizeOptions');
       sizeContainer.innerHTML = '';
