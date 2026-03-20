@@ -759,40 +759,68 @@
     /* ── Contact ────────────────────────────────────── */
     .contact-section {
       padding: clamp(100px, 12vh, 180px) 0;
-      text-align: center;
       border-top: 1px solid rgba(255,255,255,0.03);
       position: relative;
     }
 
-    .contact-email {
-      font-family: var(--font-display);
-      font-size: clamp(1.1rem, 2.2vw, 1.8rem);
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      color: var(--silver);
-      text-decoration: none;
-      transition: all 0.4s;
-      position: relative;
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
-    .contact-email::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--pink);
-      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    .contact-card {
+      background: var(--charcoal);
+      padding: clamp(28px, 3.5vw, 48px);
+      text-align: center;
+      transition: background 0.4s;
     }
-    .contact-email:hover::after { width: 100%; }
-    .contact-email:hover { color: var(--pink); }
+
+    .contact-card:hover {
+      background: var(--graphite);
+    }
+
+    .contact-card__role {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: lowercase;
+      color: var(--ash);
+      margin-bottom: 14px;
+    }
+
+    .contact-card__email {
+      font-family: var(--font-display);
+      font-size: clamp(0.8rem, 1.2vw, 1rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .contact-card__email:hover {
+      color: var(--pink);
+    }
+
+    .contact-card__scope {
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: rgba(255,255,255,0.08);
+    }
 
     /* ── Responsive ─────────────────────────────────── */
     @media (max-width: 768px) {
       .counter-grid { grid-template-columns: repeat(3, 1fr); }
       .albums-grid { grid-template-columns: 1fr; max-width: 500px; }
       .doctrine__grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr 1fr; }
       .media-grid { grid-template-columns: 1fr 1fr; aspect-ratio: auto; }
       .media-cell--large { grid-column: span 2; grid-row: span 1; aspect-ratio: 2/1; }
       .media-cell:not(.media-cell--large) { aspect-ratio: 1; }
@@ -1127,11 +1155,38 @@
   <!-- Contact -->
   <section class="contact-section">
     <div class="container container--narrow reveal">
-      <p class="heading" style="margin-bottom: 24px;">management & booking</p>
-      <a href="mailto:support@kgbird.ca" class="contact-email">support@kgbird.ca</a>
-      <p style="font-size: 0.8rem; letter-spacing: 0.2em; text-transform: lowercase; color: var(--ash); margin-top: 16px;">
-        press · licensing · professional inquiries
-      </p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <p class="contact-card__role">management</p>
+          <a href="mailto:management@kgbird.ca" class="contact-card__email">management@kgbird.ca</a>
+          <p class="contact-card__scope">booking · press · licensing</p>
+        </div>
+        <div class="contact-card">
+          <p class="contact-card__role">stealth management</p>
+          <a href="mailto:stealthmanagement@kgbird.ca" class="contact-card__email">stealthmanagement@kgbird.ca</a>
+          <p class="contact-card__scope">private inquiries</p>
+        </div>
+        <div class="contact-card">
+          <p class="contact-card__role">general</p>
+          <a href="mailto:contact@kgbird.ca" class="contact-card__email">contact@kgbird.ca</a>
+          <p class="contact-card__scope">professional inquiries</p>
+        </div>
+        <div class="contact-card">
+          <p class="contact-card__role">support</p>
+          <a href="mailto:support@kgbird.ca" class="contact-card__email">support@kgbird.ca</a>
+          <p class="contact-card__scope">orders · technical</p>
+        </div>
+        <div class="contact-card">
+          <p class="contact-card__role">tickets</p>
+          <a href="mailto:tickets@kgbird.ca" class="contact-card__email">tickets@kgbird.ca</a>
+          <p class="contact-card__scope">events · access</p>
+        </div>
+        <div class="contact-card">
+          <p class="contact-card__role">merchandise</p>
+          <a href="mailto:merchandise@kgbird.ca" class="contact-card__email">merchandise@kgbird.ca</a>
+          <p class="contact-card__scope">wholesale · custom</p>
+        </div>
+      </div>
     </div>
   </section>
 
