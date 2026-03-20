@@ -204,7 +204,7 @@ html {
 
 .nav__links {
   display: flex;
-  gap: 44px;
+  gap: 36px;
   list-style: none;
 }
 
@@ -646,16 +646,16 @@ html {
   left: 0;
   right: 0;
   z-index: var(--z-overlay);
-  background: var(--dark);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 12px clamp(24px, 4vw, 80px);
+  background: rgba(5,5,5,0.92);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  padding: 14px clamp(24px, 4vw, 80px);
   display: flex;
   align-items: center;
   gap: 20px;
   transform: translateY(100%);
-  transition: transform 0.5s var(--ease-out);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  transition: transform 0.6s var(--ease-out);
+  backdrop-filter: blur(40px) saturate(1.2);
+  -webkit-backdrop-filter: blur(40px) saturate(1.2);
 }
 
 .player--active {
@@ -850,6 +850,7 @@ html {
 
 .merch-card:hover {
   z-index: 2;
+  box-shadow: 0 0 40px rgba(212,160,184,0.03);
 }
 
 .merch-card__inner {
@@ -986,15 +987,15 @@ html {
 .form-input,
 .form-select {
   width: 100%;
-  padding: 14px 16px;
+  padding: 16px 18px;
   background: var(--charcoal);
-  border: 1px solid var(--slate);
+  border: 1px solid rgba(255,255,255,0.06);
   color: var(--white);
   font-family: var(--font-body);
   font-size: 0.85rem;
   letter-spacing: 0.03em;
   outline: none;
-  transition: border-color 0.3s;
+  transition: border-color 0.4s, box-shadow 0.4s;
   -webkit-appearance: none;
   border-radius: 0;
 }
@@ -1006,6 +1007,7 @@ html {
 .form-input:focus,
 .form-select:focus {
   border-color: var(--pink-muted);
+  box-shadow: 0 0 0 1px rgba(212,160,184,0.06);
 }
 
 .form-row {
@@ -1054,6 +1056,7 @@ html {
 .btn--primary:hover {
   background: var(--pink);
   color: var(--black);
+  box-shadow: 0 0 24px rgba(212,160,184,0.12);
 }
 
 .btn--ghost {
@@ -1065,6 +1068,7 @@ html {
 .btn--ghost:hover {
   border-color: var(--pink-muted);
   color: var(--white);
+  box-shadow: 0 0 20px rgba(212,160,184,0.04);
 }
 
 .btn--full {
@@ -1229,7 +1233,7 @@ html {
 
 /* ── Footer ─────────────────────────────────────────── */
 .footer {
-  padding: 80px 0 48px;
+  padding: 100px 0 56px;
   border-top: 1px solid rgba(255,255,255,0.03);
   text-align: center;
 }
@@ -1290,6 +1294,7 @@ html {
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
+  will-change: opacity, transform;
 }
 
 .reveal.visible {
@@ -1446,6 +1451,34 @@ html {
 .mb-4 { margin-bottom: 16px; }
 .mb-8 { margin-bottom: 32px; }
 .hidden { display: none !important; }
+
+/* ── Image Loading Shimmer ──────────────────────────── */
+img {
+  background: var(--charcoal);
+}
+
+img[src] {
+  animation: imgLoad 0.6s var(--ease-out);
+}
+
+@keyframes imgLoad {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Smooth Focus States ───────────────────────────── */
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--pink-muted);
+  outline-offset: 4px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--pink-muted);
+}
 
 /* ── Cursor Fix ────────────────────────────────────── */
 a, button, [role="button"], .album-card, .media-cell, .merch-card,
