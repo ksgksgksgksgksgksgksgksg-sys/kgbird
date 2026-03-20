@@ -33,7 +33,8 @@
 
   --font-display: 'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body:    'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-lyrics:  'Questrial', sans-serif;
+  --font-lyrics:  'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent:  'Questrial', sans-serif;
 
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
