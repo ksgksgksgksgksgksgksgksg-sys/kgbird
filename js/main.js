@@ -216,6 +216,24 @@ function closeLyrics() {
   document.body.style.overflow = '';
 }
 
+/* ── Page Transitions ───────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+    if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#') || href.startsWith('tel:')) return;
+    if (link.target === '_blank') return;
+
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => {
+        window.location.href = href;
+      }, 280);
+    });
+  });
+});
+
 /* ── Utilities ──────────────────────────────────────── */
 function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

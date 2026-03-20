@@ -1317,8 +1317,17 @@ html {
 }
 
 /* ── Page Transition ────────────────────────────────── */
+.page-exit {
+  animation: pageExit 0.3s ease-in forwards;
+}
+
+@keyframes pageExit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 .page-enter {
-  animation: pageEnter 0.6s var(--ease-out);
+  animation: pageEnter 0.8s var(--ease-out);
 }
 
 @keyframes pageEnter {
@@ -1338,14 +1347,39 @@ html {
   .nav__links--open {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.95);
-    backdrop-filter: blur(30px);
-    padding: 32px clamp(24px, 4vw, 80px);
-    gap: 24px;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.97);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    padding: 120px clamp(32px, 8vw, 80px) 60px;
+    gap: 32px;
+    z-index: 99;
+    animation: mobileNavIn 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .nav__links--open .nav__link {
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--silver);
+    opacity: 0;
+    animation: mobileNavItem 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  .nav__links--open li:nth-child(1) .nav__link { animation-delay: 0.05s; }
+  .nav__links--open li:nth-child(2) .nav__link { animation-delay: 0.1s; }
+  .nav__links--open li:nth-child(3) .nav__link { animation-delay: 0.15s; }
+  .nav__links--open li:nth-child(4) .nav__link { animation-delay: 0.2s; }
+  .nav__links--open li:nth-child(5) .nav__link { animation-delay: 0.25s; }
+
+  @keyframes mobileNavIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes mobileNavItem {
+    from { opacity: 0; transform: translateX(-12px); }
+    to { opacity: 1; transform: translateX(0); }
   }
 
   .hero__stats {
