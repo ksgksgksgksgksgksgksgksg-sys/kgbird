@@ -539,15 +539,14 @@
       const card = document.createElement('div');
       card.className = `merch-card ${item.soldOut ? 'merch-card--sold-out' : ''} reveal`;
       card.innerHTML = `
-        <div class="merch-card__visual">
-          <div class="merch-card__product-shape shape-${item.shape}"></div>
-          <img src="img/tiger-original.png" alt="" class="merch-card__tiger" aria-hidden="true">
+        <div class="merch-card__visual" style="display:flex;align-items:center;justify-content:center;height:55%;">
+          <img src="img/kg-white-t.png" alt="" style="width:28%;opacity:0.06;transition:opacity 0.5s;">
         </div>
         <div class="merch-card__details">
           <p class="merch-card__type">${item.type}</p>
           <h3 class="merch-card__name">${item.name}</h3>
           <p class="merch-card__price">${item.price} cad</p>
-          <p class="body-sm" style="margin-top: 4px; color: var(--ash);">edition of ${item.edition}</p>
+          <p class="body-sm" style="margin-top:6px;color:var(--ash);font-size:0.7rem;letter-spacing:0.2em;">edition of ${item.edition}</p>
         </div>
         <div class="merch-card__stock ${stockClass}">${stockDisplay}</div>
       `;
