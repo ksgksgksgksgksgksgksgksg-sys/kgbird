@@ -392,7 +392,7 @@
     </div>
 
     <div class="merch-notice reveal">
-      <p class="body-sm" style="color: var(--ash); letter-spacing: 0.15em; text-transform: lowercase; font-size: 0.8rem;">all items ship from bc, canada &middot; worldwide delivery &middot; each piece numbered</p>
+      <p class="body-sm" style="color: var(--ash); letter-spacing: 0.15em; text-transform: lowercase; font-size: 0.8rem;">all prices in cad &middot; ships from bc, canada &middot; worldwide delivery &middot; numbered</p>
     </div>
   </main>
 
@@ -546,7 +546,7 @@
         <div class="merch-card__details">
           <p class="merch-card__type">${item.type}</p>
           <h3 class="merch-card__name">${item.name}</h3>
-          <p class="merch-card__price">CAD $${item.price}.00</p>
+          <p class="merch-card__price">$${item.price}.00</p>
           <p class="body-sm" style="margin-top: 4px; color: var(--ash);">edition of ${item.edition}</p>
         </div>
         <div class="merch-card__stock ${stockClass}">${stockDisplay}</div>
@@ -567,7 +567,7 @@
       selectedItem = item;
       selectedSize = null;
       document.getElementById('modalItemName').textContent = item.name;
-      document.getElementById('modalItemPrice').textContent = `CAD $${item.price}.00`;
+      document.getElementById('modalItemPrice').textContent = `$${item.price}.00`;
 
       const sizeContainer = document.getElementById('sizeOptions');
       sizeContainer.innerHTML = '';
