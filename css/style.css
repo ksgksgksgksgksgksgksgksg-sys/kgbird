@@ -67,8 +67,8 @@ body {
 }
 
 ::selection {
-  background: var(--pink);
-  color: var(--black);
+  background: rgba(212, 160, 184, 0.15);
+  color: var(--white);
 }
 
 /* ── Scrollbar ──────────────────────────────────────── */
