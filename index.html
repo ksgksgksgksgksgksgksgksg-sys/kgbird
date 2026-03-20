@@ -158,19 +158,19 @@
 
     .hero__tiger {
       position: absolute;
-      width: clamp(350px, 45vw, 620px);
+      width: clamp(420px, 55vw, 780px);
       opacity: 0;
-      filter: brightness(0.75) contrast(1.1) grayscale(0.15);
-      animation: tigerReveal 4s cubic-bezier(0.16,1,0.3,1) 2.8s forwards;
+      filter: brightness(0.85) contrast(1.15);
+      animation: tigerReveal 4.5s cubic-bezier(0.16,1,0.3,1) 2.6s forwards;
       z-index: 1;
       pointer-events: none;
       will-change: transform, opacity;
     }
 
     @keyframes tigerReveal {
-      0% { opacity: 0; transform: scale(1.08); filter: brightness(0) contrast(1.1) grayscale(0.15); }
-      40% { opacity: 0.5; filter: brightness(0.4) contrast(1.1) grayscale(0.15); }
-      100% { opacity: 0.22; transform: scale(1); filter: brightness(0.6) contrast(1.1) grayscale(0.15); }
+      0% { opacity: 0; transform: scale(1.06); filter: brightness(0) contrast(1.15); }
+      40% { opacity: 0.45; filter: brightness(0.5) contrast(1.15); }
+      100% { opacity: 0.4; transform: scale(1); filter: brightness(0.75) contrast(1.15); }
     }
 
     .hero__brand {
@@ -211,16 +211,16 @@
 
     .hero__glyph {
       position: absolute;
-      bottom: 140px;
-      right: clamp(40px, 8vw, 120px);
-      width: 40px;
+      bottom: clamp(80px, 12vh, 160px);
+      right: clamp(32px, 5vw, 80px);
+      width: clamp(48px, 5vw, 64px);
       opacity: 0;
-      animation: glyphReveal 2.5s cubic-bezier(0.16,1,0.3,1) 4.5s forwards;
+      animation: glyphReveal 2s cubic-bezier(0.16,1,0.3,1) 5s forwards;
       z-index: 2;
     }
     @keyframes glyphReveal {
-      0% { opacity: 0; transform: translateY(10px) scale(0.9); filter: blur(4px); }
-      100% { opacity: 0.35; transform: translateY(0) scale(1); filter: blur(0); }
+      0% { opacity: 0; transform: translateY(6px); }
+      100% { opacity: 0.12; transform: translateY(0); }
     }
 
     .hero__scroll {
@@ -877,7 +877,7 @@
       <p style="font-size:0.9rem;color:var(--pink-muted);margin-top:16px;letter-spacing:0.6em;font-weight:300;opacity:0.4;">.</p>
       <p class="hero__sub" style="margin-top:8px;">bc, canada</p>
     </div>
-    <img src="img/kg-white-t.png" alt="" class="hero__glyph" aria-hidden="true">
+    <img src="img/kg-12.png" alt="" class="hero__glyph" aria-hidden="true">
     <div class="hero__scroll"><div class="hero__scroll-line"></div></div>
   </section>
 
