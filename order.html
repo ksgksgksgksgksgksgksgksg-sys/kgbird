@@ -338,7 +338,7 @@
       document.getElementById('summaryItem').textContent = orderData.name;
       document.getElementById('summaryDetail').textContent =
         `${orderData.type} · size ${orderData.size} · edition of ${orderData.edition}`;
-      document.getElementById('summaryPrice').textContent = `$${orderData.price}`;
+      document.getElementById('summaryPrice').textContent = `CAD $${orderData.price}.00`;
     } else {
       // No item selected, redirect
       window.location.href = 'merch.html';

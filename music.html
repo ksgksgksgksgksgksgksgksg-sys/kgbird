@@ -670,7 +670,6 @@
 </head>
 <body class="page-enter">
   <div class="grain"></div>
-  <div style="position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(180px);opacity:0.015;background:var(--pink);top:20%;right:-180px;animation:orbFloat 25s ease-in-out infinite;"></div>
 
   <!-- Navigation -->
   <nav class="nav">
@@ -1177,51 +1176,35 @@
     loadDurations(ALPHA_TRACKS, 'alpha');
 
     /* ════════════════════════════════════════════════════
-       LYRIC AUTO-SYNC ENGINE
+       LYRIC AUTO-SYNC ENGINE v2
        Word-by-word highlight synced to audio playback
        ════════════════════════════════════════════════════ */
     const LyricSync = (() => {
-      let activePanel = null;
       let wordEls = [];
-      let totalWords = 0;
-      let syncInterval = null;
+      let syncRAF = null;
+      let activePanelId = null;
 
       function initPanel(panelId) {
-        if (syncInterval) clearInterval(syncInterval);
-
+        stop();
+        activePanelId = panelId;
         const panel = document.getElementById(panelId);
         if (!panel) return;
-        activePanel = panel;
 
-        // Wrap all words in .lyrics-text elements with spans
-        const textEls = panel.querySelectorAll('.lyrics-text');
-        wordEls = [];
-        let wordIndex = 0;
-
-        textEls.forEach(textEl => {
-          const html = textEl.innerHTML;
-          // Split on whitespace and <br> tags, preserve structure
-          const words = textEl.textContent.split(/\s+/).filter(w => w.length > 0);
-          let newHTML = '';
-          let tempText = textEl.innerHTML;
-
-          // Replace each word with a span
-          words.forEach((word, i) => {
-            const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp('(?<![<\\w])' + escapedWord + '(?![\\w>])', '');
-            const spanId = 'lw-' + wordIndex;
-            tempText = tempText.replace(regex, '<span class="lyric-word" id="' + spanId + '">' + word + '</span>');
-            wordIndex++;
-          });
-
-          textEl.innerHTML = tempText;
+        // Wrap every word in every .lyrics-text with a span
+        panel.querySelectorAll('.lyrics-text').forEach(textEl => {
+          if (textEl.dataset.synced) return; // already wrapped
+          const text = textEl.textContent;
+          const words = text.split(/(\s+)/); // preserve whitespace
+          textEl.innerHTML = words.map(w => {
+            if (/^\s+$/.test(w)) return w; // whitespace stays as-is
+            return '<span class="lyric-word">' + w + '</span>';
+          }).join('');
+          textEl.dataset.synced = '1';
         });
 
-        // Collect all word elements
         wordEls = Array.from(panel.querySelectorAll('.lyric-word'));
-        totalWords = wordEls.length;
 
-        // Add sync badge if not exists
+        // Add sync indicator
         let badge = panel.querySelector('.lyrics-sync-badge');
         if (!badge) {
           badge = document.createElement('div');
@@ -1231,97 +1214,70 @@
           if (body) body.insertBefore(badge, body.firstChild);
         }
 
-        // Start sync loop
-        startSync(badge);
+        tick();
       }
 
-      function startSync(badge) {
-        if (syncInterval) clearInterval(syncInterval);
-        if (!wordEls.length) return;
+      function tick() {
+        const audio = window._kgAudio;
+        if (!audio || !wordEls.length) {
+          syncRAF = requestAnimationFrame(tick);
+          return;
+        }
 
-        const audio = document.querySelector('audio') || document.querySelectorAll('audio')[0];
-        // Access AudioEngine's audio element via the global
-        const playerAudio = document.querySelector('.player audio');
+        const badge = activePanelId ? document.querySelector('#' + activePanelId + ' .lyrics-sync-badge') : null;
 
-        syncInterval = setInterval(() => {
-          // Get current audio time from AudioEngine
-          let currentTime = 0;
-          let duration = 0;
+        if (audio.paused || !audio.duration) {
+          if (badge) badge.classList.remove('lyrics-sync-badge--active');
+          syncRAF = requestAnimationFrame(tick);
+          return;
+        }
 
-          // Try to access the audio element through the player
-          try {
-            const audioEl = window._kgAudio;
-            if (audioEl && !audioEl.paused) {
-              currentTime = audioEl.currentTime;
-              duration = audioEl.duration;
-              if (badge) badge.classList.add('lyrics-sync-badge--active');
-            } else {
-              if (badge) badge.classList.remove('lyrics-sync-badge--active');
-              return;
-            }
-          } catch(e) { return; }
+        if (badge) badge.classList.add('lyrics-sync-badge--active');
 
-          if (!duration || !totalWords) return;
+        const t = audio.currentTime;
+        const d = audio.duration;
+        const total = wordEls.length;
 
-          // Calculate which word should be active
-          // Distribute words evenly across ~85% of track duration (leave room for intro/outro)
-          const introOffset = duration * 0.05;
-          const lyricsEnd = duration * 0.90;
-          const lyricsDuration = lyricsEnd - introOffset;
-          const adjustedTime = currentTime - introOffset;
+        // Words spread across 5%–92% of track duration
+        const start = d * 0.05;
+        const end = d * 0.92;
+        const span = end - start;
+        const elapsed = Math.max(0, t - start);
+        const idx = Math.min(total - 1, Math.floor((elapsed / span) * total));
 
-          if (adjustedTime < 0) return;
-
-          const wordDuration = lyricsDuration / totalWords;
-          const currentWordIndex = Math.floor(adjustedTime / wordDuration);
-
-          wordEls.forEach((el, i) => {
-            el.classList.remove('lyric-word--active', 'lyric-word--past');
-            if (i === currentWordIndex) {
-              el.classList.add('lyric-word--active');
-            } else if (i < currentWordIndex) {
+        for (let i = 0; i < total; i++) {
+          const el = wordEls[i];
+          if (i < idx) {
+            if (!el.classList.contains('lyric-word--past')) {
               el.classList.add('lyric-word--past');
+              el.classList.remove('lyric-word--active');
             }
-          });
-
-          // Auto-scroll to active word
-          const activeWord = wordEls[currentWordIndex];
-          if (activeWord) {
-            activeWord.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else if (i === idx) {
+            if (!el.classList.contains('lyric-word--active')) {
+              el.classList.add('lyric-word--active');
+              el.classList.remove('lyric-word--past');
+              // Smooth scroll
+              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          } else {
+            el.classList.remove('lyric-word--active', 'lyric-word--past');
           }
-        }, 80); // ~12fps sync
+        }
+
+        syncRAF = requestAnimationFrame(tick);
       }
 
       function stop() {
-        if (syncInterval) clearInterval(syncInterval);
+        if (syncRAF) cancelAnimationFrame(syncRAF);
+        syncRAF = null;
         wordEls.forEach(el => el.classList.remove('lyric-word--active', 'lyric-word--past'));
-        if (activePanel) {
-          const badge = activePanel.querySelector('.lyrics-sync-badge');
-          if (badge) badge.classList.remove('lyrics-sync-badge--active');
-        }
+        activePanelId = null;
       }
 
       return { initPanel, stop };
     })();
 
-    // Expose audio element globally for lyric sync
-    (function() {
-      const origInit = AudioEngine.init;
-      const origPlay = AudioEngine.play;
-
-      // Patch: after AudioEngine creates audio, expose it
-      const _patchInterval = setInterval(() => {
-        const player = document.querySelector('.player');
-        if (player) {
-          // Create a proxy to expose audio
-          const origPlay2 = AudioEngine.play;
-          AudioEngine._origPlay = origPlay2;
-          clearInterval(_patchInterval);
-        }
-      }, 500);
-    })();
-
-    // Hook into lyrics panel open to init sync
+    // Auto-init sync when lyrics panel opens
     document.querySelectorAll('.track-lyrics-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const targetId = btn.dataset.target;
@@ -1332,7 +1288,7 @@
           } else {
             LyricSync.stop();
           }
-        }, 200);
+        }, 300);
       });
     });
   </script>

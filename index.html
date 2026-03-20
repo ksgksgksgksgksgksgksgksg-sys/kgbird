@@ -79,43 +79,6 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ── Ambient Orbs ──────────────────────────────── */
-    .ambient-orb {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -1;
-      filter: blur(180px);
-      opacity: 0;
-      animation: orbFade 3s ease-out 2.5s forwards;
-    }
-    .ambient-orb--pink {
-      width: 500px;
-      height: 500px;
-      background: var(--pink);
-      top: 15%;
-      right: -180px;
-      opacity: 0;
-      animation: orbFloat 25s ease-in-out infinite, orbFade 3s ease-out 2.5s forwards;
-    }
-    .ambient-orb--white {
-      width: 400px;
-      height: 400px;
-      background: white;
-      bottom: 10%;
-      left: -150px;
-      opacity: 0;
-      animation: orbFloat 30s ease-in-out infinite reverse, orbFade 3s ease-out 3s forwards;
-    }
-    @keyframes orbFloat {
-      0%, 100% { transform: translate(0, 0); }
-      33% { transform: translate(50px, -70px); }
-      66% { transform: translate(-40px, 50px); }
-    }
-    @keyframes orbFade {
-      to { opacity: 0.018; }
-    }
-
     /* ── Custom Cursor ─────────────────────────────── */
     .cursor-dot {
       position: fixed;
@@ -168,19 +131,19 @@
 
     .hero__tiger {
       position: absolute;
-      width: clamp(420px, 55vw, 780px);
+      width: clamp(500px, 65vw, 900px);
       opacity: 0;
-      filter: brightness(0.85) contrast(1.15);
-      animation: tigerReveal 4.5s cubic-bezier(0.16,1,0.3,1) 2.6s forwards;
+      filter: brightness(0.9) contrast(1.2);
+      animation: tigerReveal 5s cubic-bezier(0.16,1,0.3,1) 2.4s forwards;
       z-index: 1;
       pointer-events: none;
       will-change: transform, opacity;
     }
 
     @keyframes tigerReveal {
-      0% { opacity: 0; transform: scale(1.06); filter: brightness(0) contrast(1.15); }
-      40% { opacity: 0.45; filter: brightness(0.5) contrast(1.15); }
-      100% { opacity: 0.4; transform: scale(1); filter: brightness(0.75) contrast(1.15); }
+      0% { opacity: 0; transform: scale(1.04); filter: brightness(0) contrast(1.2); }
+      50% { opacity: 0.5; filter: brightness(0.6) contrast(1.2); }
+      100% { opacity: 0.55; transform: scale(1); filter: brightness(0.8) contrast(1.2); }
     }
 
     .hero__brand {
@@ -855,10 +818,6 @@
 
   <!-- Film Grain -->
   <div class="grain"></div>
-
-  <!-- Ambient Orbs -->
-  <div class="ambient-orb ambient-orb--pink"></div>
-  <div class="ambient-orb ambient-orb--white"></div>
 
   <!-- Custom Cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
