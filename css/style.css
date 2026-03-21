@@ -382,7 +382,7 @@ html {
   text-transform: lowercase;
   color: var(--pure-white);
   line-height: 0.9;
-  -webkit-text-stroke: 0.2px rgba(0,0,0,0.2);
+  -webkit-text-stroke: 0.33px rgba(0,0,0,0.15);
   margin-right: -0.25em; /* optical alignment for letter-spacing */
 }
 
