@@ -521,26 +521,14 @@
       position: absolute;
       bottom: 14px;
       left: 14px;
-      width: clamp(22px, 2.8vw, 34px);
-      height: clamp(22px, 2.8vw, 34px);
-      opacity: 0.1;
       z-index: 1;
       pointer-events: none;
-      background: #fff;
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-position: center;
-      mask-position: center;
     }
-    .album-card__glyph--owl {
-      -webkit-mask-image: url('../img/glyph-owl.jpg');
-      mask-image: url('../img/glyph-owl.jpg');
-    }
-    .album-card__glyph--falcon {
-      -webkit-mask-image: url('../img/glyph-falcon.jpg');
-      mask-image: url('../img/glyph-falcon.jpg');
+    .album-card__glyph img {
+      width: clamp(22px, 2.8vw, 34px);
+      height: auto;
+      opacity: 0.12;
+      mix-blend-mode: screen;
     }
 
     .album-card__overlay {
@@ -1086,7 +1074,7 @@
     <div class="albums-grid reveal reveal-delay-1">
       <a href="music.html#alpha" class="album-card">
         <img src="img/cover-alpha-v2.png" alt="" class="album-card__img">
-        <span class="album-card__glyph album-card__glyph--owl"></span>
+        <span class="album-card__glyph"><img src="img/glyph-owl.jpg" alt=""></span>
         <div class="album-card__overlay">
           <p class="album-card__era"><span class="era-numeral">❘</span></p>
           <h3 class="album-card__title">Alpha <span style="font-weight:200;opacity:0.4;font-size:0.7em;">α</span></h3>
@@ -1096,7 +1084,7 @@
       </a>
       <a href="music.html#beta" class="album-card">
         <img src="img/cover-tardigrade.png" alt="" class="album-card__img">
-        <span class="album-card__glyph album-card__glyph--falcon"></span>
+        <span class="album-card__glyph"><img src="img/glyph-falcon.jpg" alt=""></span>
         <div class="album-card__overlay">
           <p class="album-card__era"><span class="era-numeral">❘❘</span></p>
           <h3 class="album-card__title">Beta <span style="font-weight:200;opacity:0.4;font-size:0.7em;">β</span></h3>
