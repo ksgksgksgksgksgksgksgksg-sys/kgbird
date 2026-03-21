@@ -455,11 +455,11 @@ html {
 
 .manifesto__text {
   font-family: var(--font-body);
-  font-size: clamp(0.82rem, 2.2vw, 1.7rem);
+  font-size: clamp(0.62rem, 1.6vw, 1.4rem);
   font-weight: 400;
   color: var(--silver);
-  line-height: 1.8;
-  max-width: 700px;
+  line-height: 2;
+  max-width: 900px;
   margin: 0 auto;
   opacity: 0;
   transform: translateY(20px);
