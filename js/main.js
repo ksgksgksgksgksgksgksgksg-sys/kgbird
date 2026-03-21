@@ -524,14 +524,9 @@ function initFeaturedSingles() {
 
   function updateRing() {
     if (!fsAudio || !fsPlaying || fsAudio.paused) return;
-    const track = fsPlaying.dataset.track;
-    const snip = SNIPPETS[track];
-    if (!snip) return;
     const fill = fsPlaying.querySelector('.album-av__fill');
-    if (fill) {
-      const elapsed = fsAudio.currentTime - snip.start;
-      const duration = snip.end - snip.start;
-      const pct = Math.max(0, Math.min(1, elapsed / duration));
+    if (fill && fsAudio.duration) {
+      const pct = fsAudio.currentTime / fsAudio.duration;
       const offset = CIRCUMFERENCE * (1 - pct);
       fill.style.transition = 'none';
       fill.style.strokeDashoffset = offset;
@@ -541,24 +536,13 @@ function initFeaturedSingles() {
 
   function stopPlayback() {
     if (fsRaf) cancelAnimationFrame(fsRaf);
-    if (fsEndTimer) { clearTimeout(fsEndTimer); fsEndTimer = null; }
     if (fsAudio) {
       fsAudio.pause();
-      fsAudio.removeEventListener('timeupdate', checkSnippetEnd);
+      fsAudio.currentTime = 0;
     }
     resetAll();
     fsPlaying = null;
-    // Fade out drift
     if (drift) drift.classList.remove('active');
-  }
-
-  function checkSnippetEnd() {
-    if (!fsAudio || !fsPlaying) return;
-    const track = fsPlaying.dataset.track;
-    const snip = SNIPPETS[track];
-    if (snip && fsAudio.currentTime >= snip.end) {
-      stopPlayback();
-    }
   }
 
   function playTrack(av) {
@@ -575,30 +559,15 @@ function initFeaturedSingles() {
     // Stop any current
     stopPlayback();
 
-    // Create or reuse audio
-    if (!fsAudio) {
-      fsAudio = new Audio();
-      fsAudio.volume = 0.7;
-      fsAudio.addEventListener('ended', () => {
-        stopPlayback();
-      });
-    }
-
-    fsAudio.src = snip.src;
+    // New audio each time — simple and reliable
+    fsAudio = new Audio(snip.src);
+    fsAudio.volume = 0.7;
     fsPlaying = av;
     av.classList.add('album-av--playing');
 
-    // Seek to snippet start once metadata loads, then play
-    const onCanPlay = () => {
-      fsAudio.removeEventListener('canplay', onCanPlay);
-      fsAudio.currentTime = snip.start;
-      fsAudio.play().catch(() => {});
-      fsAudio.addEventListener('timeupdate', checkSnippetEnd);
-      fsRaf = requestAnimationFrame(updateRing);
-    };
-
-    fsAudio.addEventListener('canplay', onCanPlay);
-    fsAudio.load();
+    fsAudio.addEventListener('ended', () => stopPlayback());
+    fsAudio.play().catch(() => {});
+    fsRaf = requestAnimationFrame(updateRing);
 
     // Color drift
     if (drift && MOODS[track]) {
