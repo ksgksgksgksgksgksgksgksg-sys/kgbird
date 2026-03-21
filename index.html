@@ -737,6 +737,23 @@
       filter: grayscale(0.2) brightness(0.9);
     }
 
+    .media-cell__title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--off-white);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    }
+    .media-cell:hover .media-cell__title {
+      opacity: 1;
+    }
     .media-cell:hover .media-cell__img {
       opacity: 0.85;
       transform: scale(1.04);
@@ -1098,6 +1115,7 @@
         <div style="width:100%;height:100%;background:var(--charcoal);display:flex;align-items:center;justify-content:center;">
           <img src="img/kg-white-t.png" alt="" style="width:20%;opacity:0.08;margin-bottom:12.5%;">
         </div>
+        <span class="album-card__glyph" style="font-size:clamp(0.5rem,1vw,0.8rem);opacity:0.08;color:#fff;">●</span>
         <div class="album-card__overlay" style="opacity:0.7;">
           <p class="album-card__era"><span class="era-numeral">❘❘❘</span></p>
 
@@ -1172,26 +1190,29 @@
         <p class="heading reveal">singles</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:1200px;margin:0 auto;" class="reveal reveal-delay-1">
-        <!-- 1 — resurrect hero -->
         <div class="media-cell" style="grid-column:span 2;grid-row:span 2;">
           <img src="img/cover-resurrect-real.png" alt="" class="media-cell__img">
+          <span class="media-cell__title">resurrect</span>
         </div>
-        <!-- 2-5 — presence big -->
         <div class="media-cell" style="grid-column:span 2;grid-row:span 2;">
           <img src="img/cover-presence.jpg" alt="" class="media-cell__img">
+          <span class="media-cell__title">presence</span>
         </div>
-        <!-- 6-9 -->
         <div class="media-cell">
           <img src="img/cover-silhouette.png" alt="" class="media-cell__img">
+          <span class="media-cell__title">silhouette</span>
         </div>
         <div class="media-cell">
           <img src="img/cover-tardigrade.png" alt="" class="media-cell__img">
+          <span class="media-cell__title">tardigrade</span>
         </div>
         <div class="media-cell">
           <img src="img/cover-paradigm-real.jpg" alt="" class="media-cell__img">
+          <span class="media-cell__title">paradigm</span>
         </div>
         <div class="media-cell">
           <img src="img/cover-due-real.png" alt="" class="media-cell__img">
+          <span class="media-cell__title">due</span>
         </div>
       </div>
     </div>
