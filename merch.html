@@ -651,9 +651,7 @@
     function loadStock() { try { return JSON.parse(localStorage.getItem(STOCK_KEY)) || {}; } catch(e) { return {}; } }
     function saveStock() {
       const data = {};
-      MERCH_ITEMS.forEach(i => {
-        data[i.id] = { stock: i._currentStock || 0, soldOut: !!i.soldOut, soldOutAt: i._soldOutAt || null, restockAt: i._restockAt || null };
-      });
+      MERCH_ITEMS.forEach(i => { data[i.id] = { stock: i._currentStock || 0, soldOut: !!i.soldOut }; });
       localStorage.setItem(STOCK_KEY, JSON.stringify(data));
     }
 
@@ -665,16 +663,6 @@
       if (saved) {
         item._currentStock = saved.stock;
         item.soldOut = saved.soldOut;
-        item._soldOutAt = saved.soldOutAt;
-        item._restockAt = saved.restockAt;
-        // Auto-restock: if sold out and restock date has passed
-        if (item.soldOut && item._restockAt && now >= item._restockAt) {
-          const maxRestock = Math.max(1, Math.floor(item.edition * 0.08));
-          item._currentStock = Math.floor(Math.random() * maxRestock) + 1;
-          item.soldOut = false;
-          item._soldOutAt = null;
-          item._restockAt = null;
-        }
       }
     });
     saveStock();
@@ -699,23 +687,15 @@
     }
     updateCardUI();
 
-    // Slow stock drain — every 4 hours while page is open
-    setInterval(() => {
-      const available = MERCH_ITEMS.filter(i => !i.soldOut && i._currentStock > 0);
-      if (!available.length) return;
-      const item = available[Math.floor(Math.random() * available.length)];
-      if (Math.random() > 0.5) {
-        item._currentStock--;
-        if (item._currentStock <= 0) {
-          item.soldOut = true;
-          item._soldOutAt = Date.now();
-          // Set random restock 0-30 days from now
-          item._restockAt = Date.now() + Math.floor(Math.random() * 30 * 86400000);
-        }
-        saveStock();
-        updateCardUI();
+    // Simple: available items show random 1-5 stock, never increases, persisted
+    // On first visit, set random stock. On return visits, load saved. Never goes up.
+    MERCH_ITEMS.forEach(item => {
+      if (!item.soldOut && item._currentStock === undefined) {
+        item._currentStock = Math.floor(Math.random() * 5) + 1;
       }
-    }, 14400000);
+    });
+    saveStock();
+    updateCardUI();
   </script>
 </body>
 </html>
