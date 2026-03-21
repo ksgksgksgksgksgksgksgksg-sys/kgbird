@@ -270,33 +270,48 @@
     /* ── Marquee ───────────────────────────────────── */
     .marquee-section {
       overflow: hidden;
-      white-space: nowrap;
-      padding: 18px 0;
+      padding: 14px 0;
       border-top: 1px solid rgba(255,255,255,0.02);
       border-bottom: 1px solid rgba(255,255,255,0.02);
       background: transparent;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
     }
     .marquee__track {
       display: inline-block;
-      animation: marqueeScroll 90s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee__track--left {
+      animation: marqueeLeft 120s linear infinite;
+    }
+    .marquee__track--right {
+      animation: marqueeRight 95s linear infinite;
     }
     .marquee__item {
       display: inline-block;
       font-family: var(--font-body);
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 300;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.4em;
       text-transform: lowercase;
-      color: rgba(255,255,255,0.08);
-      padding: 0 48px;
+      padding: 0 60px;
     }
-    .marquee__item--accent {
-      color: var(--pink-muted);
-      letter-spacing: 0.3em;
+    .marquee__track--left .marquee__item {
+      color: rgba(255,255,255,0.07);
     }
-    @keyframes marqueeScroll {
+    .marquee__track--right .marquee__item {
+      color: rgba(184,160,176,0.06);
+    }
+    @keyframes marqueeLeft {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRight {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
     }
 
     /* ── Manifesto ──────────────────────────────────── */
@@ -597,6 +612,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      align-items: stretch;
       position: relative;
       overflow: hidden;
       transition: background 0.5s;
@@ -852,9 +868,8 @@
 
   <!-- Cinematic Intro -->
   <div class="intro" id="introScreen">
-    <div class="intro__vignette"></div>
-    <img src="img/tiger-hq.jpg" alt="" class="intro__tiger">
     <div class="intro__brand">
+      <img src="img/kg-pink-t.png" alt="" style="width:clamp(48px,8vw,72px);opacity:0.9;margin-bottom:16px;">
       <h2 class="intro__title">kgbird</h2>
       <p class="intro__sub">kgbird records</p>
     </div>
@@ -868,9 +883,9 @@
   <div class="cursor-dot" id="cursorDot"></div>
 
   <!-- Nav -->
-  <nav class="nav" style="mix-blend-mode: difference;">
+  <nav class="nav">
     <a href="index.html">
-      <img src="img/kg-white-t.png" alt="kgbird" class="nav__logo">
+      <img src="img/kg-pink-t.png" alt="kgbird" class="nav__logo">
     </a>
     <button class="nav__toggle" aria-label="menu" aria-expanded="false">
       <span></span><span></span>
@@ -885,57 +900,41 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero__vignette"></div>
     <img src="img/tiger-hq.jpg" alt="" class="hero__tiger" aria-hidden="true" id="heroTiger">
     <div class="hero__brand">
       <h1 class="hero__title">kgbird</h1>
       <p style="font-size:0.9rem;color:var(--pink-muted);margin-top:16px;letter-spacing:0.6em;font-weight:300;opacity:0.4;">.</p>
-      <p class="hero__sub" style="margin-top:8px;">bc<span style="opacity:0.4;">,</span> canada</p>
+      <p class="hero__sub" style="margin-top:8px;">bc<span style="opacity:0.6;font-size:1.1em;">,</span> canada</p>
     </div>
     <img src="img/kg-white-t.png" alt="" class="hero__glyph" aria-hidden="true">
     <div class="hero__scroll"><div class="hero__scroll-line"></div></div>
   </section>
 
-  <!-- Marquee -->
+  <!-- Marquee — dual counter-scroll, no bullets -->
   <div class="marquee-section">
-    <div class="marquee__track">
+    <div class="marquee__track marquee__track--left">
       <span class="marquee__item">soft power, after dark.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">everything i touch, bespoke.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">penthouse quiet, marble feet.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">no keys, just presence.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">slow cook, keep it potent.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">no love, no lies.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">empty pockets, cold decembers.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">vacuum breathe, still breathe.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">your eyes, hold mine.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <!-- duplicate for seamless loop -->
       <span class="marquee__item">soft power, after dark.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">everything i touch, bespoke.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">penthouse quiet, marble feet.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">no keys, just presence.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">slow cook, keep it potent.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">no love, no lies.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">empty pockets, cold decembers.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
-      <span class="marquee__item">vacuum breathe, still breathe.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
       <span class="marquee__item">your eyes, hold mine.</span>
-      <span class="marquee__item marquee__item--accent">·</span>
+    </div>
+    <div class="marquee__track marquee__track--right">
+      <span class="marquee__item">everything i touch, bespoke.</span>
+      <span class="marquee__item">no keys, just presence.</span>
+      <span class="marquee__item">no love, no lies.</span>
+      <span class="marquee__item">vacuum breathe, still breathe.</span>
+      <span class="marquee__item">silence is the loudest flex.</span>
+      <span class="marquee__item">everything i touch, bespoke.</span>
+      <span class="marquee__item">no keys, just presence.</span>
+      <span class="marquee__item">no love, no lies.</span>
+      <span class="marquee__item">vacuum breathe, still breathe.</span>
+      <span class="marquee__item">silence is the loudest flex.</span>
     </div>
   </div>
 
@@ -943,12 +942,12 @@
   <section class="manifesto container container--narrow" id="main">
     <div class="manifesto__watermark" aria-hidden="true">.</div>
     <p class="manifesto__text">
-      0 following. 0 responses. 0 comments.
+      0 following. 0 responses. 0 comments. the audio speaks.
     </p>
     <div class="manifesto__rule"></div>
     <p class="manifesto__sub">
-      16 releases. 2 albums. 30,300+ followers.<br>
-      1.2m+ likes.
+      16 releases. 2 albums.<br>
+      1.2m+ likes. 30,300+ followers.
     </p>
   </section>
 
@@ -1008,12 +1007,8 @@
           <div class="counter-item__label">responses</div>
         </div>
         <div class="counter-item">
-          <div class="counter-item__value" data-target="1000000" data-suffix="+">0</div>
+          <div class="counter-item__value" data-target="1200000" data-suffix="+">0</div>
           <div class="counter-item__label">likes</div>
-        </div>
-        <div class="counter-item">
-          <div class="counter-item__value" data-target="10000" data-suffix="+">0</div>
-          <div class="counter-item__label">unread dms</div>
         </div>
       </div>
     </div>
@@ -1026,10 +1021,10 @@
     </div>
     <div class="albums-grid reveal reveal-delay-1">
       <a href="music.html#alpha" class="album-card">
-        <img src="img/tiger-hq.jpg" alt="" class="album-card__img">
+        <img src="img/cover-alpha-v2.png" alt="" class="album-card__img">
         <div class="album-card__overlay">
-          <p class="album-card__era">december 2025</p>
-          <h3 class="album-card__title">Alpha</h3>
+          <p class="album-card__era">debut · 19 december 2025</p>
+          <h3 class="album-card__title">Alpha <span style="font-weight:200;opacity:0.4;font-size:0.7em;">α</span></h3>
           <p class="album-card__info">10 releases · kgbird records</p>
           <p class="album-card__listen">→</p>
         </div>
@@ -1037,8 +1032,8 @@
       <a href="music.html#beta" class="album-card">
         <img src="img/cover-tardigrade.png" alt="" class="album-card__img">
         <div class="album-card__overlay">
-          <p class="album-card__era">january 2026</p>
-          <h3 class="album-card__title">Beta</h3>
+          <p class="album-card__era">current era · january 2026</p>
+          <h3 class="album-card__title">Beta <span style="font-weight:200;opacity:0.4;font-size:0.7em;">β</span></h3>
           <p class="album-card__info">6 releases · kgbird records</p>
           <p class="album-card__listen">→</p>
         </div>
@@ -1049,7 +1044,8 @@
         </div>
         <div class="album-card__overlay" style="opacity:0.7;">
           <p class="album-card__era">upcoming · 2026</p>
-          <h3 class="album-card__title">Gamma</h3>
+
+          <h3 class="album-card__title">Gamma <span style="font-weight:200;opacity:0.4;font-size:0.7em;">Γ</span></h3>
           <p class="album-card__info">kgbird records</p>
           <p class="album-card__listen">→</p>
         </div>
@@ -1099,7 +1095,7 @@
           <div class="doctrine__number">02</div>
           <div>
             <h3 class="doctrine__title">never respond</h3>
-            <p class="doctrine__text">10,000+ dms. 50,000+ comments. zero replies.</p>
+            <p class="doctrine__text">the audio speaks. nothing else.</p>
           </div>
         </div>
         <div class="doctrine__item">

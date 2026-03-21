@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>kgbird · audio</title>
+  <title>kgbird • audio</title>
   <meta name="description" content="kgbird — discography. alpha. beta. 16 releases. stream everywhere.">
   <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/png" href="img/favicon.png">
-  <meta property="og:title" content="kgbird · audio">
+  <meta property="og:title" content="kgbird • audio">
   <meta property="og:description" content="official discography. alpha. beta. gamma.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="kgbird">
@@ -463,29 +463,31 @@
       text-transform: lowercase;
       color: var(--pink-muted);
       margin-bottom: 16px;
-      opacity: 0.7;
+      opacity: 0.85;
     }
 
     .lyrics-text {
       font-family: var(--font-lyrics);
       font-size: clamp(0.95rem, 1.4vw, 1.15rem);
       font-weight: 400;
-      line-height: 2.2;
-      color: var(--ash);
+      line-height: 2.4;
+      color: var(--silver);
+      letter-spacing: 0.02em;
     }
 
     .lyrics-text .lyric-word {
       display: inline;
-      color: var(--ash);
-      transition: color 0.2s ease;
+      color: var(--silver);
+      transition: color 0.3s ease;
     }
 
     .lyrics-text .lyric-word--active {
       color: var(--pure-white);
+      text-shadow: 0 0 20px rgba(212,160,184,0.15);
     }
 
     .lyrics-text .lyric-word--past {
-      color: var(--silver);
+      color: var(--light);
     }
 
     .lyrics-sync-badge {
@@ -674,7 +676,7 @@
   <!-- Navigation -->
   <nav class="nav">
     <a href="index.html">
-      <img src="img/kg-white-t.png" alt="kgbird" class="nav__logo">
+      <img src="img/kg-pink-t.png" alt="kgbird" class="nav__logo">
     </a>
     <button class="nav__toggle" aria-label="menu" aria-expanded="false">
       <span></span><span></span>
@@ -695,7 +697,7 @@
       <p class="music-hero__label">official discography</p>
       <h1 class="music-hero__title">audio</h1>
       <p class="music-hero__stats">
-        17 releases<span>·</span>3 albums<span>·</span>stream everywhere
+        16 releases<span>·</span>2 albums<span>·</span>stream everywhere
       </p>
     </div>
   </section>
@@ -706,16 +708,17 @@
     <section class="album-block reveal" id="alpha">
       <div class="album-header">
         <div class="album-cover">
-          <img src="img/tiger-hq.jpg" alt="Alpha">
+          <img src="img/cover-alpha-v2.png" alt="Alpha">
           <div class="album-cover__border"></div>
         </div>
         <div class="album-info">
-          <p class="album-info__era">december 2025</p>
+          <p class="album-info__era">debut album · 19 december 2025</p>
           <h2 class="album-info__title">Alpha</h2>
           <div class="album-info__meta">
             <span class="album-info__tag">10 releases</span>
             <span class="album-info__tag">kgbird records</span>
           </div>
+          <p class="album-info__desc">the debut. 10 tracks written, produced, mixed, and mastered in silence.</p>
           <div class="album-streams" id="alphaStreams"></div>
         </div>
       </div>
@@ -751,12 +754,13 @@
           <div class="album-cover__border"></div>
         </div>
         <div class="album-info">
-          <p class="album-info__era">january 2026</p>
+          <p class="album-info__era">current era · january 2026</p>
           <h2 class="album-info__title">Beta</h2>
           <div class="album-info__meta">
             <span class="album-info__tag">6 releases</span>
             <span class="album-info__tag">kgbird records</span>
           </div>
+          <p class="album-info__desc">the current era. restraint refined.</p>
           <div class="album-streams" id="betaStreams"></div>
         </div>
       </div>
@@ -914,6 +918,13 @@
         ],
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
+      {
+        num: 6, name: 'Still', src: '../als/Beta/still/still.mp3',
+        sub: 'single',
+        cover: 'img/cover-still-real.png',
+        lyrics: [],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
     ];
 
     const ALPHA_TRACKS = [
@@ -960,7 +971,7 @@
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
       {
-        num: 8, name: 'ACE', src: '../als/Alpha/bulk/ACE.mp3',
+        num: 8, name: 'Ace', src: '../als/Alpha/bulk/ACE.mp3',
         cover: 'img/cover-alpha-v2.png',
         lyrics: [
           { label: '', lines: "Yeah\nLow light\nSame calm\nAce on the table I don't say much\nLights low still feel the rush\nNo rush everything hush\nWhen you this clean one move enough" },
@@ -1048,8 +1059,8 @@
             '<div class="lyrics-sidebar__title">' + t.name + '</div>' +
             '<div class="lyrics-sidebar__album">' + albumName + '</div>' +
             '<div class="lyrics-sidebar__streams">' +
-            '<a href="https://open.spotify.com/artist/kgbird" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_SPOTIFY + ' spotify</a>' +
             '<a href="https://music.apple.com/artist/kgbird" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_APPLE + ' apple music</a>' +
+            '<a href="https://open.spotify.com/artist/kgbird" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_SPOTIFY + ' spotify</a>' +
             '<a href="https://youtube.com/@kgbirdaudio" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_YT + ' youtube</a>' +
             '</div></div>' +
             '<div class="lyrics-body">' + sectionsHTML + creditsHTML + '</div>' +

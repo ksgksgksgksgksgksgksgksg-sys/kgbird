@@ -84,7 +84,7 @@ body {
 
 /* ── Scrollbar ──────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 1px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -95,7 +95,7 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-  background: var(--pink);
+  background: #b8a0b0;
 }
 /* Firefox */
 html {
@@ -205,7 +205,7 @@ html {
 }
 
 .nav__logo {
-  height: clamp(31px, 5.2vw, 47px);
+  height: clamp(34px, 5.8vw, 52px);
   opacity: 0.9;
   transition: opacity 0.3s;
 }
@@ -272,7 +272,7 @@ html {
   display: block;
   width: 20px;
   height: 1px;
-  background: var(--pink);
+  background: #b8a0b0;
   margin: 5px 0;
   transition: all 0.3s;
 }

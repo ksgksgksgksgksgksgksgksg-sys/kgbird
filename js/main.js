@@ -67,12 +67,14 @@ function initNav() {
       const isOpen = links.classList.contains('nav__links--open');
       toggle.setAttribute('aria-expanded', isOpen);
     });
-    // Close nav when tapping outside
-    document.addEventListener('click', (e) => {
-      if (links.classList.contains('nav__links--open') && !nav.contains(e.target)) {
-        links.classList.remove('nav__links--open');
-        toggle.setAttribute('aria-expanded', false);
-      }
+    // Close nav when tapping outside (touchstart for iOS, click for desktop)
+    ['touchstart', 'click'].forEach(evt => {
+      document.addEventListener(evt, (e) => {
+        if (links.classList.contains('nav__links--open') && !nav.contains(e.target)) {
+          links.classList.remove('nav__links--open');
+          toggle.setAttribute('aria-expanded', false);
+        }
+      }, { passive: true });
     });
   }
 }
