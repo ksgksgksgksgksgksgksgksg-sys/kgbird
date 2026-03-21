@@ -555,11 +555,7 @@
         stockDisplay = 'sold out';
         stockClass = 'merch-card__stock--sold-out';
       } else {
-        // Random decrease 0-2 from base, never below 1, never increases
-        const decrease = Math.floor(Math.random() * 3);
-        const currentStock = Math.max(1, item.stock - decrease);
-        item._currentStock = currentStock;
-        stockDisplay = currentStock + ' left';
+        stockDisplay = item.stock + ' left';
         stockClass = 'merch-card__stock--limited';
       }
 
@@ -647,7 +643,6 @@
     });
 
     // Simulate stock changes
-    // Stock is hardcoded — edit code to change. Same on every device.
   </script>
 </body>
 </html>
