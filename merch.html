@@ -685,15 +685,15 @@
         const item = MERCH_ITEMS[i];
         if (!item) return;
         const stockEl = card.querySelector('.merch-card__stock');
-        const btn = card.querySelector('.merch-card__btn');
         if (item.soldOut) {
           if (stockEl) { stockEl.textContent = 'sold out'; stockEl.className = 'merch-card__stock merch-card__stock--sold-out'; }
           card.classList.add('merch-card--sold-out');
-          if (btn) { btn.textContent = 'sold out'; btn.disabled = true; }
+          // Remove click handler by cloning
+          const clone = card.cloneNode(true);
+          card.parentNode.replaceChild(clone, card);
         } else {
           if (stockEl) { stockEl.textContent = (item._currentStock || 0) + ' left'; stockEl.className = 'merch-card__stock merch-card__stock--limited'; }
           card.classList.remove('merch-card--sold-out');
-          if (btn) { btn.textContent = 'select size'; btn.disabled = false; }
         }
       });
     }
