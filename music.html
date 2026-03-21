@@ -998,7 +998,7 @@
       </div>
 
       <div id="alphaTracks" style="position:relative;">
-        <img id="alphaGlyph" src="img/glyph-owl.png" alt="" style="position:absolute;top:50%;left:0;right:0;margin:auto;transform:translateY(-50%);height:35%;opacity:0.03;pointer-events:none;">
+        <img id="alphaGlyph" src="img/glyph-owl.png" alt="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;opacity:0.03;pointer-events:none;">
       </div>
 
       <div class="runtime-bar">
@@ -1289,7 +1289,7 @@
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
       {
-        num: 8, name: 'ACE', sub: 'Alpha', src: '../als/Alpha/released/ACE.wav',
+        num: 8, name: 'ACE', src: '../als/Alpha/released/ACE.wav',
         cover: 'img/cover-v3-pink.png',
         lyrics: [
           { label: '', lines: "yeah\nlow light\nsame calm\nace on the table\ni don't say much\nlights low\nstill feel the rush\nno rush\neverything hush\nwhen you this clean\none move enough" },
@@ -1491,16 +1491,20 @@
       let activePanelId = null;
       let userScrolling = false;
       let userScrollTimer = null;
-      window.addEventListener('wheel', () => {
+      function pauseAutoScroll() {
         userScrolling = true;
         clearTimeout(userScrollTimer);
         userScrollTimer = setTimeout(() => { userScrolling = false; }, 4000);
-      }, { passive: true });
-      window.addEventListener('touchmove', () => {
-        userScrolling = true;
-        clearTimeout(userScrollTimer);
-        userScrollTimer = setTimeout(() => { userScrolling = false; }, 4000);
-      }, { passive: true });
+      }
+      window.addEventListener('wheel', pauseAutoScroll, { passive: true });
+      window.addEventListener('touchmove', pauseAutoScroll, { passive: true });
+      function lyricsInViewport() {
+        if (!activePanelId) return false;
+        const panel = document.getElementById(activePanelId);
+        if (!panel) return false;
+        const rect = panel.getBoundingClientRect();
+        return rect.bottom > 0 && rect.top < window.innerHeight;
+      }
 
       function initPanel(panelId) {
         stop();
@@ -1574,7 +1578,7 @@
             if (!el.classList.contains('lyric-word--active')) {
               el.classList.add('lyric-word--active');
               el.classList.remove('lyric-word--past');
-              if (!userScrolling) {
+              if (!userScrolling && lyricsInViewport()) {
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }
             }
