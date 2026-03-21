@@ -495,11 +495,11 @@ function initFeaturedSingles() {
 
   /* Snippet timestamps (seconds) — each track plays its pre-cut mp3 */
   const SNIPPETS = {
-    ace:      { src: 'audio/ace.mp3',      start: 0,  end: 18 },
-    ledger:   { src: 'audio/ledger.mp3',   start: 0,  end: 18 },
-    access:   { src: 'audio/access.mp3',   start: 0,  end: 18 },
-    receipts: { src: 'audio/receipts.mp3', start: 0,  end: 18 },
-    elite:    { src: 'audio/elite.mp3',    start: 0,  end: 18 }
+    ace:      { src: 'audio/wav/ace.wav' },
+    ledger:   { src: 'audio/wav/ledger.wav' },
+    access:   { src: 'audio/wav/access.wav' },
+    receipts: { src: 'audio/wav/receipts.wav' },
+    elite:    { src: 'audio/wav/elite.wav' }
   };
 
   /* Color drift — matched to each track's actual cover art tones */
