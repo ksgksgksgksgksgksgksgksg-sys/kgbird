@@ -1528,15 +1528,19 @@
         const panel = document.getElementById(panelId);
         if (!panel) return;
 
-        // Wrap every word in every .lyrics-text with a span
+        // Wrap every word in every .lyrics-text with a span, preserving <br>
         panel.querySelectorAll('.lyrics-text').forEach(textEl => {
-          if (textEl.dataset.synced) return; // already wrapped
-          const text = textEl.textContent;
-          const words = text.split(/(\s+)/); // preserve whitespace
-          textEl.innerHTML = words.map(w => {
-            if (/^\s+$/.test(w)) return w; // whitespace stays as-is
-            return '<span class="lyric-word">' + w + '</span>';
-          }).join('');
+          if (textEl.dataset.synced) return;
+          const html = textEl.innerHTML;
+          // Split by <br> first, then wrap words in each line
+          const lines = html.split(/<br\s*\/?>/gi);
+          textEl.innerHTML = lines.map(line => {
+            const words = line.trim().split(/(\s+)/);
+            return words.map(w => {
+              if (/^\s*$/.test(w)) return w;
+              return '<span class="lyric-word">' + w + '</span>';
+            }).join('');
+          }).join('<br>');
           textEl.dataset.synced = '1';
         });
 
