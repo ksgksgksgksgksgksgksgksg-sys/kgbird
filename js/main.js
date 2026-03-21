@@ -383,9 +383,16 @@ document.addEventListener('DOMContentLoaded', () => {
     thumb.style.top = top + 'px';
   }
 
+  let scrollTimer = null;
+
   function showScrollbar() {
     track.classList.add('kg-scrollbar--visible');
+    thumb.classList.add('kg-scrollbar__thumb--scrolling');
     clearTimeout(hideTimer);
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      thumb.classList.remove('kg-scrollbar__thumb--scrolling');
+    }, 150);
     hideTimer = setTimeout(() => {
       if (!isDragging) track.classList.remove('kg-scrollbar--visible');
     }, 1200);

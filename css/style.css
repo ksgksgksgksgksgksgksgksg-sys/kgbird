@@ -98,10 +98,10 @@ html {
   position: fixed;
   top: 0;
   right: 0;
-  width: 8px;
+  width: 4px;
   height: 100vh;
   z-index: 9999;
-  pointer-events: none;                  /* track itself doesn't block clicks */
+  pointer-events: none;
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -111,24 +111,27 @@ html {
 .kg-scrollbar__thumb {
   position: absolute;
   right: 1px;
-  width: 6px;
+  width: 2px;
   min-height: 30px;
-  border-radius: 3px;
-  background: rgba(58,58,58,0.35);
-  pointer-events: auto;                  /* thumb IS interactive */
+  border-radius: 1px;
+  background: rgba(212,160,184,0.5);
+  pointer-events: auto;
   transition: background 0.2s ease, width 0.15s ease, right 0.15s ease;
   cursor: default;
 }
+.kg-scrollbar__thumb--scrolling {
+  background: rgba(212,160,184,0.6);
+}
 .kg-scrollbar__thumb:hover,
 .kg-scrollbar__thumb--hover {
-  background: rgba(212,160,184,0.7);
-  width: 8px;
+  background: rgba(212,160,184,0.8);
+  width: 4px;
   right: 0;
 }
 .kg-scrollbar__thumb:active,
 .kg-scrollbar__thumb--active {
   background: #d4a0b8;
-  width: 8px;
+  width: 4px;
   right: 0;
 }
 
