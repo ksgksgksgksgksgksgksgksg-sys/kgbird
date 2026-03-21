@@ -998,7 +998,7 @@
       </div>
 
       <div id="alphaTracks" style="position:relative;">
-        <img id="alphaGlyph" src="img/glyph-owl.png" alt="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;opacity:0.03;pointer-events:none;transition:left 0.8s ease,width 0.8s ease;">
+        <img id="alphaGlyph" src="img/glyph-owl.png" alt="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:200px;opacity:0.03;pointer-events:none;transition:left 0.8s ease,width 0.8s ease,opacity 0.8s ease;">
       </div>
 
       <div class="runtime-bar">
@@ -1436,15 +1436,16 @@
         document.querySelectorAll('.lyrics-panel--open').forEach(p => p.classList.remove('lyrics-panel--open'));
         // Reset owl position when any panel closes
         const owl = document.getElementById('alphaGlyph');
-        if (owl) { owl.style.left = '50%'; owl.style.transform = 'translate(-50%,-50%)'; owl.style.width = '200px'; }
+        if (owl) { owl.style.left = '50%'; owl.style.transform = 'translate(-50%,-50%)'; owl.style.width = '200px'; owl.style.opacity = '0.03'; }
 
         if (!isOpen) {
           panel.classList.add('lyrics-panel--open');
-          // Shift owl right + bigger when lyrics in Alpha section open
+          // Shift owl right + much bigger when lyrics in Alpha section open
           if (owl && panel.closest('#alphaTracks')) {
-            owl.style.left = '65%';
+            owl.style.left = '60%';
             owl.style.transform = 'translate(-50%,-50%)';
-            owl.style.width = '260px';
+            owl.style.width = '400px';
+            owl.style.opacity = '0.04';
           }
           setTimeout(() => {
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
