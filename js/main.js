@@ -493,13 +493,13 @@ function initFeaturedSingles() {
 
   const CIRCUMFERENCE = 289; // 2 * PI * 46
 
-  /* Snippet timestamps (seconds) — each track plays only this window */
+  /* Snippet timestamps (seconds) — each track plays its pre-cut mp3 */
   const SNIPPETS = {
     ace:      { src: 'audio/ace.mp3',      start: 0,  end: 18 },
     ledger:   { src: 'audio/ledger.mp3',   start: 0,  end: 18 },
     access:   { src: 'audio/access.mp3',   start: 0,  end: 18 },
     receipts: { src: 'audio/receipts.mp3', start: 0,  end: 18 },
-    elite:    { src: '../als/Alpha/released/elite_release/elite.wav', start: 30, end: 48 }
+    elite:    { src: 'audio/elite.mp3',    start: 0,  end: 18 }
   };
 
   /* Color drift — matched to each track's actual cover art tones */
