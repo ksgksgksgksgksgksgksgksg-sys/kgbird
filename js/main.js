@@ -489,15 +489,26 @@ function initFeaturedSingles() {
   let fsAudio = null;
   let fsPlaying = null;
   let fsRaf = null;
+  let fsEndTimer = null;
 
   const CIRCUMFERENCE = 289; // 2 * PI * 46
 
+  /* Snippet timestamps (seconds) — each track plays only this window */
+  const SNIPPETS = {
+    ace:      { src: 'audio/ace.mp3',      start: 0,  end: 18 },
+    ledger:   { src: 'audio/ledger.mp3',   start: 0,  end: 18 },
+    access:   { src: 'audio/access.mp3',   start: 0,  end: 18 },
+    receipts: { src: 'audio/receipts.mp3', start: 0,  end: 18 },
+    elite:    { src: '../als/Alpha/released/elite_release/elite.wav', start: 30, end: 48 }
+  };
+
+  /* Color drift — matched to each track's actual cover art tones */
   const MOODS = {
-    ace:      'radial-gradient(ellipse at 50% 60%, rgba(180,130,160,0.025), transparent 65%)',
-    ledger:   'radial-gradient(ellipse at 50% 60%, rgba(100,140,110,0.025), transparent 65%)',
-    access:   'radial-gradient(ellipse at 50% 60%, rgba(160,130,100,0.025), transparent 65%)',
-    receipts: 'radial-gradient(ellipse at 50% 60%, rgba(140,150,160,0.025), transparent 65%)',
-    elite:    'radial-gradient(ellipse at 50% 60%, rgba(130,110,160,0.025), transparent 65%)'
+    ace:      'radial-gradient(ellipse at 50% 60%, rgba(200,150,190,0.03), rgba(170,130,180,0.015) 40%, transparent 65%)',
+    ledger:   'radial-gradient(ellipse at 50% 60%, rgba(20,60,30,0.035), rgba(10,40,20,0.02) 40%, transparent 65%)',
+    access:   'radial-gradient(ellipse at 50% 60%, rgba(170,140,100,0.03), rgba(150,120,80,0.015) 40%, transparent 65%)',
+    receipts: 'radial-gradient(ellipse at 50% 60%, rgba(160,165,175,0.03), rgba(130,135,140,0.015) 40%, transparent 65%)',
+    elite:    'radial-gradient(ellipse at 50% 60%, rgba(100,105,110,0.03), rgba(70,75,80,0.015) 40%, transparent 65%)'
   };
 
   function resetAll() {
@@ -513,9 +524,14 @@ function initFeaturedSingles() {
 
   function updateRing() {
     if (!fsAudio || !fsPlaying || fsAudio.paused) return;
+    const track = fsPlaying.dataset.track;
+    const snip = SNIPPETS[track];
+    if (!snip) return;
     const fill = fsPlaying.querySelector('.album-av__fill');
-    if (fill && fsAudio.duration) {
-      const pct = fsAudio.currentTime / fsAudio.duration;
+    if (fill) {
+      const elapsed = fsAudio.currentTime - snip.start;
+      const duration = snip.end - snip.start;
+      const pct = Math.max(0, Math.min(1, elapsed / duration));
       const offset = CIRCUMFERENCE * (1 - pct);
       fill.style.transition = 'none';
       fill.style.strokeDashoffset = offset;
@@ -525,9 +541,10 @@ function initFeaturedSingles() {
 
   function stopPlayback() {
     if (fsRaf) cancelAnimationFrame(fsRaf);
+    if (fsEndTimer) { clearTimeout(fsEndTimer); fsEndTimer = null; }
     if (fsAudio) {
       fsAudio.pause();
-      fsAudio.currentTime = 0;
+      fsAudio.removeEventListener('timeupdate', checkSnippetEnd);
     }
     resetAll();
     fsPlaying = null;
@@ -535,9 +552,19 @@ function initFeaturedSingles() {
     if (drift) drift.classList.remove('active');
   }
 
+  function checkSnippetEnd() {
+    if (!fsAudio || !fsPlaying) return;
+    const track = fsPlaying.dataset.track;
+    const snip = SNIPPETS[track];
+    if (snip && fsAudio.currentTime >= snip.end) {
+      stopPlayback();
+    }
+  }
+
   function playTrack(av) {
     const track = av.dataset.track;
-    const src = 'audio/' + track + '.mp3';
+    const snip = SNIPPETS[track];
+    if (!snip) return;
 
     // Same track — toggle off
     if (fsPlaying === av && fsAudio && !fsAudio.paused) {
@@ -557,12 +584,21 @@ function initFeaturedSingles() {
       });
     }
 
-    fsAudio.src = src;
+    fsAudio.src = snip.src;
     fsPlaying = av;
     av.classList.add('album-av--playing');
 
-    fsAudio.play().catch(() => {});
-    fsRaf = requestAnimationFrame(updateRing);
+    // Seek to snippet start once metadata loads, then play
+    const onCanPlay = () => {
+      fsAudio.removeEventListener('canplay', onCanPlay);
+      fsAudio.currentTime = snip.start;
+      fsAudio.play().catch(() => {});
+      fsAudio.addEventListener('timeupdate', checkSnippetEnd);
+      fsRaf = requestAnimationFrame(updateRing);
+    };
+
+    fsAudio.addEventListener('canplay', onCanPlay);
+    fsAudio.load();
 
     // Color drift
     if (drift && MOODS[track]) {
