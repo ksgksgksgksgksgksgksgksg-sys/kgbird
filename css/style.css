@@ -445,7 +445,7 @@ html {
 .hero__scroll-line {
   width: 1px;
   height: 32px;
-  background: linear-gradient(to bottom, var(--ash), transparent);
+  background: linear-gradient(to bottom, rgba(212,160,184,0.4), transparent);
   margin: 0 auto;
   animation: scrollPulse 2s ease-in-out infinite;
 }
