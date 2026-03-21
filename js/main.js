@@ -26,7 +26,7 @@ function scalePunctuation() {
     if (!re.test(node.nodeValue)) return;
     const parent = node.parentElement;
     if (!parent) return;
-    if (parent.closest('script, style, textarea, input, code, pre')) return;
+    if (parent.closest('script, style, textarea, input, code, pre, .lyrics-text, .lyrics-panel, .lyric-word')) return;
     if (parent.classList.contains('punct') || parent.classList.contains('punct-dot') || parent.classList.contains('punct-bullet')) return;
     // Skip flex/grid containers — inserting spans breaks their layout
     const parentDisplay = getComputedStyle(parent).display;
