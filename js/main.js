@@ -160,7 +160,14 @@ const AudioEngine = (() => {
         nameEl.textContent = trackName;
       }
     }
-    if (albumEl) albumEl.textContent = albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName;
+    if (albumEl) {
+      const sym = albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName;
+      if (trackName === 'ACE') {
+        albumEl.innerHTML = '<span style="color:#d4a0b8">' + sym + '</span>';
+      } else {
+        albumEl.textContent = sym;
+      }
+    }
 
     // Update active track styling
     document.querySelectorAll('.track').forEach(t => t.classList.remove('track--playing'));

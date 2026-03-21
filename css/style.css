@@ -261,22 +261,24 @@ html {
   text-decoration: none;
   position: relative;
   transition: color 0.3s;
+  padding: 0 0.15em;
+  margin: 0 -0.15em;
 }
 
 .nav__link::after {
   content: '';
   position: absolute;
   bottom: -4px;
-  left: 50%;
-  right: 50%;
+  left: 0.15em;
+  right: 0.15em;
   height: 1px;
   background: var(--pink);
-  transition: left 0.4s var(--ease-out), right 0.4s var(--ease-out);
+  transform: scaleX(0);
+  transition: transform 0.4s var(--ease-out);
 }
 .nav__link:hover::after,
 .nav__link--active::after {
-  left: 0.15em;
-  right: 0.15em;
+  transform: scaleX(1);
 }
 
 .nav__link:hover {
