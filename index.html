@@ -542,15 +542,20 @@
       opacity: 0.8;
     }
     .era-numeral {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--font-display);
       font-size: 0.65rem;
       font-weight: 300;
-      letter-spacing: 0.35em;
+      letter-spacing: 0.2em;
       color: var(--pink-muted);
-      padding: 4px 0;
+      padding: 6px 8px;
       border-top: 0.5px solid rgba(212,160,184,0.3);
       border-bottom: 0.5px solid rgba(212,160,184,0.3);
+      line-height: 1;
+      min-width: 24px;
+      text-align: center;
     }
 
     .album-card__title {
