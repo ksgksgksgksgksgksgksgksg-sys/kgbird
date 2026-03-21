@@ -1489,6 +1489,18 @@
       let wordEls = [];
       let syncRAF = null;
       let activePanelId = null;
+      let userScrolling = false;
+      let userScrollTimer = null;
+      window.addEventListener('wheel', () => {
+        userScrolling = true;
+        clearTimeout(userScrollTimer);
+        userScrollTimer = setTimeout(() => { userScrolling = false; }, 4000);
+      }, { passive: true });
+      window.addEventListener('touchmove', () => {
+        userScrolling = true;
+        clearTimeout(userScrollTimer);
+        userScrollTimer = setTimeout(() => { userScrolling = false; }, 4000);
+      }, { passive: true });
 
       function initPanel(panelId) {
         stop();
@@ -1562,6 +1574,9 @@
             if (!el.classList.contains('lyric-word--active')) {
               el.classList.add('lyric-word--active');
               el.classList.remove('lyric-word--past');
+              if (!userScrolling) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
             }
           } else {
             el.classList.remove('lyric-word--active', 'lyric-word--past');
