@@ -998,7 +998,7 @@
       </div>
 
       <div id="alphaTracks" style="position:relative;">
-        <img id="alphaGlyph" src="img/glyph-owl.png" alt="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:35%;opacity:0.03;pointer-events:none;border-radius:0;transition:left 0.6s ease,transform 0.6s ease;">
+        <img id="alphaGlyph" src="img/glyph-owl.png" alt="" style="position:absolute;top:50%;left:0;right:0;margin:auto;transform:translateY(-50%);height:35%;opacity:0.03;pointer-events:none;">
       </div>
 
       <div class="runtime-bar">
@@ -1289,7 +1289,7 @@
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
       {
-        num: 8, name: 'Ace', src: '../als/Alpha/bulk/ACE.mp3',
+        num: 8, name: 'ACE', sub: 'Alpha', src: '../als/Alpha/bulk/ACE.mp3',
         cover: 'img/cover-alpha-v2.png',
         lyrics: [
           { label: '', lines: "yeah\nlow light\nsame calm\nace on the table\ni don't say much\nlights low\nstill feel the rush\nno rush\neverything hush\nwhen you this clean\none move enough" },
@@ -1562,8 +1562,6 @@
             if (!el.classList.contains('lyric-word--active')) {
               el.classList.add('lyric-word--active');
               el.classList.remove('lyric-word--past');
-              // Smooth scroll
-              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           } else {
             el.classList.remove('lyric-word--active', 'lyric-word--past');
