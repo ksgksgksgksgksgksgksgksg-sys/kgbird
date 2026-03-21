@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>kgbird • audio</title>
-  <meta name="description" content="kgbird — discography. alpha. beta. 16 releases. stream everywhere.">
-  <meta name="theme-color" content="#000000">
+  <title>kgbird — catalog</title>
+  <meta name="description" content="kgbird — official discography. alpha. beta. 16 releases. stream everywhere.">
+  <meta name="theme-color" content="#080808">
   <link rel="icon" type="image/png" href="img/favicon.png">
-  <meta property="og:title" content="kgbird • audio">
+  <meta property="og:title" content="kgbird — catalog">
   <meta property="og:description" content="official discography. alpha. beta. gamma.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="kgbird">
@@ -17,88 +17,259 @@
   <meta name="twitter:image" content="img/tiger-hq.jpg">
   <link rel="apple-touch-icon" href="img/favicon.png">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <style>
-    /* ── Music Page — Elite Overhaul ─────────────────── */
-
-    .music-hero {
-      height: 60vh;
-      min-height: 400px;
+    /* ── Cinematic Intro ──────────────────────────────── */
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: #050505;
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1.5s cubic-bezier(0.16,1,0.3,1), visibility 1.5s;
+      overflow: hidden;
+    }
+    .intro--done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .intro__brand {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      opacity: 0;
+      animation: introBrand 1.8s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+    }
+    @keyframes introBrand {
+      0% { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    .intro__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 100;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      color: var(--pure-white);
+      -webkit-text-stroke: 0.3px rgba(0,0,0,0.3);
+      margin-right: -0.3em;
+    }
+    .intro__sub {
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.5em;
+      text-transform: lowercase;
+      color: var(--ash);
+      margin-top: 12px;
+      opacity: 0;
+      animation: introSub 1s cubic-bezier(0.16,1,0.3,1) 1.6s forwards;
+    }
+    @keyframes introSub {
+      from { opacity: 0; }
+      to { opacity: 0.5; }
+    }
+    .intro__line {
+      width: 48px;
+      height: 0.5px;
+      background: #d4a0b8;
+      margin-top: 20px;
+      transform: scaleX(0);
+      opacity: 0;
+      z-index: 3;
+      position: relative;
+      animation: introLine 1.5s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+    }
+    @keyframes introLine {
+      0% { transform: scaleX(0); opacity: 0; }
+      100% { transform: scaleX(1); opacity: 0.7; }
+    }
+
+    /* ── Film Grain ────────────────────────────────── */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ── Custom Cursor ─────────────────────────────── */
+    .cursor-dot {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--pink);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s cubic-bezier(0.16,1,0.3,1), height 0.25s cubic-bezier(0.16,1,0.3,1), opacity 0.3s, background 0.3s;
+      opacity: 0;
+      box-shadow: 0 0 12px rgba(212,160,184,0.3);
+    }
+    .cursor-dot--visible { opacity: 0.8; }
+    .cursor-dot--hover {
+      width: 40px;
+      height: 40px;
+      opacity: 0.25;
+      background: var(--pink);
+      box-shadow: 0 0 30px rgba(212,160,184,0.15);
+    }
+    .cursor-dot--text {
+      width: 3px;
+      height: 20px;
+      border-radius: 1px;
+      background: var(--pink-muted);
+      opacity: 0.6;
+      box-shadow: none;
+    }
+
+    /* ── Catalog Hero ─────────────────────────────── */
+    .catalog-hero {
+      height: 70vh;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
-      padding-bottom: 60px;
     }
 
-    .music-hero__bg {
+    .catalog-hero__vignette {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, var(--black) 0%, var(--void) 40%, var(--black) 100%);
-    }
-
-    .music-hero__tiger {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: clamp(300px, 40vw, 500px);
-      opacity: 0.08;
-      filter: grayscale(0.5) brightness(0.6);
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+      z-index: 1;
       pointer-events: none;
     }
 
-    .music-hero__content {
+    .catalog-hero__tiger {
+      position: absolute;
+      width: clamp(360px, 50vw, 640px);
+      opacity: 0;
+      filter: brightness(0.9) contrast(1.2);
+      animation: tigerReveal 4s cubic-bezier(0.16,1,0.3,1) 2s forwards;
+      z-index: 1;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    @keyframes tigerReveal {
+      0% { opacity: 0; transform: scale(1.04); filter: brightness(0) contrast(1.2); }
+      50% { opacity: 0.35; filter: brightness(0.5) contrast(1.2); }
+      100% { opacity: 0.25; transform: scale(1); filter: brightness(0.6) contrast(1.2); }
+    }
+
+    .catalog-hero__brand {
       position: relative;
       z-index: 2;
       text-align: center;
+      opacity: 0;
+      animation: heroReveal 2s cubic-bezier(0.16,1,0.3,1) 2.6s forwards;
     }
 
-    .music-hero__label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.45em;
+    @keyframes heroReveal {
+      0% { opacity: 0; transform: translateY(40px); filter: blur(8px); }
+      60% { filter: blur(0); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .catalog-hero__label {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
       text-transform: lowercase;
-      color: var(--pink-muted);
+      color: var(--ash);
       margin-bottom: 16px;
     }
 
-    .music-hero__title {
+    .catalog-hero__title {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: 300;
-      letter-spacing: 0.2em;
+      font-size: clamp(3.5rem, 10vw, 9rem);
+      font-weight: 200;
+      letter-spacing: 0.25em;
       text-transform: lowercase;
       color: var(--pure-white);
-      line-height: 0.9;
+      line-height: 0.85;
+      margin-right: -0.25em;
+      text-shadow: 0 0 120px rgba(212,160,184,0.04);
     }
 
-    .music-hero__stats {
-      margin-top: 20px;
+    .catalog-hero__stats {
+      margin-top: 24px;
       font-size: 0.8rem;
-      letter-spacing: 0.3em;
+      font-weight: 400;
+      letter-spacing: 0.35em;
       text-transform: lowercase;
-      color: var(--ash);
+      color: var(--muted);
+      margin-right: -0.35em;
     }
 
-    .music-hero__stats span {
-      margin: 0 12px;
-      opacity: 0.3;
+    .catalog-hero__stats span {
+      margin: 0 14px;
+      opacity: 0.25;
     }
 
-    /* ── Album Block ──────────────────────────────────── */
+    .catalog-hero__glyph {
+      position: absolute;
+      bottom: clamp(80px, 12vh, 160px);
+      right: clamp(32px, 5vw, 80px);
+      width: clamp(36px, 4vw, 52px);
+      opacity: 0;
+      animation: glyphReveal 2s cubic-bezier(0.16,1,0.3,1) 4.5s forwards;
+      z-index: 2;
+    }
+
+    @keyframes glyphReveal {
+      0% { opacity: 0; transform: translateY(6px); }
+      100% { opacity: 0.1; transform: translateY(0); }
+    }
+
+    .catalog-hero__scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 4.5s forwards;
+    }
+
+    .catalog-hero__scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--ash), transparent);
+      animation: scrollPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.15; transform: scaleY(1); }
+      50% { opacity: 0.5; transform: scaleY(1.4); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translate(-50%, 20px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    /* ── Album Block ──────────────────────────────── */
     .album-block {
-      padding: clamp(80px, 10vh, 140px) 0;
+      padding: clamp(100px, 12vh, 180px) 0;
       border-top: 1px solid rgba(255,255,255,0.03);
     }
 
     .album-header {
       display: grid;
-      grid-template-columns: clamp(180px, 25vw, 360px) 1fr;
-      gap: clamp(32px, 4vw, 64px);
+      grid-template-columns: clamp(200px, 28vw, 380px) 1fr;
+      gap: clamp(40px, 5vw, 72px);
       align-items: end;
-      margin-bottom: clamp(48px, 6vh, 80px);
+      margin-bottom: clamp(56px, 7vh, 96px);
     }
 
     .album-cover {
@@ -111,71 +282,112 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 1s var(--ease-out);
+      transition: transform 1.2s cubic-bezier(0.16,1,0.3,1), filter 0.8s;
+      filter: brightness(0.85) saturate(0.9);
     }
 
     .album-cover:hover img {
       transform: scale(1.04);
+      filter: brightness(0.95) saturate(1);
     }
 
     .album-cover__border {
       position: absolute;
       inset: 0;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.05);
       pointer-events: none;
     }
 
+    .album-cover__glyph {
+      position: absolute;
+      bottom: -8px;
+      left: -4px;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .album-cover__glyph img {
+      width: clamp(32px, 4vw, 48px);
+      height: clamp(32px, 4vw, 48px);
+      object-fit: contain;
+      opacity: 0.12;
+      mix-blend-mode: screen;
+    }
+
     .album-info__era {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.35em;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .album-info__era-text {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
       text-transform: lowercase;
+      color: var(--ash);
+    }
+
+    .era-numeral {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
       color: var(--pink-muted);
-      margin-bottom: 12px;
+      padding: 5px 8px;
+      border-top: 0.5px solid rgba(212,160,184,0.25);
+      border-bottom: 0.5px solid rgba(212,160,184,0.25);
+      line-height: 1;
+      min-width: 24px;
+      text-align: center;
     }
 
     .album-info__title {
       font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      font-weight: 300;
-      letter-spacing: 0.15em;
-      text-transform: lowercase;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 200;
+      letter-spacing: 0.18em;
+      text-transform: none;
       color: var(--pure-white);
-      line-height: 1;
-      margin-bottom: 16px;
+      line-height: 0.95;
+      margin-bottom: 20px;
     }
 
     .album-info__meta {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .album-info__tag {
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.7rem;
+      font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--muted);
       padding: 6px 14px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .album-info__desc {
       font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 400;
+      font-size: 0.88rem;
+      font-weight: 300;
       color: var(--silver);
-      line-height: 1.8;
-      max-width: 500px;
+      line-height: 1.9;
+      max-width: 480px;
     }
 
     .album-streams {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 24px;
+      margin-top: 28px;
     }
 
     .album-stream-btn {
@@ -183,20 +395,40 @@
       align-items: center;
       gap: 8px;
       padding: 10px 20px;
-      border: 1px solid var(--slate);
+      border: 1px solid rgba(255,255,255,0.06);
       color: var(--silver);
       text-decoration: none;
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.72rem;
+      font-weight: 400;
       letter-spacing: 0.15em;
       text-transform: lowercase;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .album-stream-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--pink-ghost);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .album-stream-btn:hover::before {
+      transform: translateY(0);
     }
 
     .album-stream-btn:hover {
       border-color: var(--pink-muted);
       color: var(--white);
-      background: var(--pink-ghost);
+    }
+
+    .album-stream-btn svg,
+    .album-stream-btn span {
+      position: relative;
+      z-index: 1;
     }
 
     .album-stream-btn svg {
@@ -205,20 +437,20 @@
       fill: currentColor;
     }
 
-    /* ── Track Row ────────────────────────────────────── */
+    /* ── Track Row ────────────────────────────────── */
     .tracklist-header {
       display: grid;
       grid-template-columns: 40px 1fr 60px 60px 80px;
       gap: 12px;
-      padding: 0 0 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 0 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       margin-bottom: 4px;
     }
 
     .tracklist-header span {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.25em;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
       text-transform: lowercase;
       color: var(--ash);
     }
@@ -228,7 +460,7 @@
     }
 
     .track-row {
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.025);
     }
 
     .track-main {
@@ -238,39 +470,40 @@
       align-items: center;
       padding: 18px 0;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
       position: relative;
     }
 
     .track-main:hover {
-      background: rgba(255,255,255,0.015);
-      padding-left: 8px;
-      margin-left: -8px;
-      padding-right: 8px;
-      margin-right: -8px;
+      background: rgba(255,255,255,0.012);
+      padding-left: 10px;
+      margin-left: -10px;
+      padding-right: 10px;
+      margin-right: -10px;
     }
 
     .track-num {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 300;
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 400;
       color: var(--ash);
       text-align: center;
       transition: color 0.3s;
+      font-variant-numeric: tabular-nums;
     }
 
     .track-main:hover .track-num {
-      color: var(--pink);
+      color: var(--pink-muted);
     }
 
     .track-title-area {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .track-name {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 400;
       letter-spacing: 0.06em;
       color: var(--light);
@@ -291,9 +524,9 @@
     }
 
     .track-subtitle {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      color: var(--ash);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.15);
       text-transform: lowercase;
     }
 
@@ -303,13 +536,13 @@
 
     .track-action-btn {
       background: none;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.06);
       color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.7rem;
+      font-weight: 400;
       letter-spacing: 0.15em;
       text-transform: lowercase;
-      padding: 5px 10px;
+      padding: 4px 10px;
       cursor: pointer;
       transition: all 0.3s;
       font-family: var(--font-body);
@@ -326,14 +559,15 @@
     }
 
     .track-duration {
-      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      font-size: 0.78rem;
       color: var(--ash);
       text-align: right;
       font-variant-numeric: tabular-nums;
       letter-spacing: 0.05em;
     }
 
-    /* ── Waveform bars ────────────────────────────────── */
+    /* ── Waveform bars ────────────────────────────── */
     .wave-bars {
       display: inline-flex;
       gap: 2px;
@@ -368,7 +602,7 @@
       to { transform: scaleY(1); }
     }
 
-    /* ── Lyrics Panel (expands below track) ──────────── */
+    /* ── Lyrics Panel (expands below track) ──────── */
     .lyrics-panel {
       max-height: 0;
       overflow: hidden;
@@ -382,10 +616,10 @@
     }
 
     .lyrics-inner {
-      padding: 40px 0 48px;
+      padding: 48px 0 56px;
       display: grid;
       grid-template-columns: 200px 1fr;
-      gap: 40px;
+      gap: 48px;
     }
 
     .lyrics-sidebar {
@@ -400,11 +634,12 @@
       object-fit: cover;
       margin-bottom: 16px;
       opacity: 0.7;
+      filter: brightness(0.9) saturate(0.85);
     }
 
     .lyrics-sidebar__title {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 300;
       letter-spacing: 0.1em;
       text-transform: lowercase;
@@ -413,21 +648,21 @@
     }
 
     .lyrics-sidebar__album {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
       text-transform: lowercase;
       color: var(--muted);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .lyrics-sidebar__streams {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
 
     .lyrics-sidebar__stream-link {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       letter-spacing: 0.15em;
       text-transform: lowercase;
       color: var(--ash);
@@ -453,23 +688,23 @@
     }
 
     .lyrics-section {
-      margin-bottom: 36px;
+      margin-bottom: 40px;
     }
 
     .lyrics-section__label {
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 0.7rem;
+      font-weight: 400;
       letter-spacing: 0.3em;
       text-transform: lowercase;
       color: var(--pink-muted);
       margin-bottom: 16px;
-      opacity: 0.85;
+      opacity: 0.75;
     }
 
     .lyrics-text {
       font-family: var(--font-lyrics);
-      font-size: clamp(0.95rem, 1.4vw, 1.15rem);
-      font-weight: 400;
+      font-size: clamp(0.95rem, 1.4vw, 1.12rem);
+      font-weight: 300;
       line-height: 2.4;
       color: var(--silver);
       letter-spacing: 0.02em;
@@ -483,7 +718,7 @@
 
     .lyrics-text .lyric-word--active {
       color: var(--pure-white);
-      text-shadow: 0 0 20px rgba(212,160,184,0.15);
+      text-shadow: 0 0 20px rgba(212,160,184,0.12);
     }
 
     .lyrics-text .lyric-word--past {
@@ -494,11 +729,11 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--pink-muted);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       opacity: 0;
       transition: opacity 0.5s;
     }
@@ -506,8 +741,8 @@
       opacity: 1;
     }
     .lyrics-sync-badge__dot {
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       background: var(--pink);
       border-radius: 50%;
       animation: syncPulse 1.5s ease-in-out infinite;
@@ -520,7 +755,7 @@
     .lyrics-credits {
       margin-top: 48px;
       padding-top: 32px;
-      border-top: 1px solid rgba(255,255,255,0.04);
+      border-top: 1px solid rgba(255,255,255,0.03);
     }
 
     .credits-grid {
@@ -533,11 +768,11 @@
       display: flex;
       flex-direction: column;
       padding: 16px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.025);
     }
 
     .credit-tag__label {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 400;
       letter-spacing: 0.25em;
       text-transform: lowercase;
@@ -546,7 +781,7 @@
     }
 
     .credit-tag__value {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 400;
       letter-spacing: 0.05em;
       color: var(--pink-muted);
@@ -556,61 +791,61 @@
     .credit-release-info {
       margin-top: 24px;
       padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.04);
+      border-top: 1px solid rgba(255,255,255,0.03);
     }
 
     .credit-release-info p {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 0.1em;
       text-transform: lowercase;
-      color: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.1);
       line-height: 2;
     }
 
     .credit-release-info p:first-child {
       color: var(--ash);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       letter-spacing: 0.15em;
       margin-bottom: 4px;
     }
 
-    /* ── Album Divider ────────────────────────────────── */
+    /* ── Album Divider ────────────────────────────── */
     .album-divider {
       display: flex;
       align-items: center;
-      gap: 24px;
-      padding: 60px 0;
+      gap: 28px;
+      padding: 0;
     }
 
     .album-divider__line {
       flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.06), transparent);
+      height: 0.5px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
     }
 
     .album-divider__glyph {
-      width: 32px;
-      opacity: 0.15;
+      width: 28px;
+      opacity: 0.1;
     }
 
-    /* ── Runtime ──────────────────────────────────────── */
+    /* ── Runtime ──────────────────────────────────── */
     .runtime-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 20px 0;
-      margin-top: 8px;
-      border-top: 1px solid rgba(255,255,255,0.04);
+      margin-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.03);
     }
 
     .runtime-bar span {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       letter-spacing: 0.2em;
       text-transform: lowercase;
       color: var(--ash);
     }
 
-    /* ── Responsive ───────────────────────────────────── */
+    /* ── Responsive ───────────────────────────────── */
     @media (max-width: 768px) {
       .album-header {
         grid-template-columns: 1fr;
@@ -618,8 +853,24 @@
       }
 
       .album-cover {
-        max-width: 260px;
+        max-width: 280px;
         margin: 0 auto;
+      }
+
+      .album-info__era {
+        justify-content: center;
+      }
+
+      .album-info__meta {
+        justify-content: center;
+      }
+
+      .album-info__desc {
+        margin: 0 auto;
+      }
+
+      .album-streams {
+        justify-content: center;
       }
 
       .tracklist-header {
@@ -658,20 +909,30 @@
         width: 60px;
         margin-bottom: 0;
       }
-    }
 
-    .grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      .cursor-dot { display: none; }
     }
   </style>
 </head>
-<body class="page-enter">
+<body>
+  <div id="mood-drift"></div>
+  <a href="#main" class="skip-nav">skip to content</a>
+
+  <!-- Cinematic Intro -->
+  <div class="intro" id="introScreen">
+    <div class="intro__brand">
+      <img src="img/kg-pink-t.png" alt="" style="width:clamp(48px,8vw,72px);opacity:0.9;margin-bottom:16px;">
+      <h2 class="intro__title">kgbird</h2>
+      <p style="font-size:0.55rem;letter-spacing:0.3em;color:var(--ash);margin-top:20px;opacity:0;animation:introSub 1s cubic-bezier(0.16,1,0.3,1) 2s forwards;"><span style="font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.65rem;">©</span> <span style="font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.65rem;">℗</span> 2026 kgbird records</p>
+    </div>
+    <div class="intro__line"></div>
+  </div>
+
+  <!-- Film Grain -->
   <div class="grain"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
 
   <!-- Navigation -->
   <nav class="nav">
@@ -683,68 +944,28 @@
     </button>
     <ul class="nav__links">
       <li><a href="about.html" class="nav__link">about</a></li>
-      <li><a href="music.html" class="nav__link nav__link--active">audio</a></li>
+      <li><a href="music.html" class="nav__link nav__link--active">catalog</a></li>
       <li><a href="merch.html" class="nav__link">merch</a></li>
       <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
     </ul>
   </nav>
 
   <!-- Hero -->
-  <section class="music-hero">
-    <div class="music-hero__bg"></div>
-    <img src="img/tiger-hq.jpg" alt="" class="music-hero__tiger" aria-hidden="true">
-    <div class="music-hero__content">
-      <p class="music-hero__label">official discography</p>
-      <h1 class="music-hero__title">audio</h1>
-      <p class="music-hero__stats">
+  <section class="catalog-hero">
+    <div class="catalog-hero__vignette"></div>
+    <img src="img/tiger-hq.jpg" alt="" class="catalog-hero__tiger" aria-hidden="true" id="heroTiger">
+    <div class="catalog-hero__brand">
+      <p class="catalog-hero__label">official discography</p>
+      <h1 class="catalog-hero__title">catalog</h1>
+      <p class="catalog-hero__stats">
         16 releases<span>·</span>2 albums<span>·</span>stream everywhere
       </p>
     </div>
+    <img src="img/glyph-owl.jpg" alt="" class="catalog-hero__glyph" aria-hidden="true">
+    <div class="catalog-hero__scroll"><div class="catalog-hero__scroll-line"></div></div>
   </section>
 
-  <main class="container">
-
-    <!-- ═══ ALBUM: ALPHA — DEBUT ═══ -->
-    <section class="album-block reveal" id="alpha">
-      <div class="album-header">
-        <div class="album-cover">
-          <img src="img/cover-alpha-v2.png" alt="Alpha">
-          <div class="album-cover__border"></div>
-        </div>
-        <div class="album-info">
-          <p class="album-info__era">debut album · 19 december 2025</p>
-          <h2 class="album-info__title">Alpha</h2>
-          <div class="album-info__meta">
-            <span class="album-info__tag">10 releases</span>
-            <span class="album-info__tag">kgbird records</span>
-          </div>
-          <p class="album-info__desc">the debut. 10 tracks written, produced, mixed, and mastered in silence.</p>
-          <div class="album-streams" id="alphaStreams"></div>
-        </div>
-      </div>
-
-      <div class="tracklist-header">
-        <span>#</span>
-        <span>title</span>
-        <span style="text-align:center">play</span>
-        <span style="text-align:center">lyrics</span>
-        <span style="text-align:right">duration</span>
-      </div>
-
-      <div id="alphaTracks"></div>
-
-      <div class="runtime-bar">
-        <span id="alphaRuntime">—</span>
-        <span>© ℗ 2025 kgbird records</span>
-      </div>
-    </section>
-
-    <!-- Divider -->
-    <div class="album-divider">
-      <div class="album-divider__line"></div>
-      <img src="img/kg-white-t.png" alt="" class="album-divider__glyph" aria-hidden="true">
-      <div class="album-divider__line"></div>
-    </div>
+  <main class="container" id="main">
 
     <!-- ═══ ALBUM: BETA — CURRENT ERA ═══ -->
     <section class="album-block reveal" id="beta">
@@ -752,9 +973,13 @@
         <div class="album-cover">
           <img src="img/cover-tardigrade.png" alt="Beta">
           <div class="album-cover__border"></div>
+          <span class="album-cover__glyph"><img src="img/glyph-falcon.jpg" alt=""></span>
         </div>
         <div class="album-info">
-          <p class="album-info__era">current era · january 2026</p>
+          <div class="album-info__era">
+            <span class="era-numeral">❘❘</span>
+            <span class="album-info__era-text">current era · january 2026</span>
+          </div>
           <h2 class="album-info__title">Beta</h2>
           <div class="album-info__meta">
             <span class="album-info__tag">6 releases</span>
@@ -788,16 +1013,65 @@
       <div class="album-divider__line"></div>
     </div>
 
+    <!-- ═══ ALBUM: ALPHA — DEBUT ═══ -->
+    <section class="album-block reveal" id="alpha">
+      <div class="album-header">
+        <div class="album-cover">
+          <img src="img/cover-alpha-v2.png" alt="Alpha">
+          <div class="album-cover__border"></div>
+          <span class="album-cover__glyph"><img src="img/glyph-owl.jpg" alt=""></span>
+        </div>
+        <div class="album-info">
+          <div class="album-info__era">
+            <span class="era-numeral">❘</span>
+            <span class="album-info__era-text">debut album · 19 december 2025</span>
+          </div>
+          <h2 class="album-info__title">Alpha</h2>
+          <div class="album-info__meta">
+            <span class="album-info__tag">10 releases</span>
+            <span class="album-info__tag">kgbird records</span>
+          </div>
+          <p class="album-info__desc">the debut. 10 tracks written, produced, mixed, and mastered in silence.</p>
+          <div class="album-streams" id="alphaStreams"></div>
+        </div>
+      </div>
+
+      <div class="tracklist-header">
+        <span>#</span>
+        <span>title</span>
+        <span style="text-align:center">play</span>
+        <span style="text-align:center">lyrics</span>
+        <span style="text-align:right">duration</span>
+      </div>
+
+      <div id="alphaTracks"></div>
+
+      <div class="runtime-bar">
+        <span id="alphaRuntime">—</span>
+        <span>© ℗ 2025 kgbird records</span>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="album-divider">
+      <div class="album-divider__line"></div>
+      <img src="img/kg-white-t.png" alt="" class="album-divider__glyph" aria-hidden="true">
+      <div class="album-divider__line"></div>
+    </div>
+
     <!-- ═══ GAMMA — UPCOMING ═══ -->
-    <section class="album-block reveal" id="gamma" style="opacity: 0.5;">
+    <section class="album-block reveal" id="gamma" style="opacity: 0.45;">
       <div class="album-header">
         <div class="album-cover" style="background: var(--charcoal); display:flex; align-items:center; justify-content:center;">
-          <img src="img/kg-white-t.png" alt="" style="width: 22%; opacity: 0.1;">
+          <img src="img/kg-white-t.png" alt="" style="width: 20%; opacity: 0.08;">
           <div class="album-cover__border"></div>
         </div>
         <div class="album-info">
-          <p class="album-info__era" style="color: var(--ash);">upcoming</p>
-          <h2 class="album-info__title">Gamma</h2>
+          <div class="album-info__era">
+            <span class="era-numeral">❘❘❘</span>
+            <span class="album-info__era-text" style="color: rgba(255,255,255,0.15);">upcoming</span>
+          </div>
+          <h2 class="album-info__title" style="opacity:0.4;">Gamma</h2>
           <div class="album-info__meta">
             <span class="album-info__tag">2026</span>
             <span class="album-info__tag">kgbird records</span>
@@ -840,16 +1114,57 @@
     </p>
     <div class="footer__links" style="margin-top:28px;">
       <a href="about.html" class="footer__link">about</a>
-      <a href="music.html" class="footer__link">audio</a>
+      <a href="music.html" class="footer__link">catalog</a>
       <a href="merch.html" class="footer__link">merch</a>
     </div>
     <a href="mailto:support@kgbird.ca" style="display:inline-block;margin-top:20px;font-size:0.7rem;letter-spacing:0.15em;color:var(--ash);text-decoration:none;transition:color 0.3s;">support@kgbird.ca</a>
   </footer>
 
   <script src="js/analytics.js"></script>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=6"></script>
   <script>
-    KG_ANALYTICS.pageView('music');
+    KG_ANALYTICS.pageView('catalog');
+
+    /* ── Cinematic Intro ──────────────────────────────── */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('introScreen').classList.add('intro--done');
+      }, 2800);
+    });
+
+    /* ── Custom Cursor ─────────────────────────────── */
+    const cursorDot = document.getElementById('cursorDot');
+    if (cursorDot && window.innerWidth > 768) {
+      let mouseX = 0, mouseY = 0, curX = 0, curY = 0;
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.classList.add('cursor-dot--visible');
+      });
+      function updateCursor() {
+        curX += (mouseX - curX) * 0.15;
+        curY += (mouseY - curY) * 0.15;
+        cursorDot.style.left = curX + 'px';
+        cursorDot.style.top = curY + 'px';
+        requestAnimationFrame(updateCursor);
+      }
+      updateCursor();
+      document.querySelectorAll('a, button, .album-cover, .track-row, .album-stream-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursorDot.classList.add('cursor-dot--hover'); cursorDot.classList.remove('cursor-dot--text'); });
+        el.addEventListener('mouseleave', () => { cursorDot.classList.remove('cursor-dot--hover'); });
+      });
+    }
+
+    /* ── Parallax Tiger ────────────────────────────── */
+    const heroTiger = document.getElementById('heroTiger');
+    if (heroTiger) {
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y < window.innerHeight) {
+          heroTiger.style.transform = `translateY(${y * 0.12}px) scale(${1 + y * 0.00008})`;
+        }
+      }, { passive: true });
+    }
 
     /* ════════════════════════════════════════════════════
        TRACK DATA — All 16 releases
@@ -1007,9 +1322,9 @@
     function renderStreams(containerId) {
       const c = document.getElementById(containerId);
       c.innerHTML = `
-        <a href="https://music.apple.com/artist/kgbird" target="_blank" class="album-stream-btn">${SVG_APPLE} apple music</a>
-        <a href="https://open.spotify.com/artist/kgbird" target="_blank" class="album-stream-btn">${SVG_SPOTIFY} spotify</a>
-        <a href="https://youtube.com/@kgbirdaudio" target="_blank" class="album-stream-btn">${SVG_YT} youtube</a>
+        <a href="https://music.apple.com/artist/kgbird" target="_blank" class="album-stream-btn">${SVG_APPLE} <span>apple music</span></a>
+        <a href="https://open.spotify.com/artist/kgbird" target="_blank" class="album-stream-btn">${SVG_SPOTIFY} <span>spotify</span></a>
+        <a href="https://youtube.com/@kgbirdaudio" target="_blank" class="album-stream-btn">${SVG_YT} <span>youtube</span></a>
       `;
     }
 
@@ -1144,6 +1459,24 @@
 
     loadDurations(BETA_TRACKS, 'beta');
     loadDurations(ALPHA_TRACKS, 'alpha');
+
+    /* ── Stagger reveal for album blocks ──────────── */
+    document.querySelectorAll('.album-block').forEach((block, i) => {
+      block.style.opacity = block.id === 'gamma' ? '0.45' : '0';
+      block.style.transform = 'translateY(40px)';
+      block.style.transition = `all 1s cubic-bezier(0.16,1,0.3,1) ${i * 0.15}s`;
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = entry.target.id === 'gamma' ? '0.45' : '1';
+            entry.target.style.transform = 'translateY(0)';
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      obs.observe(block);
+    });
 
     /* ════════════════════════════════════════════════════
        LYRIC AUTO-SYNC ENGINE v2
