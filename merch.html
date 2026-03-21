@@ -19,6 +19,15 @@
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/style.css?v=5">
   <style>
+    .intro { position:fixed; inset:0; z-index:10000; background:#050505; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 1.5s cubic-bezier(0.16,1,0.3,1), visibility 1.5s; overflow:hidden; }
+    .intro--done { opacity:0; visibility:hidden; pointer-events:none; }
+    .intro__brand { position:relative; z-index:3; text-align:center; opacity:0; animation:introBrand 1.8s cubic-bezier(0.16,1,0.3,1) 0.4s forwards; }
+    @keyframes introBrand { 0%{opacity:0;transform:translateY(12px);filter:blur(4px);} 100%{opacity:1;transform:translateY(0);filter:blur(0);} }
+    .intro__title { font-family:var(--font-display); font-size:clamp(2.5rem,7vw,5rem); font-weight:100; letter-spacing:0.3em; text-transform:lowercase; color:var(--pure-white); -webkit-text-stroke:0.3px rgba(0,0,0,0.3); margin-right:-0.3em; }
+    .intro__line { width:48px; height:0.5px; background:#d4a0b8; margin-top:20px; transform:scaleX(0); opacity:0; z-index:3; position:relative; animation:introLine 1.5s cubic-bezier(0.16,1,0.3,1) 0.8s forwards; }
+    @keyframes introLine { 0%{transform:scaleX(0);opacity:0;} 100%{transform:scaleX(1);opacity:0.7;} }
+    @keyframes introSub { from{opacity:0;} to{opacity:0.5;} }
+
     .merch-header {
       padding: clamp(120px, 15vh, 200px) 0 clamp(20px, 3vh, 40px);
       text-align: center;
@@ -360,6 +369,15 @@
   </style>
 </head>
 <body class="page-enter">
+  <div class="intro" id="introScreen">
+    <div class="intro__brand">
+      <img src="img/kg-pink-t.png" alt="" style="width:clamp(48px,8vw,72px);opacity:0.9;margin-bottom:16px;">
+      <h2 class="intro__title">kgbird</h2>
+      <p style="font-size:0.55rem;letter-spacing:0.3em;color:var(--ash);margin-top:20px;opacity:0;animation:introSub 1s cubic-bezier(0.16,1,0.3,1) 2.4s forwards;"><span style="font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.65rem;">©</span> <span style="font-family:'JetBrains Mono','SF Mono',monospace;font-size:0.65rem;">℗</span> 2026 kgbird records</p>
+    </div>
+    <div class="intro__line"></div>
+  </div>
+
   <div style="position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.022;background-image:url('data:image/svg+xml,%3Csvg viewBox=%270 0 256 256%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E');"></div>
 
   <!-- Navigation -->
@@ -429,6 +447,13 @@
 
   <script src="js/analytics.js"></script>
   <script src="js/main.js?v=6"></script>
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('introScreen').classList.add('intro--done');
+      }, 3200);
+    });
+  </script>
   <script>
     KG_ANALYTICS.pageView('merch');
 
