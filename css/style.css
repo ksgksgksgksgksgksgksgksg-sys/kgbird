@@ -444,13 +444,19 @@ html {
 }
 
 .hero__avatar {
-  width: clamp(70px, 10vw, 110px);
-  height: clamp(70px, 10vw, 110px);
+  width: clamp(52px, 6vw, 72px);
+  height: clamp(52px, 6vw, 72px);
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: clamp(16px, 2vh, 28px);
-  opacity: 0.9;
-  border: 1px solid rgba(184,160,176,0.12);
+  margin-bottom: clamp(20px, 3vh, 36px);
+  opacity: 0.35;
+  filter: grayscale(0.6) brightness(0.8);
+  border: none;
+  transition: opacity 0.6s ease, filter 0.6s ease;
+}
+.hero__avatar:hover {
+  opacity: 0.7;
+  filter: grayscale(0.2) brightness(0.9);
 }
 
 .manifesto__text {
