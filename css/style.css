@@ -444,14 +444,16 @@ html {
 }
 
 .hero__avatar {
-  width: clamp(52px, 6vw, 72px);
-  height: clamp(52px, 6vw, 72px);
+  width: clamp(58px, 7vw, 82px);
+  height: clamp(58px, 7vw, 82px);
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: clamp(20px, 3vh, 36px);
   opacity: 0.4;
   filter: grayscale(1) contrast(1.2) brightness(0.85);
   border: none;
+  -webkit-mask-image: radial-gradient(circle, #000 40%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 40%, transparent 70%);
   transition: opacity 0.6s ease, filter 0.6s ease;
 }
 .hero__avatar:hover {
