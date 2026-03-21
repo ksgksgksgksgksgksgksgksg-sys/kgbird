@@ -647,25 +647,33 @@
 
     // Simulate stock changes
     setInterval(() => {
-      const available = MERCH_ITEMS.filter(i => !i.soldOut);
+      const available = MERCH_ITEMS.filter(i => !i.soldOut && i._currentStock > 0);
       if (!available.length) return;
       const item = available[Math.floor(Math.random() * available.length)];
-      if (item._currentStock && item._currentStock > 1 && Math.random() > 0.7) {
+      if (Math.random() > 0.6) {
         item._currentStock--;
-        // Update DOM
-        const cards = document.querySelectorAll('.merch-card:not(.merch-card--sold-out)');
+        const cards = document.querySelectorAll('.merch-card');
         cards.forEach(card => {
           const nameEl = card.querySelector('.merch-card__name');
           if (nameEl && nameEl.textContent === item.name) {
             const stockEl = card.querySelector('.merch-card__stock');
-            stockEl.textContent = item._currentStock + ' left';
+            if (item._currentStock <= 0) {
+              item.soldOut = true;
+              stockEl.textContent = 'sold out';
+              stockEl.className = 'merch-card__stock merch-card__stock--sold-out';
+              card.classList.add('merch-card--sold-out');
+              const btn = card.querySelector('.merch-card__btn');
+              if (btn) { btn.textContent = 'sold out'; btn.disabled = true; }
+            } else {
+              stockEl.textContent = item._currentStock + ' left';
+            }
             stockEl.style.animation = 'none';
-            stockEl.offsetHeight; // reflow
+            stockEl.offsetHeight;
             stockEl.style.animation = '';
           }
         });
       }
-    }, 45000); // Every 45 seconds
+    }, 12000);
   </script>
 </body>
 </html>
