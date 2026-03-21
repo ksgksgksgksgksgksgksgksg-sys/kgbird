@@ -153,8 +153,14 @@ const AudioEngine = (() => {
     // Update info
     const nameEl = playerEl.querySelector('.player__track-name');
     const albumEl = playerEl.querySelector('.player__album-name');
-    if (nameEl) nameEl.textContent = trackName;
-    if (albumEl) albumEl.textContent = albumName;
+    if (nameEl) {
+      if (trackName === 'ACE') {
+        nameEl.innerHTML = '<span style="color:#d4a0b8">ACE</span>';
+      } else {
+        nameEl.textContent = trackName;
+      }
+    }
+    if (albumEl) albumEl.textContent = albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName;
 
     // Update active track styling
     document.querySelectorAll('.track').forEach(t => t.classList.remove('track--playing'));

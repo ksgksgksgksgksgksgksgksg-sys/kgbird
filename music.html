@@ -727,6 +727,14 @@
       text-shadow: 0 0 20px rgba(212,160,184,0.12);
     }
 
+    .lyrics-text .lyric-word--ace.lyric-word--active {
+      color: var(--pink);
+    }
+
+    .lyrics-text .lyric-word--ace.lyric-word--past {
+      color: var(--pink-muted);
+    }
+
     .lyrics-text .lyric-word--past {
       color: var(--light);
     }
@@ -795,8 +803,8 @@
     }
 
     .credit-release-info {
-      margin-top: 24px;
-      padding-top: 20px;
+      margin-top: 48px;
+      padding-top: 32px;
       border-top: 1px solid rgba(255,255,255,0.03);
     }
 
@@ -1538,6 +1546,7 @@
             const words = line.trim().split(/(\s+)/);
             return words.map(w => {
               if (/^\s*$/.test(w)) return w;
+              if (/^ace$/i.test(w.replace(/[^a-zA-Z]/g, ''))) return '<span class="lyric-word lyric-word--ace">' + w + '</span>';
               return '<span class="lyric-word">' + w + '</span>';
             }).join('');
           }).join('<br>');

@@ -261,23 +261,22 @@ html {
   text-decoration: none;
   position: relative;
   transition: color 0.3s;
-  padding-right: 0;
-  margin-right: -0.3em;
 }
 
 .nav__link::after {
   content: '';
   position: absolute;
   bottom: -4px;
-  left: 0;
-  width: 0;
+  left: 50%;
+  right: 50%;
   height: 1px;
   background: var(--pink);
-  transition: width 0.4s var(--ease-out);
+  transition: left 0.4s var(--ease-out), right 0.4s var(--ease-out);
 }
 .nav__link:hover::after,
 .nav__link--active::after {
-  width: 100%;
+  left: 0.15em;
+  right: 0.15em;
 }
 
 .nav__link:hover {
@@ -816,14 +815,12 @@ html {
   font-weight: 400;
   color: var(--white);
   letter-spacing: 0.05em;
-  text-transform: lowercase;
 }
 
 .player__album-name {
   font-size: 0.75rem;
   color: var(--muted);
   letter-spacing: 0.1em;
-  text-transform: lowercase;
   margin-top: 2px;
 }
 
@@ -1379,7 +1376,7 @@ html {
 
 /* ── Footer ─────────────────────────────────────────── */
 .footer {
-  padding: 100px 0 56px;
+  padding: 100px 0;
   border-top: 1px solid rgba(255,255,255,0.03);
   text-align: center;
 }
