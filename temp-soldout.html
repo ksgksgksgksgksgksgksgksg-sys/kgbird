@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sold out preview</title>
+<link rel="stylesheet" href="css/style.css?v=5">
+<style>
+body { background: #080808; padding: 60px 40px; }
+.preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px; margin: 0 auto; }
+h2 { text-align: center; font-family: var(--font-display); font-weight: 200; letter-spacing: 0.3em; color: var(--ash); font-size: 0.8rem; margin-bottom: 40px; }
+.merch-card { background: var(--dark); border: 1px solid rgba(255,255,255,0.04); padding: 32px 24px; text-align: center; opacity: 0.5; }
+.merch-card__shape { width: 80px; height: 80px; margin: 0 auto 20px; background: var(--charcoal); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.merch-card__shape svg { width: 40px; height: 40px; stroke: var(--ash); stroke-width: 1; fill: none; opacity: 0.3; }
+.merch-card__name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; letter-spacing: 0.15em; color: var(--silver); margin-bottom: 4px; }
+.merch-card__type { font-size: 0.65rem; letter-spacing: 0.25em; color: var(--ash); margin-bottom: 12px; }
+.merch-card__price { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; text-decoration: line-through; opacity: 0.5; }
+.merch-card__stock { font-size: 0.6rem; letter-spacing: 0.3em; color: var(--pink-muted); margin-bottom: 16px; }
+.merch-card__edition { font-size: 0.55rem; letter-spacing: 0.2em; color: var(--slate); }
+.merch-card__btn { background: transparent; border: 1px solid rgba(255,255,255,0.06); color: var(--ash); font-size: 0.65rem; letter-spacing: 0.25em; padding: 10px 24px; cursor: not-allowed; margin-top: 16px; font-family: var(--font-body); }
+</style>
+</head>
+<body>
+<h2>sold out preview — this is how items look after stock hits 0</h2>
+<div class="preview-grid">
+  <div class="merch-card">
+    <div class="merch-card__shape"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7z"/></svg></div>
+    <div class="merch-card__name">α</div>
+    <div class="merch-card__type">structured cap</div>
+    <div class="merch-card__price">$65</div>
+    <div class="merch-card__stock">sold out</div>
+    <div class="merch-card__edition">edition of 150</div>
+    <button class="merch-card__btn" disabled>sold out</button>
+  </div>
+  <div class="merch-card">
+    <div class="merch-card__shape"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7z"/></svg></div>
+    <div class="merch-card__name">tardigrade</div>
+    <div class="merch-card__type">french terry crewneck</div>
+    <div class="merch-card__price">$145</div>
+    <div class="merch-card__stock">sold out</div>
+    <div class="merch-card__edition">edition of 175</div>
+    <button class="merch-card__btn" disabled>sold out</button>
+  </div>
+  <div class="merch-card">
+    <div class="merch-card__shape"><svg viewBox="0 0 24 24"><path d="M12 2L4 7v10l8 5 8-5V7z"/></svg></div>
+    <div class="merch-card__name">diamond grills</div>
+    <div class="merch-card__type">sterling pendant</div>
+    <div class="merch-card__price">$450</div>
+    <div class="merch-card__stock">sold out</div>
+    <div class="merch-card__edition">edition of 50</div>
+    <button class="merch-card__btn" disabled>sold out</button>
+  </div>
+</div>
+</body>
+</html>

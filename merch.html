@@ -646,34 +646,76 @@
     });
 
     // Simulate stock changes
+    // Persist stock to localStorage — survives refresh
+    const STOCK_KEY = 'kgbird_merch_stock';
+    function loadStock() { try { return JSON.parse(localStorage.getItem(STOCK_KEY)) || {}; } catch(e) { return {}; } }
+    function saveStock() {
+      const data = {};
+      MERCH_ITEMS.forEach(i => {
+        data[i.id] = { stock: i._currentStock || 0, soldOut: !!i.soldOut, soldOutAt: i._soldOutAt || null, restockAt: i._restockAt || null };
+      });
+      localStorage.setItem(STOCK_KEY, JSON.stringify(data));
+    }
+
+    // Apply saved stock + check for auto-restock
+    const savedStock = loadStock();
+    const now = Date.now();
+    MERCH_ITEMS.forEach(item => {
+      const saved = savedStock[item.id];
+      if (saved) {
+        item._currentStock = saved.stock;
+        item.soldOut = saved.soldOut;
+        item._soldOutAt = saved.soldOutAt;
+        item._restockAt = saved.restockAt;
+        // Auto-restock: if sold out and restock date has passed
+        if (item.soldOut && item._restockAt && now >= item._restockAt) {
+          const maxRestock = Math.max(1, Math.floor(item.edition * 0.08));
+          item._currentStock = Math.floor(Math.random() * maxRestock) + 1;
+          item.soldOut = false;
+          item._soldOutAt = null;
+          item._restockAt = null;
+        }
+      }
+    });
+    saveStock();
+
+    // Re-render cards with current state
+    function updateCardUI() {
+      document.querySelectorAll('.merch-card').forEach((card, i) => {
+        const item = MERCH_ITEMS[i];
+        if (!item) return;
+        const stockEl = card.querySelector('.merch-card__stock');
+        const btn = card.querySelector('.merch-card__btn');
+        if (item.soldOut) {
+          if (stockEl) { stockEl.textContent = 'sold out'; stockEl.className = 'merch-card__stock merch-card__stock--sold-out'; }
+          card.classList.add('merch-card--sold-out');
+          if (btn) { btn.textContent = 'sold out'; btn.disabled = true; }
+        } else {
+          if (stockEl) { stockEl.textContent = (item._currentStock || 0) + ' left'; stockEl.className = 'merch-card__stock merch-card__stock--limited'; }
+          card.classList.remove('merch-card--sold-out');
+          if (btn) { btn.textContent = 'select size'; btn.disabled = false; }
+        }
+      });
+    }
+    updateCardUI();
+
+    // Slow stock drain — every 4 hours while page is open
     setInterval(() => {
       const available = MERCH_ITEMS.filter(i => !i.soldOut && i._currentStock > 0);
       if (!available.length) return;
       const item = available[Math.floor(Math.random() * available.length)];
-      if (Math.random() > 0.6) {
+      if (Math.random() > 0.5) {
         item._currentStock--;
-        const cards = document.querySelectorAll('.merch-card');
-        cards.forEach(card => {
-          const nameEl = card.querySelector('.merch-card__name');
-          if (nameEl && nameEl.textContent === item.name) {
-            const stockEl = card.querySelector('.merch-card__stock');
-            if (item._currentStock <= 0) {
-              item.soldOut = true;
-              stockEl.textContent = 'sold out';
-              stockEl.className = 'merch-card__stock merch-card__stock--sold-out';
-              card.classList.add('merch-card--sold-out');
-              const btn = card.querySelector('.merch-card__btn');
-              if (btn) { btn.textContent = 'sold out'; btn.disabled = true; }
-            } else {
-              stockEl.textContent = item._currentStock + ' left';
-            }
-            stockEl.style.animation = 'none';
-            stockEl.offsetHeight;
-            stockEl.style.animation = '';
-          }
-        });
+        if (item._currentStock <= 0) {
+          item.soldOut = true;
+          item._soldOutAt = Date.now();
+          // Set random restock 0-30 days from now
+          item._restockAt = Date.now() + Math.floor(Math.random() * 30 * 86400000);
+        }
+        saveStock();
+        updateCardUI();
       }
-    }, 12000);
+    }, 14400000);
   </script>
 </body>
 </html>
