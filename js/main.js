@@ -7,7 +7,43 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initReveal();
   initPlayer();
+  scalePunctuation();
 });
+
+/* ── Punctuation fix (Urbanist has tiny punctuation) ── */
+function scalePunctuation() {
+  const map = {
+    ',': 'punct', ';': 'punct', ':': 'punct', "'": 'punct', '"': 'punct',
+    '.': 'punct-dot', '!': 'punct-dot', '?': 'punct-dot',
+    '·': 'punct-bullet', '•': 'punct-bullet', '—': 'punct', '–': 'punct'
+  };
+  const re = /([,;:.!?'"·•—–])/;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    if (!re.test(node.nodeValue)) return;
+    const parent = node.parentElement;
+    if (!parent) return;
+    if (parent.closest('script, style, textarea, input, code, pre')) return;
+    if (parent.classList.contains('punct') || parent.classList.contains('punct-dot') || parent.classList.contains('punct-bullet')) return;
+    // Skip flex/grid containers — inserting spans breaks their layout
+    const parentDisplay = getComputedStyle(parent).display;
+    if (parentDisplay.includes('flex') || parentDisplay.includes('grid')) return;
+    const frag = document.createDocumentFragment();
+    node.nodeValue.split(re).forEach(part => {
+      if (map[part]) {
+        const span = document.createElement('span');
+        span.className = map[part];
+        span.textContent = part;
+        frag.appendChild(span);
+      } else if (part) {
+        frag.appendChild(document.createTextNode(part));
+      }
+    });
+    node.parentNode.replaceChild(frag, node);
+  });
+}
 
 /* ── Navigation ─────────────────────────────────────── */
 function initNav() {
@@ -25,10 +61,18 @@ function initNav() {
   const toggle = nav.querySelector('.nav__toggle');
   const links = nav.querySelector('.nav__links');
   if (toggle && links) {
-    toggle.addEventListener('click', () => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       links.classList.toggle('nav__links--open');
       const isOpen = links.classList.contains('nav__links--open');
       toggle.setAttribute('aria-expanded', isOpen);
+    });
+    // Close nav when tapping outside
+    document.addEventListener('click', (e) => {
+      if (links.classList.contains('nav__links--open') && !nav.contains(e.target)) {
+        links.classList.remove('nav__links--open');
+        toggle.setAttribute('aria-expanded', false);
+      }
     });
   }
 }

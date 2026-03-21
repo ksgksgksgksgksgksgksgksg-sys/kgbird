@@ -67,6 +67,16 @@ body {
   cursor: default;
 }
 
+/* Urbanist has tiny punctuation — subtle scale-up */
+.punct, .punct-dot, .punct-bullet {
+  display: inline;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+.punct { font-size: 1.2em; }
+.punct-dot { font-size: 1.15em; }
+.punct-bullet { font-size: 1.5em; }
+
 ::selection {
   background: rgba(212, 160, 184, 0.15);
   color: var(--white);
@@ -195,8 +205,8 @@ html {
 }
 
 .nav__logo {
-  height: 32px;
-  opacity: 0.85;
+  height: clamp(31px, 5.2vw, 47px);
+  opacity: 0.9;
   transition: opacity 0.3s;
 }
 
@@ -262,7 +272,7 @@ html {
   display: block;
   width: 20px;
   height: 1px;
-  background: var(--white);
+  background: var(--pink);
   margin: 5px 0;
   transition: all 0.3s;
 }
@@ -911,7 +921,7 @@ html {
 
 .merch-card__stock {
   position: absolute;
-  bottom: 16px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.7rem;
@@ -921,6 +931,7 @@ html {
   padding: 6px 16px;
   border: 1px solid;
   white-space: nowrap;
+  z-index: 3;
 }
 
 .merch-card__stock--sold-out {
@@ -1241,8 +1252,8 @@ html {
 }
 
 .footer__logo {
-  height: 40px;
-  opacity: 0.15;
+  height: 48px;
+  opacity: 0.18;
   margin-bottom: 28px;
 }
 
@@ -1456,7 +1467,7 @@ html {
 .hidden { display: none !important; }
 
 /* ── Image Loading Shimmer ──────────────────────────── */
-img {
+img:not(.nav__logo):not(.footer__logo):not(.intro img) {
   background: var(--charcoal);
 }
 
