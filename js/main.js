@@ -342,6 +342,136 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* ── Custom Scrollbar ──────────────────────────────── */
+/* Native scrollbar is hidden via CSS. This builds a real DOM element      */
+/* so hover/active states work via real mouse events (not pseudo-elements  */
+/* which Chrome 128+ broke for ::-webkit-scrollbar-thumb).                 */
+document.addEventListener('DOMContentLoaded', () => {
+  // Build elements
+  const track = document.createElement('div');
+  track.className = 'kg-scrollbar';
+  const thumb = document.createElement('div');
+  thumb.className = 'kg-scrollbar__thumb';
+  track.appendChild(thumb);
+  document.body.appendChild(track);
+
+  let hideTimer = null;
+  let isDragging = false;
+  let dragStartY = 0;
+  let dragStartScroll = 0;
+
+  function scrollInfo() {
+    const docH = document.documentElement.scrollHeight;
+    const viewH = window.innerHeight;
+    const scrollY = window.scrollY;
+    const scrollable = docH - viewH;
+    return { docH, viewH, scrollY, scrollable };
+  }
+
+  function updateThumb() {
+    const { docH, viewH, scrollY, scrollable } = scrollInfo();
+    if (scrollable <= 0) {
+      track.classList.remove('kg-scrollbar--visible');
+      return;
+    }
+    // Thumb height proportional to viewport/document ratio
+    const ratio = viewH / docH;
+    const thumbH = Math.max(30, ratio * viewH);
+    const maxTop = viewH - thumbH;
+    const top = (scrollY / scrollable) * maxTop;
+    thumb.style.height = thumbH + 'px';
+    thumb.style.top = top + 'px';
+  }
+
+  function showScrollbar() {
+    track.classList.add('kg-scrollbar--visible');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (!isDragging) track.classList.remove('kg-scrollbar--visible');
+    }, 1200);
+  }
+
+  // Show on scroll
+  window.addEventListener('scroll', () => {
+    updateThumb();
+    showScrollbar();
+  }, { passive: true });
+
+  // Show on resize
+  window.addEventListener('resize', () => {
+    updateThumb();
+  }, { passive: true });
+
+  // Hover: keep visible + apply hover color (class-based for Firefox compat)
+  thumb.addEventListener('mouseenter', () => {
+    thumb.classList.add('kg-scrollbar__thumb--hover');
+    clearTimeout(hideTimer);
+    track.classList.add('kg-scrollbar--visible');
+  });
+  thumb.addEventListener('mouseleave', () => {
+    if (!isDragging) {
+      thumb.classList.remove('kg-scrollbar__thumb--hover');
+      hideTimer = setTimeout(() => {
+        track.classList.remove('kg-scrollbar--visible');
+      }, 800);
+    }
+  });
+
+  // Drag to scroll
+  thumb.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    isDragging = true;
+    dragStartY = e.clientY;
+    dragStartScroll = window.scrollY;
+    thumb.classList.add('kg-scrollbar__thumb--active');
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const { viewH, scrollable } = scrollInfo();
+    const thumbH = parseFloat(thumb.style.height) || 30;
+    const maxTop = viewH - thumbH;
+    const deltaY = e.clientY - dragStartY;
+    const scrollDelta = (deltaY / maxTop) * scrollable;
+    window.scrollTo(0, dragStartScroll + scrollDelta);
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    thumb.classList.remove('kg-scrollbar__thumb--active');
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    // Check if mouse is still over thumb
+    if (!thumb.matches(':hover')) {
+      thumb.classList.remove('kg-scrollbar__thumb--hover');
+      hideTimer = setTimeout(() => {
+        track.classList.remove('kg-scrollbar--visible');
+      }, 800);
+    }
+  });
+
+  // Click on track to jump
+  track.addEventListener('click', (e) => {
+    if (e.target === thumb) return;
+    const { viewH, scrollable } = scrollInfo();
+    const pct = e.clientY / viewH;
+    window.scrollTo({ top: pct * scrollable, behavior: 'smooth' });
+  });
+
+  // Initial position
+  updateThumb();
+  // Flash briefly on page load so user knows scrollbar exists
+  if (scrollInfo().scrollable > 0) {
+    track.classList.add('kg-scrollbar--visible');
+    hideTimer = setTimeout(() => {
+      track.classList.remove('kg-scrollbar--visible');
+    }, 1500);
+  }
+});
+
 /* ── Utilities ──────────────────────────────────────── */
 function randomBetween(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

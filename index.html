@@ -17,7 +17,7 @@
   <meta name="twitter:image" content="img/tiger-hq.jpg">
   <link rel="apple-touch-icon" href="img/favicon.png">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
   <style>
     /* ── Cinematic Intro ──────────────────────────────── */
     .intro {
@@ -320,20 +320,6 @@
       position: relative;
     }
 
-    .manifesto__watermark {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--font-display);
-      font-size: clamp(8rem, 20vw, 20rem);
-      font-weight: 200;
-      color: rgba(255,255,255,0.012);
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: 0.1em;
-      text-transform: lowercase;
-    }
 
     .manifesto__text {
       font-family: var(--font-body);
@@ -500,23 +486,6 @@
     /* ── Albums ──────────────────────────────────────── */
     .albums-section {
       padding: clamp(100px, 14vh, 200px) 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .albums-section::before {
-      content: 'kg';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--font-display);
-      font-size: clamp(18rem, 40vw, 45rem);
-      font-weight: 200;
-      color: rgba(255,255,255,0.015);
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: 0.05em;
-      font-style: italic;
     }
 
     .albums-grid {
@@ -1270,7 +1239,7 @@
   </footer>
 
   <script src="js/analytics.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=4"></script>
   <script>
     KG_ANALYTICS.pageView('home');
 

@@ -83,39 +83,53 @@ body {
 }
 
 /* ── Scrollbar ──────────────────────────────────────── */
-/* Standard properties — Chrome 128+, Firefox, modern browsers */
-/* scrollbar-color takes precedence and disables webkit pseudo hover/active, */
-/* so we set it ONLY as fallback and override with @supports + webkit below. */
+/* Native scrollbar hidden — replaced by custom JS scrollbar (main.js)    */
+/* Chrome 128+ broke ::-webkit-scrollbar-thumb:hover/:active pseudo states */
+/* so we use a real DOM element with real mouse events instead.            */
 html {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(58,58,58,0.3) transparent;
+  scrollbar-width: none;                 /* Firefox */
+}
+::-webkit-scrollbar {
+  display: none;                         /* Chrome, Edge, Safari */
 }
 
-/* Webkit pseudo-elements — Chrome, Edge, Safari */
-/* IMPORTANT: must NOT coexist with scrollbar-color on same element, */
-/* otherwise Chrome ignores hover/active states. We unset it here. */
-@supports selector(::-webkit-scrollbar) {
-  html {
-    scrollbar-color: auto;  /* unset standard so webkit takes full control */
-  }
-  ::-webkit-scrollbar {
-    width: 6px;
-    background: transparent;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(58,58,58,0.3);
-    border-radius: 3px;
-    transition: background 0.2s ease;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(212,160,184,0.7) !important;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    background: #d4a0b8 !important;
-  }
+/* Custom scrollbar track + thumb (injected by JS) */
+.kg-scrollbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;                  /* track itself doesn't block clicks */
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.kg-scrollbar--visible {
+  opacity: 1;
+}
+.kg-scrollbar__thumb {
+  position: absolute;
+  right: 1px;
+  width: 6px;
+  min-height: 30px;
+  border-radius: 3px;
+  background: rgba(58,58,58,0.35);
+  pointer-events: auto;                  /* thumb IS interactive */
+  transition: background 0.2s ease, width 0.15s ease, right 0.15s ease;
+  cursor: default;
+}
+.kg-scrollbar__thumb:hover,
+.kg-scrollbar__thumb--hover {
+  background: rgba(212,160,184,0.7);
+  width: 8px;
+  right: 0;
+}
+.kg-scrollbar__thumb:active,
+.kg-scrollbar__thumb--active {
+  background: #d4a0b8;
+  width: 8px;
+  right: 0;
 }
 
 /* ── Typography ─────────────────────────────────────── */
@@ -1577,7 +1591,7 @@ img { cursor: default; }
 /* ── Print Styles ──────────────────────────────────── */
 @media print {
   .nav, .player, .grain, .ambient-orb, .cursor-dot,
-  .preloader, .back-to-top, .marquee-section { display: none !important; }
+  .preloader, .back-to-top, .marquee-section, .kg-scrollbar { display: none !important; }
   body { background: white; color: black; }
   .footer { border: none; }
   * { box-shadow: none !important; }
