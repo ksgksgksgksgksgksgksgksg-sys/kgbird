@@ -17,7 +17,7 @@
   <meta name="twitter:image" content="img/tiger-hq.jpg">
   <link rel="apple-touch-icon" href="img/favicon.png">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <style>
     /* ── Cinematic Intro ──────────────────────────────── */
     .intro {
@@ -850,6 +850,7 @@
   </style>
 </head>
 <body>
+  <div id="mood-drift"></div>
   <a href="#main" class="skip-nav">skip to content</a>
 
   <!-- Cinematic Intro -->
@@ -1014,8 +1015,9 @@
 
   <!-- Featured Singles -->
   <section style="padding: clamp(60px, 8vh, 120px) 0;">
+    <p class="heading reveal" style="text-align:center;margin-bottom:clamp(36px,5vh,64px);">debut</p>
     <div style="display: flex; align-items: center; justify-content: center; gap: clamp(16px, 3vw, 48px); flex-wrap: wrap;">
-      <div class="album-av reveal" style="text-align: center;">
+      <div class="album-av reveal" data-track="ace" style="text-align: center;">
         <div class="album-av__ring">
           <svg class="album-av__progress" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="rgba(212,160,184,0.15)" stroke-width="1.5"/><circle class="album-av__fill" cx="50" cy="50" r="46" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" transform="rotate(-90 50 50)"/></svg>
           <img src="img/cover-v3-pink.png" alt="ace" class="album-av__img">
@@ -1023,7 +1025,7 @@
         <p class="album-av__label">ace</p>
       </div>
       <div class="album-av__divider"></div>
-      <div class="album-av reveal reveal-delay-1" style="text-align: center;">
+      <div class="album-av reveal reveal-delay-1" data-track="ledger" style="text-align: center;">
         <div class="album-av__ring">
           <svg class="album-av__progress" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="rgba(212,160,184,0.15)" stroke-width="1.5"/><circle class="album-av__fill" cx="50" cy="50" r="46" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" transform="rotate(-90 50 50)"/></svg>
           <img src="img/post-ledger.png" alt="ledger" class="album-av__img">
@@ -1031,7 +1033,7 @@
         <p class="album-av__label">ledger</p>
       </div>
       <div class="album-av__divider"></div>
-      <div class="album-av reveal reveal-delay-2" style="text-align: center;">
+      <div class="album-av reveal reveal-delay-2" data-track="access" style="text-align: center;">
         <div class="album-av__ring">
           <svg class="album-av__progress" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="rgba(212,160,184,0.15)" stroke-width="1.5"/><circle class="album-av__fill" cx="50" cy="50" r="46" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" transform="rotate(-90 50 50)"/></svg>
           <img src="img/cover-access.png" alt="access" class="album-av__img">
@@ -1039,7 +1041,7 @@
         <p class="album-av__label">access</p>
       </div>
       <div class="album-av__divider"></div>
-      <div class="album-av reveal reveal-delay-3" style="text-align: center;">
+      <div class="album-av reveal reveal-delay-3" data-track="receipts" style="text-align: center;">
         <div class="album-av__ring">
           <svg class="album-av__progress" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="rgba(212,160,184,0.15)" stroke-width="1.5"/><circle class="album-av__fill" cx="50" cy="50" r="46" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" transform="rotate(-90 50 50)"/></svg>
           <img src="img/cover-receipts.png" alt="receipts" class="album-av__img">
@@ -1047,7 +1049,7 @@
         <p class="album-av__label">receipts</p>
       </div>
       <div class="album-av__divider"></div>
-      <div class="album-av reveal reveal-delay-4" style="text-align: center;">
+      <div class="album-av reveal reveal-delay-4" data-track="elite" style="text-align: center;">
         <div class="album-av__ring">
           <svg class="album-av__progress" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="rgba(212,160,184,0.15)" stroke-width="1.5"/><circle class="album-av__fill" cx="50" cy="50" r="46" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" transform="rotate(-90 50 50)"/></svg>
           <img src="img/cover-elite.png" alt="elite" class="album-av__img">
@@ -1285,7 +1287,7 @@
   </footer>
 
   <script src="js/analytics.js"></script>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=5"></script>
   <script>
     KG_ANALYTICS.pageView('home');
 

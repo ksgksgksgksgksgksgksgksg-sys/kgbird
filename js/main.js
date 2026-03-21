@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initReveal();
   initPlayer();
+  initFeaturedSingles();
   scalePunctuation();
 });
 
@@ -478,6 +479,102 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1500);
   }
 });
+
+/* ── Featured Singles Player ────────────────────────── */
+function initFeaturedSingles() {
+  const avatars = document.querySelectorAll('.album-av[data-track]');
+  if (!avatars.length) return;
+
+  const drift = document.getElementById('mood-drift');
+  let fsAudio = null;
+  let fsPlaying = null;
+  let fsRaf = null;
+
+  const CIRCUMFERENCE = 289; // 2 * PI * 46
+
+  const MOODS = {
+    ace:      'radial-gradient(ellipse at 50% 60%, rgba(180,130,160,0.025), transparent 65%)',
+    ledger:   'radial-gradient(ellipse at 50% 60%, rgba(100,140,110,0.025), transparent 65%)',
+    access:   'radial-gradient(ellipse at 50% 60%, rgba(160,130,100,0.025), transparent 65%)',
+    receipts: 'radial-gradient(ellipse at 50% 60%, rgba(140,150,160,0.025), transparent 65%)',
+    elite:    'radial-gradient(ellipse at 50% 60%, rgba(130,110,160,0.025), transparent 65%)'
+  };
+
+  function resetAll() {
+    avatars.forEach(av => {
+      av.classList.remove('album-av--playing');
+      const fill = av.querySelector('.album-av__fill');
+      if (fill) {
+        fill.style.transition = 'stroke-dashoffset 0.6s ease';
+        fill.style.strokeDashoffset = CIRCUMFERENCE;
+      }
+    });
+  }
+
+  function updateRing() {
+    if (!fsAudio || !fsPlaying || fsAudio.paused) return;
+    const fill = fsPlaying.querySelector('.album-av__fill');
+    if (fill && fsAudio.duration) {
+      const pct = fsAudio.currentTime / fsAudio.duration;
+      const offset = CIRCUMFERENCE * (1 - pct);
+      fill.style.transition = 'none';
+      fill.style.strokeDashoffset = offset;
+    }
+    fsRaf = requestAnimationFrame(updateRing);
+  }
+
+  function stopPlayback() {
+    if (fsRaf) cancelAnimationFrame(fsRaf);
+    if (fsAudio) {
+      fsAudio.pause();
+      fsAudio.currentTime = 0;
+    }
+    resetAll();
+    fsPlaying = null;
+    // Fade out drift
+    if (drift) drift.classList.remove('active');
+  }
+
+  function playTrack(av) {
+    const track = av.dataset.track;
+    const src = 'audio/' + track + '.mp3';
+
+    // Same track — toggle off
+    if (fsPlaying === av && fsAudio && !fsAudio.paused) {
+      stopPlayback();
+      return;
+    }
+
+    // Stop any current
+    stopPlayback();
+
+    // Create or reuse audio
+    if (!fsAudio) {
+      fsAudio = new Audio();
+      fsAudio.volume = 0.7;
+      fsAudio.addEventListener('ended', () => {
+        stopPlayback();
+      });
+    }
+
+    fsAudio.src = src;
+    fsPlaying = av;
+    av.classList.add('album-av--playing');
+
+    fsAudio.play().catch(() => {});
+    fsRaf = requestAnimationFrame(updateRing);
+
+    // Color drift
+    if (drift && MOODS[track]) {
+      drift.style.background = MOODS[track];
+      drift.classList.add('active');
+    }
+  }
+
+  avatars.forEach(av => {
+    av.addEventListener('click', () => playTrack(av));
+  });
+}
 
 /* ── Utilities ──────────────────────────────────────── */
 function randomBetween(min, max) {
