@@ -83,24 +83,39 @@ body {
 }
 
 /* ── Scrollbar ──────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 1px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--ash);
-  border-radius: 1px;
-}
-::-webkit-scrollbar-thumb:hover,
-::-webkit-scrollbar-thumb:active {
-  background: #b8a0b0;
-}
-/* Firefox */
+/* Standard properties — Chrome 128+, Firefox, modern browsers */
+/* scrollbar-color takes precedence and disables webkit pseudo hover/active, */
+/* so we set it ONLY as fallback and override with @supports + webkit below. */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--ash) transparent;
+  scrollbar-color: rgba(58,58,58,0.3) transparent;
+}
+
+/* Webkit pseudo-elements — Chrome, Edge, Safari */
+/* IMPORTANT: must NOT coexist with scrollbar-color on same element, */
+/* otherwise Chrome ignores hover/active states. We unset it here. */
+@supports selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: auto;  /* unset standard so webkit takes full control */
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(58,58,58,0.3);
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(212,160,184,0.7) !important;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #d4a0b8 !important;
+  }
 }
 
 /* ── Typography ─────────────────────────────────────── */
@@ -413,7 +428,7 @@ html {
 
 .manifesto__text {
   font-family: var(--font-body);
-  font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+  font-size: clamp(0.82rem, 2.2vw, 1.7rem);
   font-weight: 400;
   color: var(--silver);
   line-height: 1.8;
@@ -422,6 +437,7 @@ html {
   opacity: 0;
   transform: translateY(20px);
   transition: all 1s var(--ease-out);
+  white-space: nowrap;
 }
 
 .manifesto__text.visible {

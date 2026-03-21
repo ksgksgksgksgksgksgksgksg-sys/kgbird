@@ -17,7 +17,7 @@
   <meta name="twitter:image" content="img/tiger-hq.jpg">
   <link rel="apple-touch-icon" href="img/favicon.png">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
   <style>
     /* ── Cinematic Intro ──────────────────────────────── */
     .intro {
@@ -500,6 +500,23 @@
     /* ── Albums ──────────────────────────────────────── */
     .albums-section {
       padding: clamp(100px, 14vh, 200px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .albums-section::before {
+      content: 'kg';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: clamp(18rem, 40vw, 45rem);
+      font-weight: 200;
+      color: rgba(255,255,255,0.015);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: 0.05em;
+      font-style: italic;
     }
 
     .albums-grid {
@@ -952,7 +969,6 @@
 
   <!-- Manifesto -->
   <section class="manifesto container container--narrow" id="main">
-    <div class="manifesto__watermark" aria-hidden="true">.</div>
     <p class="manifesto__text">
       0 following. 0 responses. 0 comments. the audio speaks.
     </p>
