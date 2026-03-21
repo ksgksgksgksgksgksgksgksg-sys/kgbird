@@ -443,22 +443,6 @@ html {
   text-align: center;
 }
 
-.hero__i {
-  position: relative;
-  display: inline-block;
-}
-.hero__tittle {
-  position: absolute;
-  top: -0.15em;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0.38em;
-  height: 0.38em;
-  border-radius: 50%;
-  object-fit: cover;
-  filter: grayscale(1) contrast(1.4) brightness(1.2);
-  pointer-events: none;
-}
 
 .manifesto__text {
   font-family: var(--font-body);
