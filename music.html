@@ -507,7 +507,7 @@
       font-weight: 400;
       letter-spacing: 0.06em;
       color: var(--light);
-      text-transform: lowercase;
+      text-transform: none;
       transition: color 0.3s;
     }
 
@@ -1375,7 +1375,7 @@
             '<div class="lyrics-sidebar">' +
             '<img src="' + (t.cover || albumCover) + '" alt="" class="lyrics-sidebar__cover">' +
             '<div class="lyrics-sidebar__title">' + t.name + '</div>' +
-            '<div class="lyrics-sidebar__album">' + albumName + '</div>' +
+            '<div class="lyrics-sidebar__album">' + (albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName) + '</div>' +
             '<div class="lyrics-sidebar__streams">' +
             '<a href="https://music.apple.com/artist/kgbird" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_APPLE + ' apple</a>' +
             '<a href="https://open.spotify.com/artist/kgbird" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_SPOTIFY + ' spotify</a>' +
