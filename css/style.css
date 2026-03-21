@@ -261,6 +261,8 @@ html {
   text-decoration: none;
   position: relative;
   transition: color 0.3s;
+  padding-right: 0;
+  margin-right: -0.3em;
 }
 
 .nav__link::after {
@@ -268,7 +270,6 @@ html {
   position: absolute;
   bottom: -4px;
   left: 0;
-  right: 0.3em;
   width: 0;
   height: 1px;
   background: var(--pink);
@@ -276,7 +277,7 @@ html {
 }
 .nav__link:hover::after,
 .nav__link--active::after {
-  width: calc(100% - 0.3em);
+  width: 100%;
 }
 
 .nav__link:hover {
