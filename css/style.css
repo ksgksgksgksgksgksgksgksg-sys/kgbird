@@ -518,6 +518,21 @@ html {
 .album-av:hover .album-av__img {
   filter: grayscale(0) brightness(1);
 }
+.album-av__label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--ash);
+  margin-top: 14px;
+  font-weight: 300;
+}
+.album-av__divider {
+  width: 1px;
+  height: 32px;
+  background: var(--slate);
+  opacity: 0.2;
+  align-self: center;
+}
 
 .manifesto__dot {
   display: inline-block;
