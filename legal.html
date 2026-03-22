@@ -32,7 +32,7 @@
       position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.022;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
-    .legal-page { padding: clamp(120px, 15vh, 180px) 0 80px; }
+    .legal-page { padding: clamp(120px, 15vh, 180px) 0 0; }
     .legal-page h1 {
       font-family: var(--font-display);
       font-size: clamp(2rem, 4vw, 3.5rem);
@@ -54,7 +54,7 @@
       padding-bottom: clamp(48px, 6vh, 72px);
       border-bottom: 1px solid rgba(255,255,255,0.03);
     }
-    .legal-section:last-of-type { border-bottom: none; }
+    .legal-section:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.03); }
     .legal-section h2 {
       font-family: var(--font-display);
       font-size: 1.3rem;
@@ -204,8 +204,7 @@
     <!-- Rights Authorization -->
     <div class="legal-section">
       <h2>rights authorization</h2>
-      <p>kgbird records owns and controls the master (phonogram) rights (<span style="font-family:'JetBrains Mono','SF Mono',monospace;">℗</span>) to all content released under the kgbird name and is legally authorized to use, reproduce, distribute, and promote such content across all platforms and advertising formats.</p>
-      <p>all content is original. no third-party copyrights are infringed. all necessary licenses, permissions, and clearances have been obtained.</p>
+      <p>kgbird records owns and controls the master (phonogram) rights (<span style="font-family:'JetBrains Mono','SF Mono',monospace;">℗</span>) to all content released under the kgbird name and is legally authorized to use, reproduce, distribute, and promote such content across all platforms and advertising formats. all content is original. no third-party copyrights are infringed. all necessary licenses, permissions, and clearances have been obtained.</p>
     </div>
 
   </main>

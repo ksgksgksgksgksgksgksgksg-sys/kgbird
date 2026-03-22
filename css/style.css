@@ -1378,7 +1378,7 @@ html {
 
 /* ── Footer ─────────────────────────────────────────── */
 .footer {
-  padding: clamp(48px, 6vh, 72px) 0;
+  padding: 48px 0 clamp(48px, 6vh, 72px);
   border-top: 1px solid rgba(255,255,255,0.03);
   text-align: center;
 }
