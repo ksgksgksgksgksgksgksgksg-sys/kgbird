@@ -113,15 +113,16 @@
 
     .size-options {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       justify-content: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       margin-bottom: 32px;
     }
 
     .size-option {
-      width: 52px;
-      height: 52px;
+      min-width: 44px;
+      height: 44px;
+      padding: 0 6px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -465,7 +466,7 @@
         type: 'heavyweight hoodie',
         price: 185,
         shape: 'hoodie',
-        sizes: ['S','M','L','XL','XXL'],
+        sizes: ['XXS','XS','S','M','L','XL','XXL'],
         soldOut: false,
         stock: 4,
         edition: 14

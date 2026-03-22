@@ -1140,6 +1140,7 @@
       </div>
 
       <div id="gammaTracks" style="position:relative;">
+        <span id="gammaGlyph" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:120px;opacity:0.03;pointer-events:none;transition:left 0.8s ease,font-size 0.8s ease,opacity 0.8s ease;color:#fff;line-height:1;">⚚</span>
       </div>
 
       <div class="runtime-bar">
@@ -1677,8 +1678,10 @@
         // Reset glyph positions when any panel closes
         const owl = document.getElementById('alphaGlyph');
         const falcon = document.getElementById('betaGlyph');
+        const gammaG = document.getElementById('gammaGlyph');
         if (owl) { owl.style.left = '50%'; owl.style.transform = 'translate(-50%,-50%)'; owl.style.width = '200px'; owl.style.opacity = '0.03'; }
         if (falcon) { falcon.style.left = '50%'; falcon.style.transform = 'translate(-50%,-50%)'; falcon.style.width = '200px'; falcon.style.opacity = '0.03'; }
+        if (gammaG) { gammaG.style.left = '50%'; gammaG.style.transform = 'translate(-50%,-50%)'; gammaG.style.fontSize = '120px'; gammaG.style.opacity = '0.03'; }
 
         if (!isOpen) {
           panel.classList.add('lyrics-panel--open');
@@ -1695,6 +1698,13 @@
             falcon.style.transform = 'translate(-50%,-50%)';
             falcon.style.width = '400px';
             falcon.style.opacity = '0.04';
+          }
+          // Shift ⚚ right + bigger when lyrics in Gamma section open
+          if (gammaG && panel.closest('#gammaTracks')) {
+            gammaG.style.left = '60%';
+            gammaG.style.transform = 'translate(-50%,-50%)';
+            gammaG.style.fontSize = '240px';
+            gammaG.style.opacity = '0.04';
           }
           setTimeout(() => {
             const row = panel.closest('.track-row');
