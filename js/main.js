@@ -116,15 +116,23 @@ const AudioEngine = (() => {
     audio.addEventListener('ended', onEnded);
     audio.addEventListener('loadedmetadata', onLoaded);
 
-    // Progress bar seek
+    // Progress bar seek + drag
     const bar = playerEl.querySelector('.player__bar');
     if (bar) {
-      bar.addEventListener('click', (e) => {
+      let dragging = false;
+      function seekTo(e) {
         if (!audio.duration) return;
         const rect = bar.getBoundingClientRect();
-        const pct = (e.clientX - rect.left) / rect.width;
+        const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
         audio.currentTime = pct * audio.duration;
-      });
+        updateProgress();
+      }
+      bar.addEventListener('mousedown', (e) => { dragging = true; seekTo(e); });
+      window.addEventListener('mousemove', (e) => { if (dragging) seekTo(e); });
+      window.addEventListener('mouseup', () => { dragging = false; });
+      bar.addEventListener('touchstart', (e) => { dragging = true; seekTo(e.touches[0]); }, { passive: true });
+      window.addEventListener('touchmove', (e) => { if (dragging) seekTo(e.touches[0]); }, { passive: true });
+      window.addEventListener('touchend', () => { dragging = false; });
     }
 
     // Play/pause button
@@ -134,7 +142,7 @@ const AudioEngine = (() => {
     }
   }
 
-  function play(src, trackName, albumName) {
+  function play(src, trackName, albumName, songColor) {
     if (currentTrack === src && !audio.paused) {
       audio.pause();
       updatePlayButton(false);
@@ -150,23 +158,22 @@ const AudioEngine = (() => {
     updatePlayButton(true);
     playerEl.classList.add('player--active');
 
+    // Apply per-song color
+    const color = songColor || '#d4a0b8';
+    playerEl.style.setProperty('--song-color', color);
+    const fill = playerEl.querySelector('.player__bar-fill');
+    if (fill) fill.style.background = color;
+    const dot = fill ? fill.querySelector('::after') : null;
+
     // Update info
     const nameEl = playerEl.querySelector('.player__track-name');
     const albumEl = playerEl.querySelector('.player__album-name');
     if (nameEl) {
-      if (trackName === 'ACE') {
-        nameEl.innerHTML = '<span style="color:#d4a0b8">ACE</span>';
-      } else {
-        nameEl.textContent = trackName;
-      }
+      nameEl.innerHTML = '<span style="color:' + color + '">' + trackName + '</span>';
     }
     if (albumEl) {
       const sym = albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName;
-      if (trackName === 'ACE') {
-        albumEl.innerHTML = '<span style="color:#d4a0b8">' + sym + '</span>';
-      } else {
-        albumEl.textContent = sym;
-      }
+      albumEl.innerHTML = '<span style="color:' + color + '">' + sym + '</span>';
     }
 
     // Update active track styling
@@ -200,12 +207,12 @@ const AudioEngine = (() => {
     const currEl = playerEl.querySelector('.player__time--current');
     const durEl = playerEl.querySelector('.player__time--duration');
     if (currEl) currEl.textContent = formatTime(audio.currentTime);
-    if (durEl) durEl.textContent = formatTime(audio.duration);
+    if (durEl) durEl.textContent = '-' + formatTime(audio.duration - audio.currentTime);
   }
 
   function onLoaded() {
     const durEl = playerEl.querySelector('.player__time--duration');
-    if (durEl) durEl.textContent = formatTime(audio.duration);
+    if (durEl) durEl.textContent = '-' + formatTime(audio.duration);
   }
 
   function onEnded() {
@@ -240,11 +247,31 @@ const AudioEngine = (() => {
     return m + ':' + (sec < 10 ? '0' : '') + sec;
   }
 
-  return { init, play, togglePlay };
+  function stop() {
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    currentTrack = null;
+    updatePlayButton(false);
+    if (playerEl) playerEl.classList.remove('player--active');
+    const fill = playerEl?.querySelector('.player__bar-fill');
+    if (fill) fill.style.width = '0%';
+    const currEl = playerEl?.querySelector('.player__time--current');
+    if (currEl) currEl.textContent = '0:00';
+    const durEl = playerEl?.querySelector('.player__time--duration');
+    if (durEl) durEl.textContent = '0:00';
+    document.querySelectorAll('.track--playing').forEach(t => t.classList.remove('track--playing'));
+  }
+
+  return { init, play, togglePlay, stop };
 })();
 
 function initPlayer() {
   AudioEngine.init();
+
+  // Close button
+  const closeBtn = document.querySelector('.player__close');
+  if (closeBtn) closeBtn.addEventListener('click', () => AudioEngine.stop());
 
   // Bind track clicks
   document.querySelectorAll('.track[data-src]').forEach(track => {
