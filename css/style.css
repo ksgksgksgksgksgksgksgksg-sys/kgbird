@@ -874,7 +874,7 @@ html {
 
 .player__bar-fill {
   height: 100%;
-  background: var(--pink);
+  background: var(--song-color, var(--pink));
   border-radius: 1px;
   width: 0%;
   transition: width 0.1s linear;
@@ -889,7 +889,7 @@ html {
   transform: translateY(-50%);
   width: 6px;
   height: 6px;
-  background: var(--pink);
+  background: var(--song-color, var(--pink));
   border-radius: 50%;
   opacity: 0;
   transition: opacity 0.2s;
@@ -904,6 +904,22 @@ html {
   color: var(--ash);
   font-variant-numeric: tabular-nums;
   min-width: 36px;
+}
+
+.player__close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  margin-left: 2px;
+  opacity: 0.25;
+  transition: opacity 0.3s;
+  line-height: 1;
+}
+.player__close:hover {
+  opacity: 0.6;
 }
 
 /* ── Lyrics Overlay ─────────────────────────────────── */
