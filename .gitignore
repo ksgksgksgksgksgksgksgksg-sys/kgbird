@@ -1,2 +1,4 @@
 # kgbird
 *.DS_Store
+deploy-*.zip
+.netlify/
