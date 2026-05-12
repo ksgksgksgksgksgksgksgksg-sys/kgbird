@@ -300,13 +300,13 @@
 
     <!-- ═══ Release QR Codes ═══ -->
     <div class="qr-section">
-      <p class="qr-section__label">all releases · 3 albums · 17 tracks</p>
+      <p class="qr-section__label">all releases · 3 albums · 20 tracks</p>
 
-      <!-- Gamma (upcoming) -->
+      <!-- Gamma -->
       <div class="album-qr-header">
         <div class="album-qr-header__line"></div>
         <span class="album-qr-header__title" style="text-transform:none;">Gamma</span>
-        <span class="album-qr-header__meta">2026 · upcoming</span>
+        <span class="album-qr-header__meta">2026 · 4 tracks</span>
         <div class="album-qr-header__line"></div>
       </div>
       <div class="qr-release-grid" id="album3Grid"></div>
@@ -315,7 +315,7 @@
       <div class="album-qr-header">
         <div class="album-qr-header__line"></div>
         <span class="album-qr-header__title" style="text-transform:none;">Beta</span>
-        <span class="album-qr-header__meta">2026 · 5 tracks</span>
+        <span class="album-qr-header__meta">2026 · 6 tracks</span>
         <div class="album-qr-header__line"></div>
       </div>
       <div class="qr-release-grid" id="betaGrid"></div>
@@ -397,30 +397,34 @@
     });
 
     /* ── Release QR Codes ────────────────────────────── */
-    // Gamma (upcoming — 17th release)
+    // Gamma (4 tracks)
     const ALBUM3 = [
-      { num: 1, name: 'tba', album: 'gamma', soon: true, url: 'https://kgbird.ca/catalog.html' },
+      { num: 1, name: 'velvet', album: 'gamma', url: 'https://open.spotify.com/search/kgbird%20velvet' },
+      { num: 2, name: 'audit', album: 'gamma', url: 'https://open.spotify.com/search/kgbird%20audit' },
+      { num: 3, name: 'clutch', album: 'gamma', url: 'https://open.spotify.com/search/kgbird%20clutch' },
+      { num: 4, name: 'quiet lift', album: 'gamma', url: 'https://open.spotify.com/search/kgbird%20quiet%20lift' },
     ];
 
     const BETA = [
-      { num: 1, name: 'tardigrade', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20tardigrade' },
-      { num: 2, name: 'velvet', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20velvet' },
-      { num: 3, name: 'silhouette', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20silhouette' },
+      { num: 1, name: 'still', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20still' },
+      { num: 2, name: 'leverage', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20leverage' },
+      { num: 3, name: 'due', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20due' },
       { num: 4, name: 'paradigm', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20paradigm' },
-      { num: 5, name: 'monolith', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20monolith' },
+      { num: 5, name: 'tardigrade', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20tardigrade' },
+      { num: 6, name: 'silhouette', album: 'beta', url: 'https://open.spotify.com/search/kgbird%20silhouette' },
     ];
 
     const ALPHA = [
       { num: 1, name: 'ace', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20ace' },
       { num: 2, name: 'caviar', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20caviar' },
-      { num: 3, name: 'coordinates', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20coordinates' },
+      { num: 3, name: 'presence', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20presence' },
       { num: 4, name: 'ledger', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20ledger' },
-      { num: 5, name: 'presence', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20presence' },
-      { num: 6, name: 'receipt', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20receipt' },
-      { num: 7, name: 'routine', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20routine' },
-      { num: 8, name: 'silence', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20silence' },
-      { num: 9, name: 'stealth', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20stealth' },
-      { num: 10, name: 'tier', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20tier' },
+      { num: 5, name: 'access', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20access' },
+      { num: 6, name: 'resurrect', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20resurrect' },
+      { num: 7, name: 'receipts', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20receipts' },
+      { num: 8, name: 'half-lit', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20half-lit' },
+      { num: 9, name: 'top floor', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20top%20floor' },
+      { num: 10, name: 'elite', album: 'alpha', url: 'https://open.spotify.com/search/kgbird%20elite' },
     ];
 
     function renderReleaseGrid(containerId, tracks) {
