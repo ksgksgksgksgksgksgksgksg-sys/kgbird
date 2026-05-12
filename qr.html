@@ -467,11 +467,12 @@
       platformGrid.appendChild(card);
     });
 
+    const CHECK_SVG = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;"><polyline points="3,8.5 6.5,12 13,4.5"/></svg>';
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.qr-card__copy');
       if (!btn) return;
       navigator.clipboard.writeText(btn.dataset.url).then(() => {
-        btn.textContent = '✓';
+        btn.innerHTML = CHECK_SVG;
         btn.classList.add('qr-card__copy--done');
         setTimeout(() => { btn.textContent = '⧉'; btn.classList.remove('qr-card__copy--done'); }, 1200);
       });
@@ -518,6 +519,7 @@
           <div class="qr-release__num">${String(t.num).padStart(2, '0')}</div>
           <div class="qr-release__name">${t.name}</div>
           <div class="qr-release__album">${t.album}</div>
+          <button class="qr-card__copy" data-url="${t.url}" aria-label="copy link">⧉</button>
           ${t.soon ? '<div class="qr-soon-badge">coming soon</div>' : ''}
         `;
         grid.appendChild(card);
