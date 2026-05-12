@@ -366,10 +366,14 @@
     /* ── QR Generation Helper ────────────────────────── */
     function makeQR(url) {
       try {
-        const qr = qrcode(url, 'M');
+        const qr = qrcode(0, 'M');
+        qr.addData(url);
+        qr.make();
         return qr.createSvgTag(4, 8);
       } catch(e) {
-        const qr = qrcode(url, 'L');
+        const qr = qrcode(0, 'L');
+        qr.addData(url);
+        qr.make();
         return qr.createSvgTag(4, 8);
       }
     }
