@@ -29,7 +29,27 @@
     @keyframes introSub { from{opacity:0;} to{opacity:0.5;} }
 
     .qr-page {
+      max-width: 1100px;
       padding: clamp(120px, 15vh, 180px) 0 80px;
+    }
+
+    .era-numeral {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--pink-muted);
+      padding: 6px 10px;
+      padding-right: calc(10px - 0.15em);
+      border-top: 0.5px solid rgba(212,160,184,0.25);
+      border-bottom: 0.5px solid rgba(212,160,184,0.25);
+      line-height: 1;
+      min-width: 24px;
+      text-align: center;
+      margin-right: 8px;
     }
 
     .qr-page__title {
@@ -284,13 +304,14 @@
       <li><a href="about.html" class="nav__link">about</a></li>
       <li><a href="catalog.html" class="nav__link">catalog</a></li>
       <li><a href="merch.html" class="nav__link">merch</a></li>
+      <li><a href="qr.html" class="nav__link nav__link--active">qr</a></li>
       <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
     </ul>
   </nav>
 
   <main class="qr-page container">
     <h1 class="qr-page__title">qr</h1>
-    <p class="qr-page__sub">scan to stream · share · connect</p>
+    <p class="qr-page__sub">scan · stream · share</p>
 
     <!-- ═══ Platform & Website QR Codes ═══ -->
     <div class="qr-section">
@@ -300,13 +321,14 @@
 
     <!-- ═══ Release QR Codes ═══ -->
     <div class="qr-section">
-      <p class="qr-section__label">all releases · 3 albums · 20 tracks</p>
+      <p class="qr-section__label">all releases · 1 album · 1 ep · 20 releases</p>
 
       <!-- Gamma -->
       <div class="album-qr-header">
         <div class="album-qr-header__line"></div>
+        <span class="era-numeral">❘❘❘</span>
         <span class="album-qr-header__title" style="text-transform:none;">Gamma</span>
-        <span class="album-qr-header__meta">2026 · 4 tracks</span>
+        <span class="album-qr-header__meta">2026 · 4 releases</span>
         <div class="album-qr-header__line"></div>
       </div>
       <div class="qr-release-grid" id="album3Grid"></div>
@@ -314,8 +336,9 @@
       <!-- Beta -->
       <div class="album-qr-header">
         <div class="album-qr-header__line"></div>
+        <span class="era-numeral">❘❘</span>
         <span class="album-qr-header__title" style="text-transform:none;">Beta</span>
-        <span class="album-qr-header__meta">2026 · 6 tracks</span>
+        <span class="album-qr-header__meta">2026 · 6 releases</span>
         <div class="album-qr-header__line"></div>
       </div>
       <div class="qr-release-grid" id="betaGrid"></div>
@@ -323,8 +346,9 @@
       <!-- Alpha -->
       <div class="album-qr-header">
         <div class="album-qr-header__line"></div>
+        <span class="era-numeral">❘</span>
         <span class="album-qr-header__title" style="text-transform:none;">Alpha</span>
-        <span class="album-qr-header__meta">2025 · 10 tracks</span>
+        <span class="album-qr-header__meta">2025 · 10 releases</span>
         <div class="album-qr-header__line"></div>
       </div>
       <div class="qr-release-grid" id="alphaGrid"></div>
@@ -410,7 +434,7 @@
         <div class="qr-card__code">${makeQR(p.url)}</div>
         <div class="qr-card__name">${p.name}</div>
         <div class="qr-card__detail">${p.detail}</div>
-        <a href="${p.url}" target="_blank" class="qr-card__link">open</a>
+        <a href="${p.url}" target="_blank" class="qr-card__link" aria-label="open">→</a>
       `;
       platformGrid.appendChild(card);
     });
