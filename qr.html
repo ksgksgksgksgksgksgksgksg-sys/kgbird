@@ -144,15 +144,17 @@
     }
 
     .qr-card__link {
-      display: block;
-      width: max-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 22px;
       margin: 10px auto 0;
       font-size: 0.85rem;
-      letter-spacing: 0.15em;
+      letter-spacing: 0;
       text-transform: lowercase;
       color: var(--muted);
       text-decoration: none;
-      padding: 3px 12px;
       border: 1px solid rgba(255,255,255,0.06);
       transition: all 0.3s;
       line-height: 1;
@@ -164,18 +166,21 @@
     }
 
     .qr-card__copy {
-      display: block;
-      width: max-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 22px;
       margin: 6px auto 0;
       font-size: 0.85rem;
       color: var(--muted);
       background: none;
-      padding: 3px 12px;
       border: 1px solid rgba(255,255,255,0.06);
       cursor: pointer;
       font-family: inherit;
       transition: all 0.3s;
       line-height: 1;
+      padding: 0;
     }
 
     .qr-card__copy:hover {
@@ -419,14 +424,14 @@
       const m = svg.match(/width="(\d+)px"/);
       if (!m) return svg;
       const size = parseInt(m[1]);
-      const logoBox = Math.round(size * 0.20);
+      const logoBox = Math.round(size * 0.25);
       const pad = Math.round(size * 0.025);
       const frame = logoBox + pad * 2;
       const fx = (size - frame) / 2;
       const lx = fx + pad;
       const overlay =
         '<rect x="' + fx + '" y="' + fx + '" width="' + frame + '" height="' + frame + '" fill="white" rx="2"/>' +
-        '<image href="img/kg-pink-t.png" x="' + lx + '" y="' + lx + '" width="' + logoBox + '" height="' + logoBox + '" preserveAspectRatio="xMidYMid meet"/>';
+        '<image href="img/kg-black-t.png" x="' + lx + '" y="' + lx + '" width="' + logoBox + '" height="' + logoBox + '" preserveAspectRatio="xMidYMid meet"/>';
       return svg.replace('</svg>', overlay + '</svg>');
     }
 
