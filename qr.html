@@ -144,19 +144,46 @@
     }
 
     .qr-card__link {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 0.7rem;
+      display: block;
+      width: max-content;
+      margin: 10px auto 0;
+      font-size: 0.85rem;
       letter-spacing: 0.15em;
       text-transform: lowercase;
       color: var(--muted);
       text-decoration: none;
-      padding: 4px 10px;
+      padding: 3px 12px;
       border: 1px solid rgba(255,255,255,0.06);
       transition: all 0.3s;
+      line-height: 1;
     }
 
     .qr-card__link:hover {
+      color: var(--pink);
+      border-color: var(--pink-muted);
+    }
+
+    .qr-card__copy {
+      display: block;
+      width: max-content;
+      margin: 6px auto 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+      background: none;
+      padding: 3px 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s;
+      line-height: 1;
+    }
+
+    .qr-card__copy:hover {
+      color: var(--pink);
+      border-color: var(--pink-muted);
+    }
+
+    .qr-card__copy--done {
       color: var(--pink);
       border-color: var(--pink-muted);
     }
@@ -435,8 +462,19 @@
         <div class="qr-card__name">${p.name}</div>
         <div class="qr-card__detail">${p.detail}</div>
         <a href="${p.url}" target="_blank" class="qr-card__link" aria-label="open">→</a>
+        <button class="qr-card__copy" data-url="${p.url}" aria-label="copy link">⧉</button>
       `;
       platformGrid.appendChild(card);
+    });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.qr-card__copy');
+      if (!btn) return;
+      navigator.clipboard.writeText(btn.dataset.url).then(() => {
+        btn.textContent = '✓';
+        btn.classList.add('qr-card__copy--done');
+        setTimeout(() => { btn.textContent = '⧉'; btn.classList.remove('qr-card__copy--done'); }, 1200);
+      });
     });
 
     /* ── Release QR Codes ────────────────────────────── */
