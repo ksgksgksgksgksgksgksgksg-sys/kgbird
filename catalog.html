@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>kgbird · catalog</title>
-  <meta name="description" content="kgbird — discography. alpha. beta. 21 singles. 1 ep. 1 album.">
+  <meta name="description" content="kgbird — discography. alpha. beta. gamma. delta. 22 singles. 1 ep. 1 album.">
   <meta name="theme-color" content="#080808">
   <link rel="icon" type="image/png" href="img/favicon.png">
   <meta property="og:title" content="kgbird — catalog">
@@ -1007,7 +1007,7 @@
       <p class="catalog-hero__label">discography</p>
       <h1 class="catalog-hero__title">catalog</h1>
       <p class="catalog-hero__stats">
-        21 singles<span>·</span>1 ep<span>·</span>1 album
+        22 singles<span>·</span>1 ep<span>·</span>1 album
       </p>
     </div>
     <img src="img/glyph-owl.png" alt="" class="catalog-hero__glyph" aria-hidden="true">
@@ -1150,6 +1150,53 @@
       </div>
     </section>
 
+    <!-- Divider -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:20px;max-width:600px;margin:0 auto;">
+      <div style="flex:1;height:1px;background:linear-gradient(to right, transparent, rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.12) 60%, transparent);"></div>
+      <img src="img/kg-pink-t.png" alt="" style="height:26px;opacity:0.12;background:none;">
+      <div style="flex:1;height:1px;background:linear-gradient(to left, transparent, rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.12) 60%, transparent);"></div>
+    </div>
+
+    <!-- ═══ DELTA ═══ -->
+    <section class="album-block reveal" id="delta">
+      <div class="album-header">
+        <div class="album-cover" style="background: #080808; display:flex; align-items:center; justify-content:center;">
+          <img src="img/kg-white-t.png" alt="" class="gamma-emblem" style="width: 24% !important; height: auto !important; object-fit: contain !important; opacity: 0.08; transition: opacity 2.5s cubic-bezier(0.16,1,0.3,1);">
+          <div class="album-cover__border"></div>
+        </div>
+        <div class="album-info">
+          <div class="album-info__era">
+            <span class="era-numeral">❘❘❘❘</span>
+            <span class="album-info__era-text">· 24 june 2026</span>
+          </div>
+          <h2 class="album-info__title">Delta <span style="font-weight:200;opacity:0.4;font-size:0.7em;">δ</span></h2>
+          <div class="album-info__meta">
+            <span class="album-info__tag">1 single</span>
+            <span class="album-info__tag">kgbird records</span>
+          </div>
+          <p class="album-info__desc"></p>
+          <div class="album-streams" id="deltaStreams"></div>
+        </div>
+      </div>
+
+      <div class="tracklist-header">
+        <span>#</span>
+        <span>title</span>
+        <span style="text-align:center">play</span>
+        <span style="text-align:center">lyrics</span>
+        <span style="text-align:right">duration</span>
+      </div>
+
+      <div id="deltaTracks" style="position:relative;">
+        <span id="deltaGlyph" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:120px;opacity:0.03;pointer-events:none;transition:left 0.8s ease,font-size 0.8s ease,opacity 0.8s ease;color:#fff;line-height:1;">𓆆</span>
+      </div>
+
+      <div class="runtime-bar">
+        <span id="deltaRuntime">—</span>
+        <span><span style="font-family:'JetBrains Mono','SF Mono',monospace;">©</span> <span style="font-family:'JetBrains Mono','SF Mono',monospace;">℗</span> 2026 kgbird records</span>
+      </div>
+    </section>
+
   </main>
 
   <!-- Global Audio Player -->
@@ -1239,7 +1286,7 @@
     }
 
     /* ════════════════════════════════════════════════════
-       TRACK DATA — All 21 releases
+       TRACK DATA — All 22 releases
        ════════════════════════════════════════════════════ */
 
     const SVG_SPOTIFY = '<svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381C8.64 5.801 15.6 6.06 20.04 8.82c.6.301.72 1.02.42 1.56-.299.421-1.02.599-1.379.3z"/></svg>';
@@ -1440,6 +1487,29 @@
           { label: '', lines: "they went loud i went deeper\nnow it speak without noise\nthat's the part they can't copy\nit was built into the choice" },
           { label: '', lines: "i'm not back i was always here\njust moved out of their range\nsame drive just more control\nsame fire but it changed" },
           { label: '', lines: "no peak i'm just placed right\nno rush i just move clean\nwhen it finally look like i made it\nit already made me" },
+        ],
+        credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
+      },
+    ];
+
+    const DELTA_TRACKS = [
+      {
+        num: 1, name: 'ten toes', src: 'audio/ten-toes.mp3',
+        sub: '',
+        cover: 'img/cover-ten-toes.png', color: '#4a6070', popular: true,
+        sync: [11.24, 13.8, 15.5, 17.4, 19.1, 20.6, 22.3, 24.3, 26.0, 27.4, 29.3, 31.3, 32.7, 34.5, 36.3, 37.9, 39.7, 41.7, 43.4, 45.0, 46.1, 48.5, 49.9, 51.2, 53.3, 54.7, 56.6, 58.2, 59.9, 61.6, 63.4, 65.3, 67.0, 68.4, 70.3, 72.3, 74.0, 75.3, 77.0, 79.0, 80.7, 82.4, 84.2, 86.1, 87.5, 89.3, 90.9, 92.5, 94.3, 95.8, 97.3, 99.1, 101.0, 102.7, 104.9, 106.3, 107.4, 109.3, 111.0, 112.7, 114.5, 116.7, 118.8, 121.9, 125.3, 128.2, 132.1, 133.7, 135.7, 137.3, 138.8, 140.6, 142.4, 143.9, 145.9, 148.0, 149.3, 152.6, 155.0],
+        lyrics: [
+          { label: '', lines: "i didn't see it then, you hear it now\nthe whole thing switched when the pressure hit\nnow the silence turned to relevance\nsame road, just a better grip\nno luck in this development\n10 toes, i never slipped\neven when the whole thing felt like risks\nnow the name got resonance\nevery move got evidence" },
+          { label: '', lines: "i don't stall, i don't break\ni just say what they can't take\nno talk, just what i make\nhad a room shake when i break in place" },
+          { label: '', lines: "back when the rent came due on the first\ni was out tryna make it reverse\nturn a loss to a lesson in merce\nhad to learn how to work in the worst\ncold nights, no light in the place\nstill had fire in the face\nsame hunger, different pace\ni was building while they chase the chase" },
+          { label: '', lines: "everybody talk big till it bends\nthat's when you see who pretend\ni was stuck with a plan and a plan\nwhile they folded under demand\nevery setback etched in the frame\nevery failure taught me the game\nnot the way that used to break\njust sit there like it's tame" },
+          { label: '', lines: "i don't speak unless it lands\nevery word got weight in the hand\nno flash, no gimmick, no band\njust command when i stand" },
+          { label: '', lines: "whole thing switch when the pressure hit\nout of silence, turn to relevance\nsame road, just a better grip\nno luck in this development\nten toes, i never slip\neven when the whole thing felt like risk\nnow the name got resonance\nevery move got evidence\ni don't stop, i don't break\ni just shake what they can't take\nno talk, just what i make\nnow the room shake when i break in place" },
+          { label: '', lines: "now they watch every angle i move\ntry to decode every groove\nbut the pattern already too smooth\nyears in the dark may prove\ni don't chase what they hype up\ni just tighten what i line up\nevery loss made the climb up\nevery doubt made the mind up" },
+          { label: '', lines: "pressure turn to a habit i hold\nnever crack, never fold\nnot a story, getting told\nbut they miss what it took to go gold\ni was built in the low of it all\nnow i walk like i own the hall\nno rush when i make the call\neverything i touch don't fall" },
+          { label: '', lines: "no noise, no panic\nno fear, just damage\nall facts, no guess\nno slack, just press" },
+          { label: '', lines: "whole thing switch when the pressure hit\nout of silence, turn to relevance\nsame road, just a better grip\nno luck in this development\nten toes, i never slip\neven when the whole thing felt like risk\nnow the name got resonance\nevery move got evidence\ni don't stop, i don't break\ni just shake what they can't take\nno talk, just what i make\nnow the room shake when i break in place" },
+          { label: '', lines: "still here, still sharp\nstill up, still hard" },
         ],
         credits: { written: 'kgbird', produced: 'kgbird', mixed: 'kgbird', mastered: 'kgbird', label: 'kgbird records' }
       },
@@ -1676,7 +1746,7 @@
             '<div class="lyrics-sidebar">' +
             '<img src="' + (t.cover || albumCover) + '" alt="" class="lyrics-sidebar__cover">' +
             '<div class="lyrics-sidebar__title">' + t.name + '</div>' +
-            '<div class="lyrics-sidebar__album">' + (albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName) + '</div>' +
+            '<div class="lyrics-sidebar__album">' + (albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName === 'delta' ? 'δ' : albumName) + '</div>' +
             '<div class="lyrics-sidebar__streams">' +
             '<a href="https://music.apple.com/ca/artist/kgbird/1861656644" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_APPLE + ' apple</a>' +
             '<a href="https://open.spotify.com/artist/7jmeRTUlUGyE0aZS90nXcU" target="_blank" class="lyrics-sidebar__stream-link">' + SVG_SPOTIFY + ' spotify</a>' +
@@ -1703,9 +1773,11 @@
       });
     }
 
+    renderStreams('deltaStreams');
     renderStreams('gammaStreams');
     renderStreams('betaStreams');
     renderStreams('alphaStreams');
+    renderTracks('deltaTracks', DELTA_TRACKS, 'delta', 'img/kg-white-t.png');
     renderTracks('gammaTracks', GAMMA_TRACKS, 'gamma', 'img/kg-white-t.png');
     renderTracks('betaTracks', BETA_TRACKS, 'beta', 'img/cover-beta.png');
     renderTracks('alphaTracks', ALPHA_TRACKS, 'alpha', 'img/cover-alpha-v2.png');
@@ -1742,9 +1814,11 @@
         const owl = document.getElementById('alphaGlyph');
         const falcon = document.getElementById('betaGlyph');
         const gammaG = document.getElementById('gammaGlyph');
+        const deltaG = document.getElementById('deltaGlyph');
         if (owl) { owl.style.left = '50%'; owl.style.transform = 'translate(-50%,-50%)'; owl.style.width = '200px'; owl.style.opacity = '0.03'; }
         if (falcon) { falcon.style.left = '50%'; falcon.style.transform = 'translate(-50%,-50%)'; falcon.style.width = '200px'; falcon.style.opacity = '0.03'; }
         if (gammaG) { gammaG.style.left = '50%'; gammaG.style.transform = 'translate(-50%,-50%)'; gammaG.style.fontSize = '120px'; gammaG.style.opacity = '0.03'; }
+        if (deltaG) { deltaG.style.left = '50%'; deltaG.style.transform = 'translate(-50%,-50%)'; deltaG.style.fontSize = '120px'; deltaG.style.opacity = '0.03'; }
 
         if (!isOpen) {
           panel.classList.add('lyrics-panel--open');
@@ -1768,6 +1842,13 @@
             gammaG.style.transform = 'translate(-50%,-50%)';
             gammaG.style.fontSize = '240px';
             gammaG.style.opacity = '0.04';
+          }
+          // Shift 𓆆 right + bigger when lyrics in Delta section open
+          if (deltaG && panel.closest('#deltaTracks')) {
+            deltaG.style.left = '60%';
+            deltaG.style.transform = 'translate(-50%,-50%)';
+            deltaG.style.fontSize = '240px';
+            deltaG.style.opacity = '0.04';
           }
           setTimeout(() => {
             const row = panel.closest('.track-row');
@@ -1795,6 +1876,7 @@
       });
     }
 
+    loadDurations(DELTA_TRACKS, 'delta');
     loadDurations(GAMMA_TRACKS, 'gamma');
     loadDurations(BETA_TRACKS, 'beta');
     loadDurations(ALPHA_TRACKS, 'alpha');
