@@ -172,7 +172,7 @@ const AudioEngine = (() => {
       nameEl.innerHTML = '<span style="color:' + color + '">' + trackName + '</span>';
     }
     if (albumEl) {
-      const sym = albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName;
+      const sym = albumName === 'alpha' ? 'α' : albumName === 'beta' ? 'β' : albumName === 'gamma' ? 'γ' : albumName === 'delta' ? 'δ' : albumName;
       albumEl.innerHTML = '<span style="color:' + color + '">' + sym + '</span>';
     }
 
