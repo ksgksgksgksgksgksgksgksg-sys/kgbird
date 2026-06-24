@@ -491,10 +491,11 @@
 
     .albums-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
       gap: 3px;
       max-width: 1100px;
       margin: 0 auto;
+      padding: 0 clamp(16px, 3vw, 32px);
     }
 
     .album-card {
@@ -894,6 +895,9 @@
     }
 
     /* ── Responsive ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .albums-grid { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 768px) {
       .counter-grid { grid-template-columns: repeat(3, 1fr); }
       .albums-grid { grid-template-columns: 1fr; max-width: 500px; }
@@ -1149,7 +1153,7 @@
           <p class="album-card__listen">→</p>
         </div>
       </a>
-      <a href="catalog.html#delta" class="album-card album-card--delta" style="grid-column: 2; overflow: visible;">
+      <a href="catalog.html#delta" class="album-card album-card--delta" style="overflow: visible;">
         <div style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;">
           <span class="delta-card-emblem" style="font-size:clamp(2.5rem,5vw,4rem);color:#fff;opacity:1;line-height:1;margin-bottom:14px;transition:opacity 0.4s,transform 0.5s cubic-bezier(0.16,1,0.3,1);">𓆆</span>
         </div>
