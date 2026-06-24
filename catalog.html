@@ -1512,7 +1512,7 @@
       },
     ];
 
-    const DELTA_TRACKS = [
+    const DELTA_RELEASES = [
       {
         num: 1, name: 'ten toes', src: 'audio/ten-toes.mp3',
         sub: '',
@@ -1797,7 +1797,7 @@
     renderStreams('gammaStreams');
     renderStreams('betaStreams');
     renderStreams('alphaStreams');
-    renderTracks('deltaTracks', DELTA_TRACKS, 'delta', 'img/kg-white-t.png');
+    renderTracks('deltaTracks', DELTA_RELEASES, 'delta', 'img/kg-white-t.png');
     renderTracks('gammaTracks', GAMMA_TRACKS, 'gamma', 'img/kg-white-t.png');
     renderTracks('betaTracks', BETA_TRACKS, 'beta', 'img/cover-beta.png');
     renderTracks('alphaTracks', ALPHA_TRACKS, 'alpha', 'img/cover-alpha-v2.png');
@@ -1896,7 +1896,7 @@
       });
     }
 
-    loadDurations(DELTA_TRACKS, 'delta');
+    loadDurations(DELTA_RELEASES, 'delta');
     loadDurations(GAMMA_TRACKS, 'gamma');
     loadDurations(BETA_TRACKS, 'beta');
     loadDurations(ALPHA_TRACKS, 'alpha');
