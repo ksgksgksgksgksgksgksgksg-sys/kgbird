@@ -297,10 +297,10 @@
       filter: brightness(0.8) saturate(0.85) contrast(1.15) hue-rotate(-8deg) !important;
     }
     .delta-album-art {
-      filter: brightness(0.5) contrast(1.5) saturate(0.2) !important;
+      filter: brightness(0.3) blur(14px) contrast(2.2) saturate(0.08) !important;
     }
     .album-cover:hover .delta-album-art {
-      filter: brightness(0.65) contrast(1.4) saturate(0.35) !important;
+      filter: brightness(0.38) blur(10px) contrast(1.9) saturate(0.14) !important;
     }
     #beta .album-cover::after {
       content: '';
@@ -1194,7 +1194,7 @@
       </div>
 
       <div id="deltaTracks" style="position:relative;">
-        <span id="deltaGlyph" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:120px;opacity:0.03;pointer-events:none;transition:left 0.8s ease,font-size 0.8s ease,opacity 0.8s ease;color:#fff;line-height:1;">𓆆</span>
+        <span id="deltaGlyph" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:72px;opacity:0.03;pointer-events:none;transition:left 0.8s ease,font-size 0.8s ease,opacity 0.8s ease;color:#fff;line-height:1;">𓆆</span>
       </div>
 
       <div class="runtime-bar">
@@ -1825,7 +1825,7 @@
         if (owl) { owl.style.left = '50%'; owl.style.transform = 'translate(-50%,-50%)'; owl.style.width = '200px'; owl.style.opacity = '0.03'; }
         if (falcon) { falcon.style.left = '50%'; falcon.style.transform = 'translate(-50%,-50%)'; falcon.style.width = '200px'; falcon.style.opacity = '0.03'; }
         if (gammaG) { gammaG.style.left = '50%'; gammaG.style.transform = 'translate(-50%,-50%)'; gammaG.style.fontSize = '120px'; gammaG.style.opacity = '0.03'; }
-        if (deltaG) { deltaG.style.left = '50%'; deltaG.style.transform = 'translate(-50%,-50%)'; deltaG.style.fontSize = '120px'; deltaG.style.opacity = '0.03'; }
+        if (deltaG) { deltaG.style.left = '50%'; deltaG.style.transform = 'translate(-50%,-50%)'; deltaG.style.fontSize = '72px'; deltaG.style.opacity = '0.03'; }
 
         if (!isOpen) {
           panel.classList.add('lyrics-panel--open');
@@ -1854,7 +1854,7 @@
           if (deltaG && panel.closest('#deltaTracks')) {
             deltaG.style.left = '60%';
             deltaG.style.transform = 'translate(-50%,-50%)';
-            deltaG.style.fontSize = '240px';
+            deltaG.style.fontSize = '140px';
             deltaG.style.opacity = '0.04';
           }
           setTimeout(() => {

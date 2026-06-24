@@ -1437,6 +1437,7 @@ html {
   color: var(--ash);
   text-decoration: none;
   transition: color 0.3s;
+  text-align: center;
 }
 
 .footer__link:hover {
