@@ -505,6 +505,12 @@
       text-decoration: none;
     }
 
+    .album-card--delta::before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
     .album-card__img {
       width: 100%;
       height: 100%;
@@ -1142,7 +1148,7 @@
           <p class="album-card__listen">→</p>
         </div>
       </a>
-      <a href="catalog.html#delta" class="album-card" style="grid-column: 2; overflow: visible;">
+      <a href="catalog.html#delta" class="album-card album-card--delta" style="grid-column: 2; overflow: visible;">
         <div style="width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center;">
           <span class="delta-card-emblem" style="font-size:clamp(2.5rem,5vw,4rem);color:#fff;opacity:0.82;line-height:1;transition:opacity 0.4s,transform 0.5s cubic-bezier(0.16,1,0.3,1);">𓆆</span>
         </div>

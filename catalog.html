@@ -292,6 +292,11 @@
     #delta .album-cover {
       overflow: visible;
     }
+    #delta .album-cover::before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
 
     .beta-album-art {
       filter: brightness(0.7) saturate(0.75) contrast(1.15) hue-rotate(-8deg) !important;
