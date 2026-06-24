@@ -792,10 +792,6 @@
       color: var(--title-color, var(--pink));
     }
 
-    .lyrics-text .lyric-word--hook.lyric-word--active {
-      color: var(--title-color, var(--pink));
-    }
-
     .lyrics-text .lyric-word--ace.lyric-word--past,
     .lyrics-text .lyric-word--title.lyric-word--past {
       color: var(--title-color-muted, var(--pink-muted));
@@ -1989,13 +1985,11 @@
           const lines = html.split(/<br\s*\/?>/gi);
           textEl.innerHTML = lines.map(line => {
             const lineStart = wordCount;
-            const isHookLine = /ten\s+toes/i.test(line);
             const words = line.trim().split(/(\s+)/);
             const wrapped = words.map(w => {
               if (/^\s*$/.test(w)) return w;
               wordCount++;
               const clean = w.replace(/[^a-zA-Z]/g, '').toLowerCase();
-              if (isHookLine) return '<span class="lyric-word lyric-word--hook">' + w + '</span>';
               if (clean && songWords.includes(clean)) return '<span class="lyric-word lyric-word--title" data-title-color="' + songColor + '">' + w + '</span>';
               return '<span class="lyric-word">' + w + '</span>';
             }).join('');
