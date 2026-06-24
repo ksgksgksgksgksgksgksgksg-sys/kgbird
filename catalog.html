@@ -300,6 +300,20 @@
       width: 100%;
       height: 100%;
       background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .delta-era-emblem {
+      font-size: clamp(3.5rem, 7vw, 5.5rem);
+      color: #fff;
+      opacity: 0.82;
+      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
+      line-height: 1;
+    }
+    .album-cover:hover .delta-era-emblem {
+      opacity: 0.95;
+      transform: scale(1.06);
     }
     #beta .album-cover::after {
       content: '';
@@ -1166,7 +1180,7 @@
     <section class="album-block reveal" id="delta">
       <div class="album-header">
         <div class="album-cover">
-          <div class="delta-era-art"></div>
+          <div class="delta-era-art"><span class="delta-era-emblem">𓆆</span></div>
           <div class="album-cover__border"></div>
         </div>
         <div class="album-info">
