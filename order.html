@@ -171,10 +171,10 @@
       <span></span><span></span>
     </button>
     <ul class="nav__links">
-      <li><a href="about.html" class="nav__link">about</a></li>
-      <li><a href="catalog.html" class="nav__link">catalog</a></li>
-      <li><a href="merch.html" class="nav__link">merch</a></li>
-      <li><a href="qr.html" class="nav__link">qr</a></li>
+      <li><a href="about" class="nav__link">about</a></li>
+      <li><a href="catalog" class="nav__link">catalog</a></li>
+      <li><a href="merch" class="nav__link">merch</a></li>
+      <li><a href="qr" class="nav__link">qr</a></li>
       <li><a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="nav__link">instagram</a></li>
     </ul>
   </nav>
@@ -284,9 +284,9 @@
 
         <p class="terms">
           by placing this order you agree to kgbird records'
-          <a href="legal.html">terms of sale</a>,
-          <a href="legal.html">privacy policy</a>, and
-          <a href="legal.html">return policy</a>.
+          <a href="legal">terms of sale</a>,
+          <a href="legal">privacy policy</a>, and
+          <a href="legal">return policy</a>.
           all sales are final on limited edition items.
           international orders may incur customs duties.
           payment processed via stripe connect.
@@ -307,7 +307,7 @@
       <p class="payment-error__code" id="errorCode">ref: PGW-ERR-000000 &middot; stripe_decline_code: processing_error</p>
       <button class="btn btn--ghost" onclick="retryPayment()" style="margin-bottom: 12px;">try again</button>
       <br>
-      <a href="merch.html" class="btn btn--ghost" style="margin-top: 8px;">back to merch</a>
+      <a href="merch" class="btn btn--ghost" style="margin-top: 8px;">back to merch</a>
       <p class="terms" style="margin-top: 24px;">
         if this issue persists, please try a different payment method
         or contact your card issuer. ref code has been logged.
@@ -338,10 +338,10 @@
       all assets written, produced, mixed, and mastered by kgbird.
     </p>
     <div class="footer__links" style="margin-top:28px;">
-      <a href="about.html" class="footer__link">about</a>
-      <a href="catalog.html" class="footer__link">catalog</a>
-      <a href="merch.html" class="footer__link">merch</a>
-      <a href="qr.html" class="footer__link">qr</a>
+      <a href="about" class="footer__link">about</a>
+      <a href="catalog" class="footer__link">catalog</a>
+      <a href="merch" class="footer__link">merch</a>
+      <a href="qr" class="footer__link">qr</a>
       <a href="https://instagram.com/kgbirdaudio" target="_blank" rel="noopener" class="footer__link">instagram</a>
     </div>
     <a href="mailto:support@kgbird.ca" class="footer__link" style="display:inline-block;margin-top:20px;font-size:0.7rem;letter-spacing:0.15em;">support@kgbird.ca</a>
@@ -370,7 +370,7 @@
       document.getElementById('summaryPrice').textContent = `${orderData.price} cad`;
     } else {
       // No item selected, redirect
-      window.location.href = 'merch.html';
+      window.location.href = 'merch';
     }
 
     /* ── Card number formatting ──────────────────────── */
