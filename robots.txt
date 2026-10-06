@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /report.html
+Disallow: /report
 
 Sitemap: https://kgbird.ca/sitemap.xml
