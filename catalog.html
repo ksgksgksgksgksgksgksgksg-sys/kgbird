@@ -1286,7 +1286,7 @@
 
     /* ── Custom Cursor ─────────────────────────────── */
     const cursorDot = document.getElementById('cursorDot');
-    if (cursorDot && window.innerWidth > 768 && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    if (cursorDot && window.innerWidth > 768) {
       let mouseX = 0, mouseY = 0, curX = 0, curY = 0;
       document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;

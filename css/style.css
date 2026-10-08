@@ -78,8 +78,12 @@ body {
 .punct-bullet { font-size: 1.5em; }
 
 ::selection {
-  background: rgba(212, 160, 184, 0.15);
-  color: var(--white);
+  background: var(--pink);
+  color: var(--black);
+}
+::-moz-selection {
+  background: var(--pink);
+  color: var(--black);
 }
 
 /* ── Scrollbar ──────────────────────────────────────── */
